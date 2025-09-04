@@ -36,34 +36,113 @@ A professional portfolio website showcasing my skills, experience, and projects 
 
 ### Prerequisites
 
-- Node.js 18+ 
-- npm or yarn
+- **Node.js 18+** (required)
+- **npm 8+** (required)
+- **Git** (for cloning)
 
-### Installation
+### Cross-Platform Installation
 
-1. Clone the repository:
+This project is designed to work seamlessly on **Windows**, **macOS**, and **Linux**.
+
+#### Quick Setup (Recommended)
+
+1. **Clone the repository:**
 ```bash
 git clone https://github.com/bjornbradley/portfolio.git
 cd portfolio
 ```
 
-2. Install dependencies:
+2. **Run the automated setup script:**
 ```bash
-npm install
+npm run setup
 ```
 
-3. Start the development server:
+This script will:
+- ✅ Clean any existing installations
+- ✅ Install platform-specific dependencies
+- ✅ Set proper executable permissions (Unix systems)
+- ✅ Run type checking and linting
+- ✅ Verify everything is working correctly
+
+3. **Start the development server:**
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3001](http://localhost:3001) in your browser
+4. **Open [http://localhost:3000](http://localhost:3000) in your browser**
+
+#### Manual Setup (Alternative)
+
+If you prefer manual setup or encounter issues:
+
+1. **Install dependencies:**
+```bash
+npm install
+```
+
+2. **Set executable permissions (Unix systems only):**
+```bash
+chmod +x node_modules/.bin/*
+```
+
+3. **Run type checking:**
+```bash
+npm run type-check
+```
+
+4. **Start development server:**
+```bash
+npm run dev
+```
+
+### Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run build:vercel` | Build optimized for Vercel |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+| `npm run lint:fix` | Fix ESLint issues automatically |
+| `npm run type-check` | Run TypeScript type checking |
+| `npm run clean` | Clean build directory |
+| `npm run setup` | Run cross-platform setup script |
 
 ### Build for Production
 
 ```bash
 npm run build
 npm run preview
+```
+
+### Troubleshooting
+
+#### Permission Issues
+If you encounter permission errors:
+```bash
+# Unix/macOS/Linux
+chmod +x node_modules/.bin/*
+
+# Windows (if using Git Bash)
+# No action needed - permissions are handled automatically
+```
+
+#### Platform-Specific Dependencies
+If you see esbuild platform errors:
+```bash
+# Clean and reinstall
+rm -rf node_modules package-lock.json
+npm install
+```
+
+#### Port Already in Use
+If port 3000 is busy:
+```bash
+# Kill process on port 3000
+npx kill-port 3000
+# Or use a different port
+npm run dev -- --port 3001
 ```
 
 ## Customization

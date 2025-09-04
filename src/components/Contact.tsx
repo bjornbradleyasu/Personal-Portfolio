@@ -6,11 +6,11 @@ import { contactInfo } from '../content/contact'
 
 // Import EmailJS with error handling
 // EmailJS will be imported dynamically when needed
-let emailjs: any = null
+let emailjs: typeof import('@emailjs/browser') | null = null
 
-const SERVICE_ID = (import.meta as any).env?.VITE_EMAILJS_SERVICE_ID
-const TEMPLATE_ID = (import.meta as any).env?.VITE_EMAILJS_TEMPLATE_ID
-const PUBLIC_KEY = (import.meta as any).env?.VITE_EMAILJS_PUBLIC_KEY
+const SERVICE_ID = import.meta.env?.VITE_EMAILJS_SERVICE_ID as string | undefined
+const TEMPLATE_ID = import.meta.env?.VITE_EMAILJS_TEMPLATE_ID as string | undefined
+const PUBLIC_KEY = import.meta.env?.VITE_EMAILJS_PUBLIC_KEY as string | undefined
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })

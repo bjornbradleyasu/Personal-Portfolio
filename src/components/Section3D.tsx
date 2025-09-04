@@ -113,10 +113,12 @@ const AnimatedGeometry: React.FC<{
 
   // Register object with context
   useEffect(() => {
-    if (meshRef.current) {
-      addSectionObject(sectionId, meshRef.current)
-      return () => removeSectionObject(sectionId, meshRef.current!)
+    const mesh = meshRef.current
+    if (mesh) {
+      addSectionObject(sectionId, mesh)
+      return () => removeSectionObject(sectionId, mesh)
     }
+    return undefined
   }, [sectionId, addSectionObject, removeSectionObject])
 
   // Animation loop
@@ -205,10 +207,12 @@ const ParticleSystem: React.FC<{ count: number; sectionId: string; quality: 'low
   }), [quality])
 
   useEffect(() => {
-    if (pointsRef.current) {
-      addSectionObject(sectionId, pointsRef.current)
-      return () => removeSectionObject(sectionId, pointsRef.current!)
+    const points = pointsRef.current
+    if (points) {
+      addSectionObject(sectionId, points)
+      return () => removeSectionObject(sectionId, points)
     }
+    return undefined
   }, [sectionId, addSectionObject, removeSectionObject])
 
   useFrame(() => {
@@ -256,11 +260,11 @@ const Scene: React.FC<{
           key={`${sectionId}-${index}`}
           type={geo.type}
           position={geo.position}
-          scale={geo.scale}
-          rotation={geo.rotation}
-          color={geo.color}
-          opacity={geo.opacity}
-          animation={geo.animation}
+          {...(geo.scale && { scale: geo.scale })}
+          {...(geo.rotation && { rotation: geo.rotation })}
+          {...(geo.color && { color: geo.color })}
+          {...(geo.opacity && { opacity: geo.opacity })}
+          {...(geo.animation && { animation: geo.animation })}
           sectionId={sectionId}
           quality={quality}
         />

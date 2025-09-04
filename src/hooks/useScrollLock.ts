@@ -23,5 +23,7 @@ export const useScrollLock = (isLocked: boolean) => {
         window.scrollTo(0, scrollY)
       }
     }
+    // Return undefined if not locked
+    return undefined
   }, [isLocked])
 }
