@@ -5,10 +5,11 @@
 This portfolio is ready for deployment on Vercel with the following configuration:
 
 ### Required Files
-- ✅ `vercel.json` - Vercel configuration
+- ✅ `vercel.json` - Vercel configuration with static build setup
 - ✅ `package.json` - Build scripts and dependencies
-- ✅ `vite.config.ts` - Vite build configuration
+- ✅ `vite.config.ts` - Vite build configuration with code splitting
 - ✅ `public/vite.svg` - Favicon asset
+- ✅ `.nvmrc` - Node.js version specification (18.x)
 
 ### Environment Variables (Optional)
 
@@ -27,14 +28,23 @@ VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
 The build process is configured as:
 - **Build Command**: `npm run build`
 - **Output Directory**: `dist`
-- **Node Version**: 18.x (auto-detected)
+- **Node Version**: 18.x (specified in `.nvmrc`)
+- **Install Command**: `npm ci` (for faster, reliable installs)
 
 ### Performance Optimizations
 
-The `vercel.json` includes:
-- SPA routing support for client-side navigation
-- Asset caching headers for optimal performance
-- Proper MIME type handling
+The configuration includes:
+- **Code Splitting**: Manual chunks for vendor, three.js, and framer-motion
+- **SPA Routing**: Client-side navigation support
+- **Asset Caching**: Long-term caching for static assets
+- **Build Optimization**: Proper Vercel static build configuration
+
+### Troubleshooting
+
+If you encounter permission errors during build:
+1. Ensure you're using Node.js 18.x (specified in `.nvmrc`)
+2. The `vercel.json` uses `@vercel/static-build` for proper permission handling
+3. Build command is explicitly specified to avoid path issues
 
 ### Deployment Steps
 
