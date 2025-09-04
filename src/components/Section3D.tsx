@@ -148,9 +148,17 @@ const AnimatedGeometry: React.FC<{
 
     // Highlight active section objects
     if (activeSection === sectionId) {
-      mesh.material.opacity = Math.min(opacity + 0.2, 1)
+      if (Array.isArray(mesh.material)) {
+        mesh.material.forEach(mat => mat.opacity = Math.min(opacity + 0.2, 1))
+      } else {
+        mesh.material.opacity = Math.min(opacity + 0.2, 1)
+      }
     } else {
-      mesh.material.opacity = opacity
+      if (Array.isArray(mesh.material)) {
+        mesh.material.forEach(mat => mat.opacity = opacity)
+      } else {
+        mesh.material.opacity = opacity
+      }
     }
   })
 
@@ -203,7 +211,7 @@ const ParticleSystem: React.FC<{ count: number; sectionId: string; quality: 'low
     }
   }, [sectionId, addSectionObject, removeSectionObject])
 
-  useFrame((state) => {
+  useFrame(() => {
     if (pointsRef.current) {
       pointsRef.current.rotation.y += 0.001
       pointsRef.current.rotation.x += 0.0005

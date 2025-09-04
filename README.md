@@ -142,9 +142,40 @@ src/
 
 The portfolio is optimized for deployment on Vercel:
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy with zero configuration
+### Vercel Deployment
+
+1. **Push your code to GitHub**
+   ```bash
+   git add .
+   git commit -m "Prepare for Vercel deployment"
+   git push origin main
+   ```
+
+2. **Set up EmailJS (Optional)**
+   - Create an account at [EmailJS](https://www.emailjs.com/)
+   - Create a service, template, and get your public key
+   - In Vercel dashboard, go to Settings → Environment Variables
+   - Add these variables:
+     - `VITE_EMAILJS_SERVICE_ID` - Your EmailJS service ID
+     - `VITE_EMAILJS_TEMPLATE_ID` - Your EmailJS template ID  
+     - `VITE_EMAILJS_PUBLIC_KEY` - Your EmailJS public key
+
+3. **Deploy to Vercel**
+   - Go to [Vercel](https://vercel.com/)
+   - Click "New Project"
+   - Import your GitHub repository
+   - Vercel will auto-detect it's a Vite project
+   - Click "Deploy"
+
+4. **Configuration**
+   - Build Command: `npm run build` (auto-detected)
+   - Output Directory: `dist` (auto-detected)
+   - Framework Preset: `Vite` (auto-detected)
+
+The `vercel.json` configuration file is included for optimal performance with:
+- SPA routing support
+- Asset caching headers
+- Build optimization
 
 ## Contributing
 
