@@ -1,0 +1,63 @@
+/* 
+ * Color Palette Reference
+ * Easily customize your portfolio colors by changing these values
+ */
+
+:root {
+  /* Primary Colors */
+  --color-bg: #0F172A;           /* Main background - slate-900 */
+  --color-fg: #E2E8F0;           /* Main text - slate-200 */
+  
+  /* Accent Colors */
+  --color-accent-sky: #38BDF8;   /* Primary accent - sky-400 */
+  --color-accent-cyan: #22D3EE;  /* Secondary accent - cyan-400 */
+  --color-accent-indigo: #818CF8; /* Tertiary accent - indigo-400 */
+  
+  /* Glass Effect Colors */
+  --color-muted: rgba(255, 255, 255, 0.04);     /* Glass background */
+  --color-muted-50: rgba(255, 255, 255, 0.02);  /* Glass background 50% */
+  --color-border: rgba(255, 255, 255, 0.1);     /* Glass border */
+  
+  /* Text Opacity Variants */
+  --color-fg-80: rgba(226, 232, 240, 0.8);      /* 80% opacity text */
+  --color-fg-70: rgba(226, 232, 240, 0.7);      /* 70% opacity text */
+  --color-fg-60: rgba(226, 232, 240, 0.6);      /* 60% opacity text */
+  --color-fg-50: rgba(226, 232, 240, 0.5);      /* 50% opacity text */
+  --color-fg-40: rgba(226, 232, 240, 0.4);      /* 40% opacity text */
+  
+  /* Accent Color Variants with Opacity */
+  --color-accent-sky-20: rgba(56, 189, 248, 0.2);   /* Sky accent 20% opacity */
+  --color-accent-indigo-20: rgba(129, 140, 248, 0.2); /* Indigo accent 20% opacity */
+  
+  /* White Opacity Variants */
+  --color-white-10: rgba(255, 255, 255, 0.1);   /* White 10% opacity */
+  
+  /* Shadow Colors */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-light: rgba(0, 0, 0, 0.05);
+  
+  /* Status Colors (optional) */
+  --color-success: #10B981;      /* Green for success states */
+  --color-warning: #F59E0B;      /* Amber for warnings */
+  --color-error: #EF4444;        /* Red for errors */
+}
+
+/* 
+ * Color Customization Examples:
+ * 
+ * For a warmer theme, try:
+ * --color-bg: #1A1A2E;
+ * --color-accent-sky: #FF6B6B;
+ * --color-accent-cyan: #4ECDC4;
+ * 
+ * For a cooler theme, try:
+ * --color-bg: #0D1117;
+ * --color-accent-sky: #58A6FF;
+ * --color-accent-cyan: #79C0FF;
+ * 
+ * For a purple theme, try:
+ * --color-bg: #1E1B2E;
+ * --color-accent-sky: #A855F7;
+ * --color-accent-cyan: #C084FC;
+ */
+
