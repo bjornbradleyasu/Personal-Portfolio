@@ -217,6 +217,34 @@ src/
 - Safari (latest)
 - Edge (latest)
 
+## Contact Form Setup
+
+The portfolio includes a fully functional contact form that sends emails directly to your inbox. See [CONTACT_FORM_SETUP.md](./CONTACT_FORM_SETUP.md) for detailed setup instructions.
+
+### Quick Setup (SendGrid - Recommended)
+
+1. **Create SendGrid Account**
+   - Sign up at [SendGrid](https://sendgrid.com/) (free tier available)
+   - Create an API key with "Mail Send" permissions
+
+2. **Configure Vercel Environment Variables**
+   - Go to Vercel Dashboard → Your Project → Settings → Environment Variables
+   - Add these variables:
+     ```
+     SENDGRID_API_KEY=your_sendgrid_api_key
+     FROM_EMAIL=your-email@domain.com
+     TO_EMAIL=your-email@domain.com
+     ```
+
+3. **Deploy and Test**
+   - Push your changes to GitHub
+   - Vercel will automatically deploy
+   - Test the contact form on your live site
+
+### Alternative: Gmail SMTP
+
+If you prefer Gmail, see the [Contact Form Setup Guide](./CONTACT_FORM_SETUP.md) for Gmail configuration.
+
 ## Deployment
 
 The portfolio is optimized for deployment on Vercel:
@@ -230,14 +258,10 @@ The portfolio is optimized for deployment on Vercel:
    git push origin main
    ```
 
-2. **Set up EmailJS (Optional)**
-   - Create an account at [EmailJS](https://www.emailjs.com/)
-   - Create a service, template, and get your public key
-   - In Vercel dashboard, go to Settings → Environment Variables
-   - Add these variables:
-     - `VITE_EMAILJS_SERVICE_ID` - Your EmailJS service ID
-     - `VITE_EMAILJS_TEMPLATE_ID` - Your EmailJS template ID  
-     - `VITE_EMAILJS_PUBLIC_KEY` - Your EmailJS public key
+2. **Configure Contact Form**
+   - Follow the [Contact Form Setup Guide](./CONTACT_FORM_SETUP.md)
+   - Set up SendGrid or Gmail SMTP
+   - Configure environment variables in Vercel
 
 3. **Deploy to Vercel**
    - Go to [Vercel](https://vercel.com/)
@@ -255,6 +279,7 @@ The `vercel.json` configuration file is included for optimal performance with:
 - SPA routing support
 - Asset caching headers
 - Build optimization
+- Security headers
 
 ## Contributing
 

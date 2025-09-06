@@ -4,10 +4,11 @@ import { Mail, Phone, Linkedin, Github, Send, CheckCircle, AlertCircle } from 'l
 import Section3D from './Section3D'
 import { contactInfo } from '../content/contact'
 
-// Import EmailJS with error handling
-// EmailJS will be imported dynamically when needed
-let emailjs: typeof import('@emailjs/browser') | null = null
+// Email service configuration
+const EMAIL_SERVICE = import.meta.env?.VITE_EMAIL_SERVICE || 'emailjs' // 'vercel' or 'emailjs'
+const API_ENDPOINT = import.meta.env?.VITE_API_ENDPOINT || '/api/send-email'
 
+// EmailJS configuration (fallback)
 const SERVICE_ID = import.meta.env?.VITE_EMAILJS_SERVICE_ID as string | undefined
 const TEMPLATE_ID = import.meta.env?.VITE_EMAILJS_TEMPLATE_ID as string | undefined
 const PUBLIC_KEY = import.meta.env?.VITE_EMAILJS_PUBLIC_KEY as string | undefined
@@ -22,6 +23,7 @@ const Contact: React.FC = () => {
     e.preventDefault()
     setError(null)
 
+    // Basic validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setError('Please fill in all fields.')
       return
@@ -30,37 +32,62 @@ const Contact: React.FC = () => {
       setError('Please enter a valid email address.')
       return
     }
-
-    // Check if EmailJS is properly configured
-    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
-      setError('Email service not configured. Please contact me directly via the links above.')
+    if (formData.message.length < 10) {
+      setError('Please provide a more detailed message (at least 10 characters).')
       return
     }
 
     try {
       setIsSubmitting(true)
-      
-      // Dynamically import EmailJS
-      if (!emailjs) {
-        emailjs = await import('@emailjs/browser')
+
+      if (EMAIL_SERVICE === 'vercel') {
+        // Use Vercel API route
+        const response = await fetch(API_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        })
+
+        const result = await response.json()
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to send message')
+        }
+
+        setIsSubmitted(true)
+        setFormData({ name: '', email: '', message: '' })
+        setTimeout(() => setIsSubmitted(false), 4000)
+
+      } else {
+        // Fallback to EmailJS
+        if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+          throw new Error('Email service not configured. Please contact me directly via the links above.')
+        }
+
+        // Dynamically import EmailJS
+        const emailjs = await import('@emailjs/browser')
+        
+        await emailjs.send(
+          SERVICE_ID,
+          TEMPLATE_ID,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            message: formData.message,
+          },
+          PUBLIC_KEY
+        )
+
+        setIsSubmitted(true)
+        setFormData({ name: '', email: '', message: '' })
+        setTimeout(() => setIsSubmitted(false), 4000)
       }
-      
-      await emailjs.send(
-        SERVICE_ID as string,
-        TEMPLATE_ID as string,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-        },
-        PUBLIC_KEY as string
-      )
-      setIsSubmitted(true)
-      setFormData({ name: '', email: '', message: '' })
-      setTimeout(() => setIsSubmitted(false), 4000)
+
     } catch (err) {
-      console.error('EmailJS error:', err)
-      setError('Failed to send message. Please try again or contact me directly.')
+      console.error('Email error:', err)
+      setError(err instanceof Error ? err.message : 'Failed to send message. Please try again or contact me directly.')
     } finally {
       setIsSubmitting(false)
     }
