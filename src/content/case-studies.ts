@@ -1,9 +1,32 @@
 import { CaseStudy } from './types'
 
+/**
+ * Case Studies Content
+ * 
+ * [PLACEHOLDER INSTRUCTIONS]
+ * Replace the example case studies below with your actual detailed project case studies.
+ * 
+ * Case studies should provide deep dives into:
+ * - Problem statement: What challenge did you solve?
+ * - Description: Your approach and solution
+ * - Role: Your specific responsibilities
+ * - Stack: All technologies and tools used
+ * - Constraints: Limitations, deadlines, technical challenges
+ * - Highlights: Measurable outcomes and achievements
+ * - Images: Screenshots or mockups (paths in /public directory)
+ * - codePreview: A code snippet showing key implementation
+ * 
+ * Focus on projects that demonstrate:
+ * - Problem-solving skills
+ * - Technical depth
+ * - Creative solutions
+ * - Impact and results
+ */
+
 export const caseStudies: CaseStudy[] = [
   {
     id: 'case-1',
-    title: 'E-Commerce Platform Redesign',
+    title: 'AI Report Generator for Civil Engineers via Drone Data',
     problemStatement: 'A struggling online retailer needed to increase conversion rates and improve user experience to compete with larger marketplaces.',
     description: 'Led a complete redesign of an e-commerce platform that resulted in a 40% increase in conversion rates and 25% improvement in user engagement.',
     role: 'Lead UX/UI Designer & Frontend Developer',
@@ -108,7 +131,7 @@ export const PatientAnalytics: React.FC = () => {
   },
   {
     id: 'case-3',
-    title: 'Financial Trading Platform',
+    title: 'Simulated Randomized Movement for Animations',
     problemStatement: 'A fintech startup needed a high-performance trading platform to compete with established players in the market.',
     description: 'Built a real-time trading platform with sub-millisecond latency that processed over 1M transactions daily and achieved 99.99% uptime.',
     role: 'Senior Frontend Developer & Performance Engineer',

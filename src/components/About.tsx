@@ -39,6 +39,12 @@ const About: React.FC = () => {
             About Me
           </h2>
           <div className="space-y-4 text-lg text-fg/80 leading-relaxed">
+            {/* [PLACEHOLDER: Personal Story]
+                Replace these paragraphs with your personal story emphasizing:
+                - Your creative and technical balance
+                - Interest in VR, music tech, creative coding
+                - What drives you
+                - Your unique perspective */}
             <p>
               I'm a passionate developer focused on creating exceptional digital experiences 
               that combine beautiful design with powerful functionality. My journey in tech 
@@ -89,15 +95,10 @@ const About: React.FC = () => {
           <div className="relative">
             <div className="w-80 h-80 rounded-2xl bg-gradient-to-br from-accent-sky/20 to-accent-indigo/20 p-1">
               <div className="w-full h-full rounded-2xl bg-bg overflow-hidden">
-                {/* Placeholder for profile photo */}
+                {<img src="/assets/profilepic.jpg" alt="Bjorn Bradley" className="w-full h-full object-cover" />}
                 <div className="w-full h-full flex items-center justify-center text-fg/40">
-                  <div className="text-center">
-                    <Code2 className="w-24 h-24 mx-auto mb-4" />
-                    <p className="text-lg">Profile Photo</p>
-                    <p className="text-sm">Add your photo here</p>
                   </div>
                 </div>
-              </div>
             </div>
             
             {/* Floating elements */}

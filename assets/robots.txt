@@ -1,0 +1,14 @@
+# Robots.txt for Bjorn Bradley Portfolio
+# [PLACEHOLDER: Update with your actual domain]
+# Replace "your-domain.com" with your actual domain name
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://your-domain.com/sitemap.xml
+
+# Disallow specific paths if needed (currently allowing all)
+# Disallow: /admin/
+# Disallow: /api/
+

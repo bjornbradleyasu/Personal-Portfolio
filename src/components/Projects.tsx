@@ -54,12 +54,19 @@ const Projects: React.FC = () => {
             transition={{ duration: 0.6, delay: index * 0.1 }}
             className="group text-left"
             onClick={() => openCaseStudy(project.id)}
+            aria-label={`View case study for ${project.title}`}
           >
             {/* Project Card - All styling moved to CSS classes for easy customization */}
             <div className="project-card">
               {/* Project Image Container - Customize height and gradient in CSS */}
+              {/* [PLACEHOLDER: Add project images]
+                  Replace this placeholder with actual project images:
+                  1. Add images to /public/projects/ directory
+                  2. Update the images array in projects.ts content file
+                  3. Replace this div with: <img src={project.images[0]} alt={`${project.title} screenshot`} className="w-full h-full object-cover rounded-lg" />
+              */}
               <div className="project-image-container">
-                <div className="project-image-placeholder">
+                <div className="project-image-placeholder" aria-hidden="true">
                   <Eye className="w-12 h-12 mx-auto mb-2" />
                   <p>Project Image</p>
                 </div>

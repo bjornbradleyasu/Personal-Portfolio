@@ -37,14 +37,14 @@ const Footer: React.FC = () => {
             className="flex items-center gap-4"
           >
             <a
-              href="mailto:bjorn.bradley@example.com"
+              href="mailto:bjornbradley04@gmail.com"
               className="p-2 text-fg/60 hover:text-accent-sky transition-colors"
               aria-label="Email"
             >
               <Mail className="w-5 h-5" />
             </a>
             <a
-              href="https://github.com/bjornbradley"
+              href="https://github.com/bjornbradleyasu"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-fg/60 hover:text-accent-sky transition-colors"
@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
               <Github className="w-5 h-5" />
             </a>
             <a
-              href="https://linkedin.com/in/bjornbradley"
+              href="https://linkedin.com/in/bjorn-bradley"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 text-fg/60 hover:text-accent-sky transition-colors"

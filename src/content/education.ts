@@ -38,7 +38,7 @@ export const certificates: Certificate[] = [
     description: 'Professional audio networking certification'
   },
   {
-    id: 'cert-1',
+    id: 'cert-3',
     name: 'AWS Cloud Practitioner',
     issuingOrg: 'Amazon Web Services',
     status: 'in-progress',

@@ -49,7 +49,12 @@ export default async function handler(req, res) {
       SENDGRID_API_KEY,
       FROM_EMAIL,
       TO_EMAIL,
-      SENDGRID_TEMPLATE_ID
+      SENDGRID_TEMPLATE_ID,
+      // Gmail SMTP fallback
+      SMTP_HOST,
+      SMTP_PORT,
+      SMTP_USER,
+      SMTP_PASS
     } = process.env;
 
     // Check if SendGrid is configured

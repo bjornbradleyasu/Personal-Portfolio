@@ -76,6 +76,11 @@
     transform: translateY(-2px);
   }
   
+  .btn-primary:focus-visible {
+    outline: 2px solid var(--color-accent-sky);
+    outline-offset: 2px;
+  }
+  
   .btn-secondary {
     background-color: transparent;
     border: 1px solid var(--color-accent-sky);
@@ -92,6 +97,11 @@
     color: var(--color-bg);
   }
   
+  .btn-secondary:focus-visible {
+    outline: 2px solid var(--color-accent-sky);
+    outline-offset: 2px;
+  }
+  
   .nav-link {
     color: var(--color-fg-70);
     transition: color 200ms;
@@ -100,6 +110,12 @@
   
   .nav-link:hover {
     color: var(--color-fg);
+  }
+  
+  .nav-link:focus-visible {
+    outline: 2px solid var(--color-accent-sky);
+    outline-offset: 4px;
+    border-radius: 0.25rem;
   }
   
   .nav-link.active {
@@ -435,9 +451,13 @@
     margin: 1rem;
   }
 
-  /* Ensure 3D canvas doesn't interfere with interactions */
-  .hero-3d-container canvas {
+  /* Ensure 3D canvas is visible and doesn't interfere with interactions */
+  .hero-3d-container canvas,
+  section canvas {
     pointer-events: none;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 }
 
@@ -453,5 +473,24 @@
   
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+  
+  /* Screen reader only - for accessibility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  /* Focus visible styles for better keyboard navigation */
+  *:focus-visible {
+    outline: 2px solid var(--color-accent-sky);
+    outline-offset: 2px;
   }
 } 

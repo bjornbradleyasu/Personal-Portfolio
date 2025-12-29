@@ -1,18 +1,103 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { GraduationCap, Award, FileText } from 'lucide-react'
+import { GraduationCap, Award, FileText, ChevronDown } from 'lucide-react'
 import Section3D from './Section3D'
 import { education, certificates } from '../content/education'
-import { classProjects } from '../content/class-projects'
+import { classProjects } from '../content/courses'
 import { useScrollLock } from '../hooks/useScrollLock'
 
 const Education: React.FC = () => {
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null)
+  const [expandedYears, setExpandedYears] = useState<Set<number>>(new Set())
   const open = (id: string) => setSelectedClassId(id)
   const close = () => setSelectedClassId(null)
 
   // Lock scroll when modal is open
   useScrollLock(selectedClassId !== null)
+
+  // Helpers to interpret and sort semesters like "Fall 2025", "Spring 2026"
+  const parseSemester = (label: string): { season: 'Spring' | 'Summer' | 'Fall', year: number } | null => {
+    const match = label.match(/^(Spring|Summer|Fall)\s+(\d{4})$/)
+    if (!match) return null
+    return { season: match[1] as 'Spring' | 'Summer' | 'Fall', year: Number(match[2]) }
+  }
+
+  
+
+  // (Removed semesterCompare; using year-based grouping and sorting instead)
+
+  // Group projects by year, then by semester; sort years and semesters (newest first)
+  const { yearsSorted, projectsByYear } = useMemo(() => {
+    const byYear = new Map<number, Map<'Spring' | 'Summer' | 'Fall', typeof classProjects>>()
+    for (const proj of classProjects) {
+      const p = parseSemester(proj.semester)
+      if (!p) continue
+      const yearMap = byYear.get(p.year) ?? new Map<'Spring' | 'Summer' | 'Fall', typeof classProjects>()
+      const list = yearMap.get(p.season) ?? []
+      list.push(proj)
+      yearMap.set(p.season, list)
+      byYear.set(p.year, yearMap)
+    }
+    const years = Array.from(byYear.keys()).sort((a, b) => b - a) // newest year first
+    // Sort projects in each season by title for stable ordering
+    for (const y of years) {
+      const ym = byYear.get(y)
+      if (!ym) continue
+      const seasons: Array<'Spring' | 'Summer' | 'Fall'> = ['Fall', 'Summer', 'Spring']
+      for (const season of seasons) {
+        const list = ym.get(season)
+        if (list && list.length) ym.set(season, list.slice().sort((a, b) => a.title.localeCompare(b.title)))
+      }
+    }
+    return { yearsSorted: years, projectsByYear: byYear }
+  }, [])
+
+  // Determine current semester based on today's date
+  const getCurrentSemesterLabel = (): string | null => {
+    const now = new Date()
+    const y = now.getFullYear()
+    const m = now.getMonth() + 1 // 1-12
+    let label: string
+    if (m >= 9) label = `Fall ${y}`
+    else if (m >= 5) label = `Summer ${y}`
+    else label = `Spring ${y}`
+    // If site data doesn't include this label, fall back to the latest semester found within the latest year
+    const latestYear = yearsSorted[0]
+    if (!latestYear) return label
+    const latestYearMap = projectsByYear.get(latestYear)
+    const latestSeasonInLatestYear = latestYearMap
+      ? (['Fall', 'Summer', 'Spring'] as const).find((s) => (latestYearMap.get(s) ?? []).length > 0)
+      : undefined
+    const fallback = latestSeasonInLatestYear ? `${latestSeasonInLatestYear} ${latestYear}` : null
+    const hasLabel = (() => {
+      const p = parseSemester(label)
+      if (!p) return false
+      const ym = projectsByYear.get(p.year)
+      const list = ym?.get(p.season) ?? []
+      return list.length > 0
+    })()
+    if (!hasLabel) return fallback
+    return label
+  }
+
+  const currentSemester = getCurrentSemesterLabel()
+  const currentParsed = currentSemester ? parseSemester(currentSemester) : null
+  const currentCourses = (() => {
+    if (!currentParsed) return []
+    const ym = projectsByYear.get(currentParsed.year)
+    return (ym?.get(currentParsed.season) ?? [])
+  })()
+  const pastYears = yearsSorted.filter((y) => y !== (currentParsed?.year ?? -1))
+  const toggleYear = (year: number) => {
+    setExpandedYears((prev) => {
+      const next = new Set(prev)
+      if (next.has(year)) next.delete(year)
+      else next.add(year)
+      return next
+    })
+  }
+
+
 
   return (
     <Section3D
@@ -105,29 +190,114 @@ const Education: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Bottom: 2 rows x 4 cols of clickable class project cards */}
+      {/* Current Coursework - Always Visible */}
       <div>
-        <h3 className="font-display text-2xl font-semibold text-fg mb-6">Class Projects</h3>
+        <h3 className="font-display text-2xl font-semibold text-fg mb-6">Current Coursework</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {classProjects.slice(0, 8).map((proj, index) => (
+          {currentCourses.map((proj, index) => (
             <motion.button
               key={proj.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="glass-card p-5 text-left hover:scale-[1.02] transition-transform"
+              className="glass-card p-5 text-left group cursor-pointer"
               onClick={() => open(proj.id)}
             >
-              <h4 className="font-semibold text-fg mb-2 line-clamp-2">{proj.title}</h4>
-              <p className="text-sm text-fg/70 line-clamp-2">{proj.description}</p>
-              <div className="mt-3 text-xs text-fg/60 inline-flex items-center gap-2">
-                <FileText className="w-3.5 h-3.5" /> View details
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-accent-cyan/20 to-accent-sky/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2" />
+                <div className="relative">
+                  <h4 className="font-semibold text-fg mb-2 line-clamp-2 bg-gradient-to-r from-accent-cyan to-accent-sky bg-clip-text text-transparent">
+                    {proj.title}
+                  </h4>
+                  <p className="text-sm text-fg/70 line-clamp-2 group-hover:text-fg/90 transition-colors duration-300">
+                    {proj.description}
+                  </p>
+                  <div className="mt-3 text-xs text-fg/60 inline-flex items-center gap-2 group-hover:text-accent-sky transition-colors duration-300">
+                    <FileText className="w-3.5 h-3.5" /> View details
+                  </div>
+                </div>
               </div>
             </motion.button>
           ))}
         </div>
       </div>
+
+      {/* Years - Individual dropdowns with semester grouping */}
+      {pastYears.length > 0 && (
+        <div className="mt-12">
+          <h3 className="font-display text-2xl font-semibold text-fg mb-4">Years</h3>
+          <div className="space-y-4">
+            {pastYears.map((year) => {
+              const isOpen = expandedYears.has(year)
+              const ym = projectsByYear.get(year)
+              const seasonsInOrder = ['Fall', 'Summer', 'Spring'] as const
+              return (
+                <div key={year} className="glass-card p-4">
+                  <button
+                    onClick={() => toggleYear(year)}
+                    className="w-full flex items-center justify-between text-left"
+                  >
+                    <span className="font-semibold text-fg">{year}</span>
+                    <ChevronDown
+                      className={`w-5 h-5 text-fg/70 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isOpen && ym && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="overflow-hidden"
+                      >
+                        {seasonsInOrder.map((season) => {
+                          const items = ym.get(season) ?? []
+                          if (!items.length) return null
+                          return (
+                            <div key={`${year}-${season}`} className="mt-4">
+                              <h4 className="text-lg font-semibold text-fg mb-3">{season} {year}</h4>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                {items.map((proj, index) => (
+                                  <motion.button
+                                    key={proj.id}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.25, delay: index * 0.04 }}
+                                    className="glass-card p-5 text-left group cursor-pointer"
+                                    onClick={() => open(proj.id)}
+                                  >
+                                    <div className="relative">
+                                      <div className="absolute inset-0 bg-gradient-to-r from-accent-cyan/20 to-accent-sky/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -m-2" />
+                                      <div className="relative">
+                                        <h4 className="font-semibold text-fg mb-2 line-clamp-2 bg-gradient-to-r from-accent-cyan to-accent-sky bg-clip-text text-transparent">
+                                          {proj.title}
+                                        </h4>
+                                        <p className="text-sm text-fg/70 line-clamp-2 group-hover:text-fg/90 transition-colors duration-300">
+                                          {proj.description}
+                                        </p>
+                                        <div className="mt-3 text-xs text-fg/60 inline-flex items-center gap-2 group-hover:text-accent-sky transition-colors duration-300">
+                                          <FileText className="w-3.5 h-3.5" /> View details
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </motion.button>
+                                ))}
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
 
       {/* Modal for class projects */}
       <AnimatePresence>

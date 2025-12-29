@@ -5,7 +5,7 @@ import Section3D from './Section3D'
 import { contactInfo } from '../content/contact'
 
 // Email service configuration
-const EMAIL_SERVICE = import.meta.env?.VITE_EMAIL_SERVICE || 'emailjs' // 'vercel' or 'emailjs'
+const EMAIL_SERVICE = import.meta.env?.VITE_EMAIL_SERVICE || 'vercel' // 'vercel' or 'emailjs'
 const API_ENDPOINT = import.meta.env?.VITE_API_ENDPOINT || '/api/send-email'
 
 // EmailJS configuration (fallback)
@@ -130,17 +130,33 @@ const Contact: React.FC = () => {
         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>
           <h3 className="text-2xl font-semibold text-fg mb-6">Send a Message</h3>
 
+          {/* ARIA live region for form status updates */}
+          <div aria-live="polite" aria-atomic="true" className="sr-only">
+            {isSubmitted && 'Message sent successfully'}
+            {error && `Error: ${error}`}
+          </div>
+          
           {isSubmitted ? (
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="glass-card p-8 text-center">
-              <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }} 
+              animate={{ opacity: 1, scale: 1 }} 
+              className="glass-card p-8 text-center"
+              role="status"
+              aria-live="polite"
+            >
+              <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" aria-hidden="true" />
               <h4 className="text-xl font-semibold text-fg mb-2">Message Sent!</h4>
               <p className="text-fg/70">Thank you for reaching out. I'll get back to you soon!</p>
             </motion.div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" noValidate>
               {error && (
-                <div className="glass-card p-3 flex items-center gap-2 text-red-300 border border-red-500/30">
-                  <AlertCircle className="w-4 h-4" />
+                <div 
+                  className="glass-card p-3 flex items-center gap-2 text-red-300 border border-red-500/30"
+                  role="alert"
+                  aria-live="assertive"
+                >
+                  <AlertCircle className="w-4 h-4" aria-hidden="true" />
                   <span className="text-sm">{error}</span>
                 </div>
               )}
@@ -160,16 +176,21 @@ const Contact: React.FC = () => {
                 <textarea id="message" name="message" value={formData.message} onChange={handleChange} required rows={5} className="w-full px-4 py-3 bg-muted/30 border border-white/10 rounded-lg text-fg placeholder-fg/40 focus:outline-none focus:ring-2 focus:ring-accent-sky focus:border-transparent resize-none" placeholder="Tell me about your project or opportunity..." />
               </div>
 
-              <button type="submit" disabled={isSubmitting} className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
+              <button 
+                type="submit" 
+                disabled={isSubmitting} 
+                className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label={isSubmitting ? 'Sending message' : 'Send message'}
+              >
                 {isSubmitting ? (
                   <div className="flex items-center justify-center gap-2">
-                    <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                    Sending...
+                    <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" aria-hidden="true" />
+                    <span>Sending...</span>
                   </div>
                 ) : (
                   <div className="flex items-center justify-center gap-2">
-                    <Send className="w-4 h-4" />
-                    Send Message
+                    <Send className="w-4 h-4" aria-hidden="true" />
+                    <span>Send Message</span>
                   </div>
                 )}
               </button>

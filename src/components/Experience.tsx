@@ -85,7 +85,7 @@ const Experience: React.FC = () => {
                       >
                         <div className="space-y-4">
                           <div>
-                            <h4 className="font-semibold text-fg mb-3">Achievments & Responsibilities</h4>
+                            <h4 className="font-semibold text-fg mb-3">Achievements & Responsibilities</h4>
                             <ul className="space-y-2">
                               {experience.achievements.map((achievement, idx) => (
                                 <li key={idx} className="flex items-start gap-3">

@@ -32,7 +32,7 @@ export interface Certificate {
 export interface TechItem {
   id: string
   name: string
-  category: 'frontend' | 'design' | 'audio' | 'cloud' | 'backend'
+  category: 'frontend' | 'design' | 'audio' | 'cloud' | 'backend' | 'toolkit'
   icon: string
   description: string
   proficiency: 'beginner' | 'intermediate' | 'advanced' | 'expert'
@@ -59,6 +59,7 @@ export interface SchoolProject {
   title: string
   course: string
   description: string
+  semester: string
   whatLearned: string[]
   contributions: string[]
   codePreview: {

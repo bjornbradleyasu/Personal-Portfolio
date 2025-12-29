@@ -1,5 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState, ReactNode } from 'react'
-import * as THREE from 'three'
 
 /**
  * 3D Scene Context - Manages global 3D scene state and interactions
@@ -20,7 +20,7 @@ interface Scene3DState {
   
   // Section states
   activeSection: string | null
-  sectionObjects: Record<string, THREE.Object3D[]>
+  sectionObjects: Record<string, unknown[]>
   
   // Interaction states
   isInteracting: boolean
@@ -39,8 +39,8 @@ interface Scene3DActions {
   
   // Section management
   setActiveSection: (section: string | null) => void
-  addSectionObject: (section: string, object: THREE.Object3D) => void
-  removeSectionObject: (section: string, object: THREE.Object3D) => void
+  addSectionObject: (section: string, object: unknown) => void
+  removeSectionObject: (section: string, object: unknown) => void
   
   // Interaction handling
   setIsInteracting: (interacting: boolean) => void
@@ -85,7 +85,7 @@ export const Scene3DProvider: React.FC<Scene3DProviderProps> = ({ children }) =>
     setActiveSection: (section: string | null) => 
       setState(prev => ({ ...prev, activeSection: section })),
     
-    addSectionObject: (section: string, object: THREE.Object3D) => 
+    addSectionObject: (section: string, object: unknown) => 
       setState(prev => ({
         ...prev,
         sectionObjects: {
@@ -94,7 +94,7 @@ export const Scene3DProvider: React.FC<Scene3DProviderProps> = ({ children }) =>
         }
       })),
     
-    removeSectionObject: (section: string, object: THREE.Object3D) => 
+    removeSectionObject: (section: string, object: unknown) => 
       setState(prev => ({
         ...prev,
         sectionObjects: {

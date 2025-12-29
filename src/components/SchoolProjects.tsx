@@ -38,7 +38,11 @@ const SchoolProjects: React.FC = () => {
             onClick={() => open(cs.id)}
           >
             <div className="glass-card p-6 h-full flex flex-col hover:scale-105 transition-transform">
-              <div className="w-full h-40 bg-gradient-to-br from-accent-sky/20 to-accent-indigo/20 rounded-lg mb-4" />
+              {/* [PLACEHOLDER: Add case study images]
+                  Replace this placeholder div with actual images:
+                  <img src={cs.images[0]} alt={`${cs.title} screenshot`} className="w-full h-40 object-cover rounded-lg mb-4" />
+              */}
+              <div className="w-full h-40 bg-gradient-to-br from-accent-sky/20 to-accent-indigo/20 rounded-lg mb-4" aria-hidden="true" />
               <h3 className="text-xl font-semibold text-fg mb-2">{cs.title}</h3>
               <p className="text-fg/70 mb-4 leading-relaxed">{cs.description}</p>
               <div className="flex gap-2 text-sm text-fg/60 mt-auto">

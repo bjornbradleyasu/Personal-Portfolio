@@ -1,33 +1,49 @@
 import { Experience } from './types'
 
+/**
+ * Work Experience Content
+ * 
+ * [PLACEHOLDER INSTRUCTIONS]
+ * Update the experience entries below with your actual work history.
+ * 
+ * For each experience, provide:
+ * - company: Company name
+ * - role: Your job title
+ * - startDate: Start date (MM/YYYY format)
+ * - endDate: End date (MM/YYYY format) or "Present" for current role
+ * - achievements: List of accomplishments and responsibilities (use action verbs)
+ * - technologies: Technologies, tools, and skills you used or learned
+ * 
+ * TIP: Quantify achievements when possible (e.g., "Improved performance by 40%")
+ * TIP: Tailor achievements to highlight skills relevant to VR, music tech, creative coding roles
+ */
+
 export const experiences: Experience[] = [
   {
     id: 'exp-1',
-    company: 'SmartSource.',
-    role: 'Field Service Technician',
+    company: 'Cronkite School of Journalism',
+    role: 'IT/AV Support Specialist',
     startDate: '08/2025',
     endDate: 'Present',
     achievements: [
-      'Developed responsive web applications using React and TypeScript',
-      'Improved application performance by 40% through code optimization',
-      'Collaborated with UX designers to implement accessible user interfaces',
-      'Mentored junior developers and conducted code reviews'
+      'Deployed and licensed new computer stations across the Cronkite building, including Arizona PBS facilities.',
+      'Provide frontline IT/AV support for classrooms, labs, and media spaces, ensuring consistent system performance, minimal downtime, and seamless technology use for students and faculty.',
+      'Troubleshoot and resolve support requests, maintaining optimized hardware, software, and AV systems in a high-demand academic and broadcast environment.'
     ],
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Git']
+    technologies: ['Windows & macOS', 'AV Systems', 'Network Troubleshooting', 'User Support']
   },
   {
     id: 'exp-2',
-    company: 'Cronkite School of Journalism',
-    role: 'IT/AV Student Worker',
+    company: 'SmartSource.',
+    role: 'Field Service Technician',
     startDate: '08/2025',
-    endDate: 'Present',
+    endDate: '12/2025',
     achievements: [
-      'Designed and built interactive prototypes for mobile applications',
-      'Implemented smooth animations and micro-interactions using Framer Motion',
-      'Conducted user research and usability testing',
-      'Redesigned company website resulting in 25% increase in engagement'
+      'Deploy and configure IT/AV technology for trade shows, large convention centers, and corporate events, ensuring reliable system performance and meeting strict setup timelines.',
+      'Perform quality assurance checks on rental equipment (PCs, printers, monitors, and AV gear), verifying functionality, resolving issues, and preparing devices for redeployment.',
+      'Work directly with clients to deliver tailored IT/AV solutions, strengthening technical expertise while building professional communication and client support skills.'
     ],
-    technologies: ['Figma', 'Framer Motion', 'React Native', 'Adobe Creative Suite']
+    technologies: ['Computer Hardware', 'AV Equipment', 'Network Configuration', 'Troubleshooting']
   },
   {
     id: 'exp-3',
@@ -36,13 +52,11 @@ export const experiences: Experience[] = [
     startDate: '2022-01',
     endDate: '2022-05',
     achievements: [
-      'Configured computers for new and existing employees under company domain and regulations',
-      'Configured and deployed hardware, often setting up AV equipment for internal training and meetings',
-      'Coordinated large-scale software installations and hardware rollouts',
-      'Maintained and updated databases of hardware and software licenses for all employees',
-      'High pressure on call troubleshooting for over 450 employees'
+      'Led large-scale software licensing initiative, auditing databases, confirming program functionality, reallocating unused licenses, and coordinating with engineers and service technicians to optimize cost and compliance.',
+      'Supported company-wide VPN migration, remotely installing and configuring software while troubleshooting any additional IT issues raised by employees. This allowed new off site employees to gain access to crucial data.',
+      'Imaged and configured laptops per company protocols, ensuring standardized system setups and improved compliance with security policies.' 
     ],
-    technologies: ['WordPress', 'PHP', 'HTML/CSS', 'JavaScript', 'MySQL']
+    technologies: ['Windows & macOS', 'VPN Configuration', 'Software Deployment', 'IT Support']
   },
   {
     id: 'exp-4',
@@ -51,10 +65,10 @@ export const experiences: Experience[] = [
     startDate: '2021-09',
     endDate: '2022-12',
     achievements: [
-      'Installed and maintained workstations ensuring optimal performance across multiple offices',
-      'Created new updated database for all computer hardware',
-      'Delivered, set up, and configured tech equipment across long-distance projects developing efficiency and reliability under tight deadlines'
+      'Installed and upgraded hardware as well as imaged workstations for a wide range of engineers, ensuring consistent performance and compliance standards across multiple offices.',
+      'Designed and implemented a centralized hardware inventory database in Excel, enabling accurate tracking of equipment, reducing downtime, and improving audit readiness for the entire company.',
+      'Developed strong professional communication skills by coordinating with staff and managers on technical requirements, improving response times and ensuring smooth day-to-day technology operations.'
     ],
-    technologies: ['Next.js', 'Vue.js', 'PostgreSQL', 'AWS', 'Docker']
+    technologies: ['Hardware Installation', 'System Imaging', 'Inventory Management', 'Technical Support']
   }
 ] 

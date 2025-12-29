@@ -9,7 +9,6 @@ const NavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false)
 
   const navItems = [
-    { id: 'about', label: 'About' },
     { id: 'experience', label: 'Experience' },
     { id: 'education', label: 'Education' },
     { id: 'projects', label: 'Projects' },
@@ -64,7 +63,7 @@ const NavBar: React.FC = () => {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-8" aria-label="Main navigation">
               {navItems.map((item) => (
                 <button
                   key={item.id}
@@ -72,6 +71,8 @@ const NavBar: React.FC = () => {
                   className={`nav-link ${
                     activeSection === item.id ? 'active' : ''
                   }`}
+                  aria-current={activeSection === item.id ? 'page' : undefined}
+                  aria-label={`Navigate to ${item.label} section`}
                 >
                   {item.label}
                 </button>
@@ -79,10 +80,11 @@ const NavBar: React.FC = () => {
               <button
                 onClick={() => scrollToSection('contact')}
                 className="btn-primary text-sm"
+                aria-label="Navigate to contact section"
               >
                 Get In Touch
               </button>
-            </div>
+            </nav>
 
             {/* Mobile Menu Button */}
             <button
@@ -104,7 +106,7 @@ const NavBar: React.FC = () => {
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden bg-bg/95 backdrop-blur-md border-t border-white/10"
             >
-              <div className="container max-w-6xl mx-auto px-4 py-4 space-y-4">
+              <nav className="container max-w-6xl mx-auto px-4 py-4 space-y-4" aria-label="Mobile navigation">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
@@ -114,6 +116,8 @@ const NavBar: React.FC = () => {
                         ? 'bg-accent-sky/20 text-accent-sky'
                         : 'text-fg hover:bg-muted/50'
                     }`}
+                    aria-current={activeSection === item.id ? 'page' : undefined}
+                    aria-label={`Navigate to ${item.label} section`}
                   >
                     {item.label}
                   </button>
@@ -121,10 +125,11 @@ const NavBar: React.FC = () => {
                 <button
                   onClick={() => scrollToSection('contact')}
                   className="w-full btn-primary"
+                  aria-label="Navigate to contact section"
                 >
                   Get In Touch
                 </button>
-              </div>
+              </nav>
             </motion.div>
           )}
         </AnimatePresence>
