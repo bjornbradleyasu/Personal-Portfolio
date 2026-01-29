@@ -4,208 +4,57 @@ import { TechItem } from './types'
 export const techCategories = {
   frontend: {
     title: 'Frontend',
-    description: 'User Interface & Experience',
+    description: 'Web Development',
     items: [
-      {
-        id: 'tech-1',
-        name: 'React',
-        category: 'frontend',
-        icon: 'react',
-        description: 'Modern UI library for building interactive user interfaces',
-        proficiency: 'expert'
-      },
-      {
-        id: 'tech-2',
-        name: 'TypeScript',
-        category: 'frontend',
-        icon: 'typescript',
-        description: 'Typed superset of JavaScript for better development experience',
-        proficiency: 'advanced'
-      },
-      {
-        id: 'tech-3',
-        name: 'Tailwind CSS',
-        category: 'frontend',
-        icon: 'tailwind',
-        description: 'Utility-first CSS framework for rapid UI development',
-        proficiency: 'expert'
-      },
-      {
-        id: 'tech-4',
-        name: 'Next.js',
-        category: 'frontend',
-        icon: 'nextjs',
-        description: 'Full-stack React framework with server-side rendering',
-        proficiency: 'advanced'
-      },
-      {
-        id: 'tech-5',
-        name: 'Vue.js',
-        category: 'frontend',
-        icon: 'vue',
-        description: 'Progressive JavaScript framework for building user interfaces',
-        proficiency: 'intermediate'
-      }
+      { id: 'tech-js', name: 'JavaScript', category: 'frontend', icon: 'javascript', description: 'ES6+ JavaScript', proficiency: 'expert' },
+      { id: 'tech-html', name: 'HTML5', category: 'frontend', icon: 'html', description: 'Semantic HTML markup', proficiency: 'expert' },
+      { id: 'tech-css', name: 'CSS3', category: 'frontend', icon: 'css', description: 'Modern CSS styling & animations', proficiency: 'expert' },
+      { id: 'tech-react', name: 'React', category: 'frontend', icon: 'react', description: 'Modern UI library', proficiency: 'expert' },
+      { id: 'tech-vite', name: 'Vite', category: 'frontend', icon: 'vite', description: 'Next generation build tool', proficiency: 'advanced' },
+      { id: 'tech-tailwind', name: 'Tailwind CSS', category: 'frontend', icon: 'tailwind', description: 'Utility-first CSS framework', proficiency: 'expert' },
+      { id: 'tech-responsive', name: 'Responsive Design', category: 'frontend', icon: 'responsive', description: 'Mobile-first layouts', proficiency: 'expert' }
     ]
   },
-  design: {
-    title: 'Design',
-    description: 'Visual & Motion Design',
+  programming: {
+    title: 'Programming',
+    description: 'General Purpose Languages',
     items: [
-      {
-        id: 'tech-6',
-        name: 'Figma',
-        category: 'design',
-        icon: 'figma',
-        description: 'Collaborative interface design and prototyping tool',
-        proficiency: 'advanced'
-      },
-      {
-        id: 'tech-7',
-        name: 'Framer Motion',
-        category: 'design',
-        icon: 'framer',
-        description: 'Production-ready motion library for React',
-        proficiency: 'advanced'
-      },
-      {
-        id: 'tech-8',
-        name: 'Adobe Creative Suite',
-        category: 'design',
-        icon: 'adobe',
-        description: 'Professional design and creative software suite',
-        proficiency: 'intermediate'
-      }
+      { id: 'tech-python', name: 'Python', category: 'programming', icon: 'python', description: 'Data work & assignments', proficiency: 'advanced' },
+      { id: 'tech-cpp', name: 'C++', category: 'programming', icon: 'cpp', description: 'Coursework & core concepts', proficiency: 'intermediate' },
+      { id: 'tech-java', name: 'Java', category: 'programming', icon: 'java', description: 'OOP & database projects', proficiency: 'intermediate' },
+      { id: 'tech-swift', name: 'Swift', category: 'programming', icon: 'swift', description: 'iOS/macOS & creative apps', proficiency: 'advanced' }
+    ]
+  },
+  data: {
+    title: 'Data & Analytics',
+    description: 'Data Science & Visualization',
+    items: [
+      { id: 'tech-pandas', name: 'Pandas', category: 'data', icon: 'pandas', description: 'Data manipulation & analysis', proficiency: 'advanced' },
+      { id: 'tech-sklearn', name: 'scikit-learn', category: 'data', icon: 'sklearn', description: 'ML modeling & regression', proficiency: 'advanced' },
+      { id: 'tech-powerbi', name: 'Power BI', category: 'data', icon: 'powerbi', description: 'Dashboards & visualization', proficiency: 'advanced' },
+      { id: 'tech-sql', name: 'SQL', category: 'data', icon: 'sql', description: 'Database queries & design', proficiency: 'advanced' }
     ]
   },
   audio: {
-    title: 'Audio',
-    description: 'Sound & Music Production',
+    title: 'Audio & Creative',
+    description: 'Music Production & XR',
     items: [
-      {
-        id: 'tech-9',
-        name: 'Ableton Live',
-        category: 'audio',
-        icon: 'ableton',
-        description: 'Digital audio workstation for music production',
-        proficiency: 'intermediate'
-      },
-      {
-        id: 'tech-10',
-        name: 'Pro Tools',
-        category: 'audio',
-        icon: 'protools',
-        description: 'Professional audio recording and editing software',
-        proficiency: 'intermediate'
-      },
-      {
-        id: 'tech-11',
-        name: 'Dante',
-        category: 'audio',
-        icon: 'dante',
-        description: 'Professional audio networking technology',
-        proficiency: 'advanced'
-      }
+      { id: 'tech-unity', name: 'Unity', category: 'audio', icon: 'unity', description: 'Game engine & XR development', proficiency: 'advanced' },
+      { id: 'tech-xr', name: 'XR Toolkit', category: 'audio', icon: 'xr', description: 'XR Interaction & spatial computing', proficiency: 'advanced' },
+      { id: 'tech-fmod', name: 'FMOD Studio', category: 'audio', icon: 'fmod', description: 'Interactive audio engine', proficiency: 'advanced' },
+      { id: 'tech-ableton', name: 'Ableton Live', category: 'audio', icon: 'ableton', description: 'Digital audio workstation', proficiency: 'intermediate' },
+      { id: 'tech-arduino', name: 'Arduino', category: 'audio', icon: 'arduino', description: 'Hardware & integration', proficiency: 'intermediate' },
+      { id: 'tech-blemidi', name: 'BLE MIDI', category: 'audio', icon: 'midi', description: 'Bluetooth MIDI protocols', proficiency: 'intermediate' },
+      { id: 'tech-avfoundation', name: 'AVFoundation', category: 'audio', icon: 'av', description: 'Swift audio/video stack', proficiency: 'advanced' }
     ]
   },
-  backend: {
-    title: 'Backend',
-    description: 'Server & Database',
+  tools: {
+    title: 'Tools & Workflow',
+    description: 'Development Workflow',
     items: [
-      {
-        id: 'tech-12',
-        name: 'AWS',
-        category: 'backend',
-        icon: 'aws',
-        description: 'Cloud computing platform and services',
-        proficiency: 'intermediate'
-      },
-      {
-        id: 'tech-13',
-        name: 'Node.js',
-        category: 'backend',
-        icon: 'nodejs',
-        description: 'JavaScript runtime for server-side development',
-        proficiency: 'advanced'
-      },
-      {
-        id: 'tech-14',
-        name: 'PostgreSQL',
-        category: 'backend',
-        icon: 'postgresql',
-        description: 'Advanced open-source relational database',
-        proficiency: 'intermediate'
-      },
-      {
-        id: 'tech-15',
-        name: 'Docker',
-        category: 'backend',
-        icon: 'docker',
-        description: 'Containerization platform for application deployment',
-        proficiency: 'intermediate'
-      }
-    ]
-  },
-  toolkit: {
-    title: 'Core SE Toolkit',
-    description: 'API & Integration Tools',
-    items: [
-      {
-        id: 'tech-16',
-        name: 'Postman',
-        category: 'toolkit',
-        icon: 'postman',
-        description: 'API testing & sharing collections',
-        proficiency: 'advanced'
-      },
-      {
-        id: 'tech-17',
-        name: 'REST APIs',
-        category: 'toolkit',
-        icon: 'rest',
-        description: 'REST APIs & Webhooks integration basics',
-        proficiency: 'advanced'
-      },
-      {
-        id: 'tech-18',
-        name: 'GraphQL',
-        category: 'toolkit',
-        icon: 'graphql',
-        description: 'Querying APIs with working knowledge',
-        proficiency: 'intermediate'
-      },
-      {
-        id: 'tech-19',
-        name: 'OAuth 2.0',
-        category: 'toolkit',
-        icon: 'oauth',
-        description: 'OAuth 2.0 / OIDC / JWT modern authentication',
-        proficiency: 'intermediate'
-      },
-      {
-        id: 'tech-20',
-        name: 'SAML / SSO',
-        category: 'toolkit',
-        icon: 'saml',
-        description: 'SAML / SSO (Okta, Auth0 basics) enterprise identity flows',
-        proficiency: 'intermediate'
-      },
-      {
-        id: 'tech-21',
-        name: 'OpenAPI',
-        category: 'toolkit',
-        icon: 'openapi',
-        description: 'OpenAPI / Swagger API specs & documentation',
-        proficiency: 'intermediate'
-      },
-      {
-        id: 'tech-22',
-        name: 'Zapier',
-        category: 'toolkit',
-        icon: 'zapier',
-        description: 'Zapier / n8n rapid proof-of-concept integrations',
-        proficiency: 'intermediate'
-      }
+      { id: 'tech-git', name: 'Git/GitHub', category: 'tools', icon: 'github', description: 'Version control & collaboration', proficiency: 'expert' },
+      { id: 'tech-vscode', name: 'VS Code', category: 'tools', icon: 'vscode', description: 'Code editor & extensions', proficiency: 'expert' },
+      { id: 'tech-cursor', name: 'Cursor', category: 'tools', icon: 'cursor', description: 'AI-powered code editor', proficiency: 'expert' }
     ]
   }
 }
