@@ -9,11 +9,11 @@ const NavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false)
 
   const navItems = [
-    { id: 'experience', label: 'Experience' },
-    { id: 'education', label: 'Education' },
+    { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
-    { id: 'case-studies', label: 'Case Studies' },
+    { id: 'skills', label: 'Skills' },
   ]
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +35,7 @@ const NavBar: React.FC = () => {
   return (
     <>
       <ScrollSpy
-        sectionIds={['hero', ...navItems.map(item => item.id)]}
+        sectionIds={['hero', ...navItems.map(item => item.id), 'contact']}
         onSectionChange={setActiveSection}
       />
       

@@ -100,34 +100,18 @@ export const SCENE_3D_CONFIGS: Record<string, Section3DConfig> = {
     quality: 'medium'
   },
 
-  experience: {
+  skills: {
     geometries: [
-      { type: 'box', position: [-2, 0, -3], color: '#38BDF8', opacity: 0.35, animation: { rotate: { x: 1, y: 1 }, float: { amplitude: 0.2, speed: 0.9 } } },
-      { type: 'sphere', position: [2, 1, -2], color: '#22D3EE', opacity: 0.4, animation: { rotate: { y: 1 }, float: { amplitude: 0.15, speed: 1.2 } } },
-      { type: 'torus', position: [0, -1, -4], color: '#818CF8', opacity: 0.35, animation: { rotate: { z: 1 }, pulse: { minScale: 0.9, maxScale: 1.1, speed: 1.0 } } }
+      { type: 'cylinder', position: [-2, 0, -3], color: '#38BDF8', opacity: 0.35, animation: { rotate: { y: 1 }, float: { amplitude: 0.2, speed: 0.8 } } },
+      { type: 'octahedron', position: [2, 1, -2], color: '#22D3EE', opacity: 0.4, animation: { rotate: { x: 1, y: 1, z: 1 }, float: { amplitude: 0.15, speed: 1.1 } } },
+      { type: 'cone', position: [0, -1, -4], color: '#818CF8', opacity: 0.35, animation: { rotate: { y: 1 }, pulse: { minScale: 0.9, maxScale: 1.1, speed: 0.9 } } }
     ],
     enableParticles: true,
-    particleCount: 70,
+    particleCount: 60,
     lighting: {
       ambient: { intensity: 0.5, color: '#ffffff' },
-      directional: { intensity: 0.7, position: [6, 6, 3], color: '#ffffff' },
-      point: { intensity: 0.4, position: [-6, -6, -3], color: '#38BDF8' }
-    },
-    quality: 'medium'
-  },
-
-  education: {
-    geometries: [
-      { type: 'sphere', position: [-2, 0, -3], color: '#22D3EE', opacity: 0.35, animation: { rotate: { y: 1 }, float: { amplitude: 0.2, speed: 0.7 } } },
-      { type: 'torus', position: [2, 1, -2], color: '#38BDF8', opacity: 0.4, animation: { rotate: { z: 1 }, float: { amplitude: 0.15, speed: 1.1 } } },
-      { type: 'cone', position: [0, -1, -4], color: '#818CF8', opacity: 0.35, animation: { rotate: { y: 1 }, pulse: { minScale: 0.9, maxScale: 1.1, speed: 0.8 } } }
-    ],
-    enableParticles: true,
-    particleCount: 80,
-    lighting: {
-      ambient: { intensity: 0.5, color: '#ffffff' },
-      directional: { intensity: 0.7, position: [6, 6, 3], color: '#ffffff' },
-      point: { intensity: 0.4, position: [-6, -6, -3], color: '#22D3EE' }
+      directional: { intensity: 0.7, position: [7, 7, 3], color: '#ffffff' },
+      point: { intensity: 0.4, position: [-7, -7, -3], color: '#38BDF8' }
     },
     quality: 'medium'
   },

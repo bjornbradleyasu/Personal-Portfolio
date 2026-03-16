@@ -1,8 +1,12 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+<<<<<<< Updated upstream
 import { MousePointer2 } from 'lucide-react'
 import Section3D from './Section3D'
 import TechNetwork from './TechNetwork'
+=======
+import Section3D from './Section3D'
+>>>>>>> Stashed changes
 
 /**
  * Hero Component - Main landing section with 3D background
@@ -25,6 +29,7 @@ const Hero: React.FC = () => {
       sectionId="hero"
       className="min-h-screen pt-16"
     >
+<<<<<<< Updated upstream
       {/* Content - Full width */}
       <div className="w-full h-full flex items-center">
         <div className="w-full px-8 min-h-[85vh] flex items-center">
@@ -66,20 +71,24 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Scroll Indicator */}
+=======
+      <div className="w-full h-full min-h-screen px-6 flex items-center justify-center">
+>>>>>>> Stashed changes
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="max-w-3xl mx-auto text-center space-y-4"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="flex flex-col items-center space-y-2 text-fg/60"
-          >
-            <MousePointer2 className="w-5 h-5" />
-            <span className="text-sm">Scroll to explore</span>
-          </motion.div>
+          <h1 className="font-hero text-5xl md:text-7xl font-semibold tracking-tight text-fg">
+            Bjorn Bradley
+          </h1>
+          <h2 className="text-xl md:text-2xl font-medium text-accent-sky">
+            Front-End & Interactive UX Developer
+          </h2>
+          <p className="text-base md:text-lg text-fg/80 leading-relaxed max-w-2xl mx-auto">
+            I design and build clean, accessible digital experiences that blend thoughtful interaction with polished visual design.
+          </p>
         </motion.div>
       </div>
     </Section3D>

@@ -1,5 +1,3 @@
-import { TechItem } from './types'
-
 // Group tech stack by categories
 export const techCategories = {
   frontend: {
@@ -58,12 +56,3 @@ export const techCategories = {
     ]
   }
 }
-
-// Flatten for backward compatibility
-export const techStack: TechItem[] = Object.values(techCategories).flatMap(category => 
-  category.items.map(item => ({
-    ...item,
-    category: item.category as TechItem['category'],
-    proficiency: item.proficiency as TechItem['proficiency']
-  }))
-)

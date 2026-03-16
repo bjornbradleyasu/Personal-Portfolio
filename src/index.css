@@ -35,6 +35,10 @@
 }
 
 @layer components {
+  .font-hero {
+    font-family: 'Space Grotesk', 'DM Sans', ui-sans-serif, system-ui;
+  }
+
   .section-padding {
     padding-top: 4rem;
     padding-bottom: 4rem;
@@ -303,129 +307,6 @@
     color: var(--color-bg);
   }
   
-  /* Modal Styling */
-  .project-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(4px);
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-  }
-  
-  .project-modal {
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-white-10);
-    border-radius: 1rem;
-    max-width: 56rem; /* 4xl equivalent */
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  
-  .project-modal-content {
-    padding: 1.5rem;
-  }
-  
-  .project-modal-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-  }
-  
-  .project-modal-title {
-    font-size: 1.875rem;
-    font-weight: 700;
-    color: var(--color-fg);
-  }
-  
-  .project-modal-close {
-    color: var(--color-fg-60);
-    transition: color 200ms;
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-size: 1.25rem;
-  }
-  
-  .project-modal-close:hover {
-    color: var(--color-fg);
-  }
-  
-  .project-modal-section {
-    margin-bottom: 1.5rem;
-  }
-  
-  .project-modal-section-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--color-fg);
-    margin-bottom: 0.75rem;
-  }
-  
-  .project-modal-text {
-    color: var(--color-fg-80);
-    line-height: 1.6;
-  }
-  
-  .project-modal-grid {
-    display: grid;
-    gap: 1.5rem;
-  }
-  
-  @media (min-width: 768px) {
-    .project-modal-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  .project-modal-tech-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  
-  .project-modal-tech-tag {
-    padding: 0.5rem 0.75rem;
-    background-color: var(--color-accent-sky-20);
-    color: var(--color-accent-sky);
-    border-radius: 9999px;
-    font-size: 0.875rem;
-  }
-  
-  .project-modal-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .project-modal-list-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .project-modal-bullet {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    margin-top: 0.5rem;
-    flex-shrink: 0;
-  }
-  
-  .project-modal-bullet-sky {
-    background-color: var(--color-accent-sky);
-  }
-  
-  .project-modal-bullet-cyan {
-    background-color: var(--color-accent-cyan);
-  }
-
   /* Hero 3D Scene Styling */
   .hero-3d-container {
     position: absolute;

@@ -54,23 +54,6 @@ export interface Project {
   featured: boolean
 }
 
-export interface SchoolProject {
-  id: string
-  title: string
-  course: string
-  description: string
-  semester: string
-  whatLearned: string[]
-  contributions: string[]
-  codePreview: {
-    file: string
-    language: string
-    code: string
-  }
-  githubUrl?: string
-  technologies: string[]
-}
-
 export interface CaseStudy {
   id: string
   title: string
