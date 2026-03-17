@@ -1,129 +1,132 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import Section3D from './Section3D'
-import TechIcon from './TechIcon'
-import { techCategories } from '../content/tech'
-import { TechItem } from '../content/types'
+import React, { useState } from "react"
+import { motion, useReducedMotion } from "framer-motion"
+import { techCategories } from "../content/tech"
 
 const Skills: React.FC = () => {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [selectedCategory, setSelectedCategory] = useState<'all' | keyof typeof techCategories>('all')
+  const shouldReduceMotion = useReducedMotion()
+  const categories = Object.entries(techCategories)
+  const [activeCategory, setActiveCategory] = useState<string>(categories[0]?.[0] ?? "")
 
-  const techItems = useMemo<TechItem[]>(() => {
-    if (selectedCategory === 'all') {
-      return Object.values(techCategories).flatMap((category) => category.items) as TechItem[]
-    }
-    return (techCategories[selectedCategory]?.items ?? []) as TechItem[]
-  }, [selectedCategory])
+  const activeEntry = categories.find(([key]) => key === activeCategory) ?? categories[0]
 
-  useEffect(() => {
-    const container = scrollRef.current
-    if (!container || techItems.length === 0) return
+  if (!activeEntry) return null
 
-    let animationId = 0
-    let scrollPosition = 0
-    const scrollSpeed = 0.35
+  const [activeKey, activeData] = activeEntry
 
-    const animate = () => {
-      scrollPosition += scrollSpeed
-      container.scrollTop = scrollPosition
-
-      if (scrollPosition >= container.scrollHeight - container.clientHeight) {
-        scrollPosition = 0
-      }
-
-      animationId = requestAnimationFrame(animate)
-    }
-
-    animationId = requestAnimationFrame(animate)
-
-    const onEnter = () => cancelAnimationFrame(animationId)
-    const onLeave = () => {
-      animationId = requestAnimationFrame(animate)
-    }
-
-    container.addEventListener('mouseenter', onEnter)
-    container.addEventListener('mouseleave', onLeave)
-
-    return () => {
-      cancelAnimationFrame(animationId)
-      container.removeEventListener('mouseenter', onEnter)
-      container.removeEventListener('mouseleave', onLeave)
-    }
-  }, [techItems.length])
-
-  const loopingItems = useMemo(() => (techItems.length ? [...techItems, ...techItems] : []), [techItems])
+  const trackRows = activeData.items.map((item, idx) => ({
+    ...item,
+    index: idx + 1,
+  }))
 
   return (
-    <Section3D sectionId="skills">
-      <div className="text-center mb-12">
-        <h2 className="font-display text-4xl md:text-5xl font-bold text-fg mb-4">Skills</h2>
-        <p className="text-lg text-fg/70 max-w-2xl mx-auto">
-          Core tools and technologies I use to design and deliver modern web experiences.
-        </p>
-      </div>
+    <section id="skills" className="bg-surface">
+      <div className="section-container">
+        <motion.div
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-12"
+        >
+          <span className="section-label">Capabilities</span>
+          <div className="divider" />
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-text-primary">
+            Skills &amp; Tools
+          </h2>
+        </motion.div>
 
-      <div className="glass-card border border-white/10 p-6 rounded-xl shadow-glass max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-4">
-          <p className="text-base font-semibold uppercase tracking-[0.15em] text-fg/70">Tech Stack</p>
-          <div className="w-10 h-10 rounded-full bg-accent-sky/15 border border-accent-sky/30 flex items-center justify-center text-accent-sky">
-            <ArrowRight className="w-4 h-4" />
-          </div>
-        </div>
+        <div className="relative">
+          <div className="absolute left-0 right-0 top-[3.15rem] h-px bg-surface-alt/80" aria-hidden="true" />
 
-        <div className="flex flex-wrap gap-2 mb-4">
-          {([
-            { key: 'all', label: 'All' },
-            ...Object.entries(techCategories).map(([key, cat]) => ({ key, label: cat.title }))
-          ] as Array<{ key: 'all' | keyof typeof techCategories; label: string }>).map((btn) => (
-            <button
-              key={btn.key}
-              onClick={() => setSelectedCategory(btn.key)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
-                selectedCategory === btn.key
-                  ? 'bg-accent-sky text-white shadow shadow-accent-sky/30'
-                  : 'bg-muted/40 text-fg hover:bg-muted/60'
-              }`}
-              aria-pressed={selectedCategory === btn.key}
-            >
-              {btn.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="relative h-[30rem] overflow-hidden">
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-bg via-bg/40 to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-bg via-bg/40 to-transparent z-10" />
-          <div
-            ref={scrollRef}
-            className="overflow-y-auto scrollbar-hide h-full pr-1"
-            style={{ scrollBehavior: 'auto' }}
-            role="list"
-            aria-label="Skills vertical carousel"
-          >
-            <div className="grid md:grid-cols-2 gap-3" style={{ paddingBottom: '1rem' }}>
-              {loopingItems.map((tech, index) => (
-                <div
-                  key={`${tech.id}-${index}`}
-                  className="glass-card bg-white/5 border border-white/10 p-3 rounded-lg flex items-center gap-3 hover:translate-x-1 hover:-translate-y-0.5 transition-transform duration-300"
-                  role="listitem"
+          {/* Vinyl tabs */}
+          <div className="relative z-10 flex gap-2 overflow-x-auto pb-2 pr-2 md:pr-0 scrollbar-hide">
+            {categories.map(([key, category], idx) => {
+              const isActive = key === activeKey
+              return (
+                <button
+                  key={key}
+                  onClick={() => setActiveCategory(key)}
+                  className={
+                    "relative shrink-0 min-w-[9.5rem] rounded-t-xl border px-4 py-2.5 text-left transition-all duration-200 " +
+                    (isActive
+                      ? "bg-bg border-surface-alt border-b-bg -mb-px"
+                      : "bg-surface-alt/45 border-surface-alt/80 hover:bg-surface-alt/70")
+                  }
+                  style={{ transform: isActive ? "translateY(0)" : `translateY(${Math.min(idx * 1.5, 7)}px)` }}
                 >
-                  <TechIcon icon={tech.icon} className="w-12 h-12" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-base font-semibold text-fg truncate">{tech.name}</p>
-                    <p className="text-sm text-fg/60 truncate capitalize">{tech.proficiency}</p>
+                  <p className={"font-mono text-[10px] tracking-widest uppercase " + (isActive ? "text-accent" : "text-text-secondary/70")}>
+                    Crate {String(idx + 1).padStart(2, "0")}
+                  </p>
+                  <p className={"font-display text-sm font-bold leading-none mt-1 whitespace-nowrap " + (isActive ? "text-text-primary" : "text-text-secondary")}>
+                    {category.title}
+                  </p>
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Crate body */}
+          <motion.div
+            key={activeKey}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="relative z-0 rounded-2xl border border-surface-alt bg-bg p-4 md:p-5 shadow-[0_14px_50px_rgba(26,20,16,0.08)]"
+          >
+            <div className="flex flex-wrap items-end justify-between gap-3 pb-3 border-b border-surface-alt/80">
+              <div>
+                <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-accent">
+                  Now Spinning
+                </p>
+                <p className="font-display text-2xl font-bold text-text-primary leading-tight">
+                  {activeData.title}
+                </p>
+              </div>
+              <p className="font-body text-sm text-text-secondary max-w-xl">
+                {activeData.description}
+              </p>
+            </div>
+
+            <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1.5">
+              {trackRows.map((item) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.22, delay: item.index * 0.018, ease: "easeOut" }}
+                  className="group flex items-center gap-3 rounded-md px-2 py-2 border border-transparent hover:border-surface-alt hover:bg-surface/55 transition-colors"
+                >
+                  <span className="w-7 shrink-0 text-right font-mono text-[10px] text-text-secondary/60">
+                    {String(item.index).padStart(2, "0")}
+                  </span>
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-3">
+                      <p className="font-body text-sm text-text-primary leading-snug">
+                        {item.name}
+                      </p>
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-text-secondary/70 shrink-0">
+                        {item.proficiency}
+                      </span>
+                    </div>
+                    <p className="font-body text-xs text-text-secondary/80 leading-snug">
+                      {item.description}
+                    </p>
                   </div>
-                  <div className="text-xs px-2 py-1 rounded-full bg-accent-sky/15 text-accent-sky capitalize">
-                    {tech.proficiency}
-                  </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
+        </div>
+
+        <div className="mt-4 flex items-center gap-2 text-text-secondary/70">
+          <span className="w-2 h-2 rounded-full bg-accent/60" />
+          <p className="font-mono text-[10px] tracking-widest uppercase">
+            Select a crate tab to browse each toolkit
+          </p>
         </div>
       </div>
-    </Section3D>
+    </section>
   )
 }
 

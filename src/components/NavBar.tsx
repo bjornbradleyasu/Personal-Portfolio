@@ -1,141 +1,101 @@
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Code2 } from 'lucide-react'
-import ScrollSpy from './ScrollSpy'
+import React, { useState, useEffect } from "react"
+import { Link, useLocation } from "react-router-dom"
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
+import { X, Menu } from "lucide-react"
+
+const navLinks = [
+  { label: "About",    id: "about"    },
+  { label: "Projects", id: "projects" },
+  { label: "Skills",   id: "skills"   },
+  { label: "Contact",  id: "contact"  },
+]
 
 const NavBar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('hero')
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  const navItems = [
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'skills', label: 'Skills' },
-  ]
-
+  const [scrolled, setScrolled]   = useState(false)
+  const [menuOpen, setMenuOpen]   = useState(false)
+  const location                  = useLocation()
+  const shouldReduceMotion        = useReducedMotion()
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+  useEffect(() => { setMenuOpen(false) }, [location.pathname])
+
+  const scrollTo = (id: string) => {
+    if (location.pathname !== "/") {
+      window.location.href = "/#" + id
+      return
     }
-    setIsOpen(false)
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+    setMenuOpen(false)
   }
 
   return (
     <>
-      <ScrollSpy
-        sectionIds={['hero', ...navItems.map(item => item.id), 'contact']}
-        onSectionChange={setActiveSection}
-      />
-      
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? 'bg-bg/80 backdrop-blur-md shadow-lg border-b border-white/10' 
-            : 'bg-transparent'
-        }`}
+      <nav
+        className={"fixed top-0 left-0 right-0 z-50 transition-all duration-300 " + (
+          scrolled
+            ? "bg-bg/80 backdrop-blur-md border-b border-surface-alt/60 shadow-sm"
+            : "bg-transparent"
+        )}
+        aria-label="Main navigation"
       >
-        <div className="container max-w-6xl mx-auto px-4 md:px-6">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-2 cursor-pointer"
-              onClick={() => scrollToSection('hero')}
-            >
-              <Code2 className="w-6 h-6 text-accent-sky" />
-              <span className="font-display font-semibold text-lg text-fg">
-                Bjorn Bradley
-              </span>
-            </motion.div>
+        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          <Link
+            to="/"
+            className="font-display font-bold text-lg text-text-primary hover:text-accent transition-colors"
+          >
+            BB
+          </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8" aria-label="Main navigation">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`nav-link ${
-                    activeSection === item.id ? 'active' : ''
-                  }`}
-                  aria-current={activeSection === item.id ? 'page' : undefined}
-                  aria-label={`Navigate to ${item.label} section`}
-                >
-                  {item.label}
-                </button>
-              ))}
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="btn-primary text-sm"
-                aria-label="Navigate to contact section"
-              >
-                Get In Touch
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map(link => (
+              <button key={link.id} onClick={() => scrollTo(link.id)} className="nav-link">
+                {link.label}
               </button>
-            </nav>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 text-fg hover:text-accent-sky transition-colors"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            ))}
           </div>
-        </div>
 
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-bg/95 backdrop-blur-md border-t border-white/10"
-            >
-              <nav className="container max-w-6xl mx-auto px-4 py-4 space-y-4" aria-label="Mobile navigation">
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`block w-full text-left py-2 px-4 rounded-lg transition-colors ${
-                      activeSection === item.id
-                        ? 'bg-accent-sky/20 text-accent-sky'
-                        : 'text-fg hover:bg-muted/50'
-                    }`}
-                    aria-current={activeSection === item.id ? 'page' : undefined}
-                    aria-label={`Navigate to ${item.label} section`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className="w-full btn-primary"
-                  aria-label="Navigate to contact section"
-                >
-                  Get In Touch
-                </button>
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.nav>
+          <button
+            className="md:hidden p-2 text-text-primary"
+            onClick={() => setMenuOpen(v => !v)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </nav>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.25 }}
+            className="fixed inset-0 z-40 bg-bg flex flex-col items-center justify-center gap-10 md:hidden"
+          >
+            {navLinks.map((link, i) => (
+              <motion.button
+                key={link.id}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.07, duration: 0.35 }}
+                onClick={() => scrollTo(link.id)}
+                className="font-display text-4xl font-bold text-text-primary hover:text-accent transition-colors"
+              >
+                {link.label}
+              </motion.button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }
 
-export default NavBar 
+export default NavBar

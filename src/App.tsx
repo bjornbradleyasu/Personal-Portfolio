@@ -1,49 +1,57 @@
-import NavBar from './components/NavBar'
-import Hero from './components/Hero'
-import About from './components/About'
-import Projects from './components/Projects'
-import Skills from './components/Skills'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import BackToTop from './components/BackToTop'
-import Scene3DControls from './components/Scene3DControls'
-import ErrorBoundary from './components/ErrorBoundary'
-import { Scene3DProvider } from './contexts/Scene3DContext'
+import { useEffect } from "react"
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
+import { AnimatePresence } from "framer-motion"
+import Home from "./pages/Home"
+import ProjectPage from "./pages/ProjectPage"
+import ErrorBoundary from "./components/ErrorBoundary"
+import PageTransition from "./components/PageTransition"
 
-import ProjectDetail from './components/ProjectDetail'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+function ScrollToTop() {
+  const location = useLocation()
 
-function PortfolioPage() {
+  useEffect(() => {
+    if (location.hash) {
+      requestAnimationFrame(() => {
+        const target = document.getElementById(location.hash.slice(1))
+        if (target) {
+          target.scrollIntoView({ block: "start" })
+          return
+        }
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" })
+      })
+      return
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" })
+  }, [location.pathname, location.hash])
+
+  return null
+}
+
+function AnimatedRoutes() {
+  const location = useLocation()
+
   return (
-    <div className="min-h-screen bg-bg text-fg">
-      <NavBar />
-      <main id="main-content">
-        <Hero />
-        <About />
-        <Projects />
-        <Skills />
-        <Contact />
-      </main>
-      <Footer />
-      <BackToTop />
-      <Scene3DControls />
-    </div>
+    <>
+      <ScrollToTop />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/projects/:slug" element={<PageTransition><ProjectPage /></PageTransition>} />
+        </Routes>
+      </AnimatePresence>
+    </>
   )
 }
 
 function App() {
   return (
     <ErrorBoundary>
-      <Scene3DProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<PortfolioPage />} />
-            <Route path="/projects/:id" element={<ProjectDetail />} />
-          </Routes>
-        </BrowserRouter>
-      </Scene3DProvider>
+      <BrowserRouter>
+        <AnimatedRoutes />
+      </BrowserRouter>
     </ErrorBoundary>
   )
 }
 
-export default App 
+export default App
