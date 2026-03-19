@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Github, ExternalLink } from 'lucide-react'
@@ -7,10 +7,19 @@ import type { Project } from '../data/projects'
 interface ProjectCardProps {
   project: Project
   index?: number
+  className?: string
+  isHero?: boolean
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  project,
+  index = 0,
+  className = '',
+  isHero = false,
+}) => {
   const shouldReduceMotion = useReducedMotion()
+  const [imageFailed, setImageFailed] = useState(false)
+  const hasThumbnail = Boolean(project.thumbnail) && !imageFailed
 
   return (
     <motion.article
@@ -19,20 +28,26 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.08 }}
       {...(shouldReduceMotion ? {} : { whileHover: { y: -4, transition: { duration: 0.2 } } })}
-      className="card group relative flex flex-col"
+      className={`card group relative flex h-full flex-col ${className}`}
     >
       {/* Thumbnail */}
-      <div className="relative bg-surface-alt aspect-[16/9] overflow-hidden">
-        {project.thumbnail ? (
+      <div className={`relative bg-surface-alt overflow-hidden ${isHero ? 'aspect-[16/9] lg:aspect-[18/8]' : 'aspect-[16/9]'}`}>
+        {hasThumbnail ? (
           <img
             src={project.thumbnail}
             alt={`${project.title} preview`}
             className="w-full h-full object-cover"
+            onError={() => setImageFailed(true)}
           />
         ) : (
-          /* Placeholder gradient when no image */
-          <div className="w-full h-full bg-gradient-to-br from-surface-alt to-surface flex items-center justify-center">
-            <span className="font-mono text-text-secondary/40 text-sm">{project.title[0]}</span>
+          <div className="w-full h-full bg-gradient-to-br from-surface-alt via-surface to-bg flex flex-col items-center justify-center gap-2">
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-accent/70">
+              Visual Archive
+            </span>
+            <span className="font-display text-2xl font-bold text-text-secondary/55 leading-none">
+              {project.title[0]}
+            </span>
+            <span className="font-body text-xs text-text-secondary/65">No project image available</span>
           </div>
         )}
 
@@ -71,10 +86,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
         </div>
 
         <div className="flex-1">
-          <h3 className="font-display text-xl font-bold text-text-primary mb-2 group-hover:text-accent transition-colors duration-200 leading-snug">
+          <h3 className={`font-display font-bold text-text-primary mb-2 group-hover:text-accent transition-colors duration-200 leading-snug ${isHero ? 'text-2xl' : 'text-xl'}`}>
             {project.title}
           </h3>
-          <p className="font-body text-sm text-text-secondary leading-relaxed">
+          <p className={`font-body text-text-secondary leading-relaxed ${isHero ? 'text-base' : 'text-sm'}`}>
             {project.shortDescription}
           </p>
         </div>

@@ -26,13 +26,13 @@ function formatDate(dateStr: string): string {
 function EntryInfo({ exp }: { exp: Experience }) {
   return (
     <div className="space-y-0.5">
-      <p className="font-mono text-xs text-text-secondary">
+      <p className="font-mono text-sm text-text-secondary">
         {formatDate(exp.startDate)} &ndash; {formatDate(exp.endDate)}
       </p>
-      <p className="font-display text-sm font-bold text-text-primary leading-snug">
+      <p className="font-display text-base font-bold text-text-primary leading-snug">
         {exp.role}
       </p>
-      <p className="font-body text-sm text-accent">{exp.company}</p>
+      <p className="font-body text-base text-accent">{exp.company}</p>
     </div>
   )
 }

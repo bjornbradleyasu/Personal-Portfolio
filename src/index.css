@@ -137,7 +137,7 @@
 
   .section-label {
     font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--color-accent);

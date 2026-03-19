@@ -3,8 +3,17 @@ import { motion, useReducedMotion } from "framer-motion"
 import ProjectCard from "./ProjectCard"
 import { projects } from "../data/projects"
 
+const fiveCardLayout = [
+  "md:col-span-2 lg:col-span-8",
+  "md:col-span-1 lg:col-span-4",
+  "md:col-span-1 lg:col-span-4",
+  "md:col-span-1 lg:col-span-4",
+  "md:col-span-1 lg:col-span-4",
+]
+
 const Projects: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
+  const isFiveCardSet = projects.length === 5
 
   return (
     <section id="projects" className="bg-bg">
@@ -24,10 +33,20 @@ const Projects: React.FC = () => {
           </h2>
         </motion.div>
 
-        {/* Grid � intentionally varied sizing */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {/* Grid optimized for a 5-project set: strong lead card + balanced supporting row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8">
           {projects.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              index={i}
+              isHero={isFiveCardSet && i === 0}
+              className={
+                isFiveCardSet
+                  ? fiveCardLayout[i] ?? "md:col-span-1 lg:col-span-4"
+                  : "md:col-span-1 lg:col-span-6 xl:col-span-4"
+              }
+            />
           ))}
         </div>
       </div>

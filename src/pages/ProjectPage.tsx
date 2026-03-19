@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { ArrowLeft, Github, ExternalLink, ArrowRight } from "lucide-react"
@@ -12,6 +12,7 @@ const ProjectPage: React.FC = () => {
   const idx = projects.findIndex(p => p.slug === slug)
   const project = projects[idx]
   const nextProject = projects[(idx + 1) % projects.length]
+  const [heroImageFailed, setHeroImageFailed] = useState(false)
 
   if (!project) {
     return (
@@ -57,6 +58,23 @@ const ProjectPage: React.FC = () => {
             <h1 className="font-display text-4xl md:text-6xl font-bold text-text-primary leading-tight mb-4">
               {project.title}
             </h1>
+            <div className="flex flex-wrap items-center gap-3 mb-5">
+              {project.status && (
+                <span className="font-mono text-[11px] uppercase tracking-[0.18em] px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30 text-accent">
+                  {project.status}
+                </span>
+              )}
+              {project.duration && (
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] px-3 py-1.5 rounded-full bg-surface border border-surface-alt text-text-secondary">
+                  {project.duration}
+                </span>
+              )}
+              {project.team && (
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] px-3 py-1.5 rounded-full bg-surface border border-surface-alt text-text-secondary">
+                  {project.team}
+                </span>
+              )}
+            </div>
             <p className="font-body text-xl text-text-secondary leading-relaxed mb-6">
               {project.shortDescription}
             </p>
@@ -76,10 +94,126 @@ const ProjectPage: React.FC = () => {
             </div>
           </motion.div>
 
+          {/* Structured case-study blocks */}
+          {(project.projectSnapshot?.length || project.keyContributions?.length || project.researchFocus?.length || project.buildTracks?.length) && (
+            <div className="space-y-10 mb-12">
+              {project.projectSnapshot && project.projectSnapshot.length > 0 && (
+                <motion.section
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                  <p className="font-mono text-xs tracking-widest uppercase text-accent mb-3">
+                    Project Snapshot
+                  </p>
+                  <div className="divider !mt-0 !mb-4" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {project.projectSnapshot.map((item) => (
+                      <div key={item.label} className="rounded-xl border border-surface-alt bg-surface/65 px-4 py-4">
+                        <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-text-secondary/70 mb-2">
+                          {item.label}
+                        </p>
+                        <p className="font-body text-sm md:text-base text-text-primary leading-relaxed">
+                          {item.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </motion.section>
+              )}
+
+              {project.keyContributions && project.keyContributions.length > 0 && (
+                <motion.section
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                  <p className="font-mono text-xs tracking-widest uppercase text-accent mb-3">
+                    Key Contributions
+                  </p>
+                  <div className="divider !mt-0 !mb-4" />
+                  <ul className="space-y-3">
+                    {project.keyContributions.map((item, i) => (
+                      <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-base text-text-secondary leading-relaxed">
+                        <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.section>
+              )}
+
+              {(project.researchFocus?.length || project.buildTracks?.length) && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {project.researchFocus && project.researchFocus.length > 0 && (
+                    <motion.section
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-60px" }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                    >
+                      <p className="font-mono text-xs tracking-widest uppercase text-accent mb-3">
+                        Research Focus
+                      </p>
+                      <div className="divider !mt-0 !mb-4" />
+                      <ul className="space-y-3">
+                        {project.researchFocus.map((item, i) => (
+                          <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-sm md:text-base text-text-secondary leading-relaxed">
+                            <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent/80 flex-shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.section>
+                  )}
+
+                  {project.buildTracks && project.buildTracks.length > 0 && (
+                    <motion.section
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-60px" }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                    >
+                      <p className="font-mono text-xs tracking-widest uppercase text-accent mb-3">
+                        Active Build Tracks
+                      </p>
+                      <div className="divider !mt-0 !mb-4" />
+                      <ul className="space-y-3">
+                        {project.buildTracks.map((item, i) => (
+                          <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-sm md:text-base text-text-secondary leading-relaxed">
+                            <span className="mt-2 w-1.5 h-1.5 rounded-full bg-text-secondary/55 flex-shrink-0" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.section>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Thumbnail / media */}
-          {project.thumbnail && !(project.zineImages && project.zineImages.length > 0) && (
+          {!(project.zineImages && project.zineImages.length > 0) && (
             <div className="rounded-2xl overflow-hidden bg-surface-alt mb-12 aspect-video">
-              <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover" />
+              {project.thumbnail && !heroImageFailed ? (
+                <img
+                  src={project.thumbnail}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                  onError={() => setHeroImageFailed(true)}
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-surface-alt via-surface to-bg flex flex-col items-center justify-center gap-3">
+                  <p className="font-mono text-xs tracking-[0.22em] uppercase text-accent/75">Project Visual</p>
+                  <h2 className="font-display text-3xl md:text-4xl font-bold text-text-secondary/55 text-center px-6">
+                    {project.title}
+                  </h2>
+                  <p className="font-body text-sm text-text-secondary/70">No original project images available</p>
+                </div>
+              )}
             </div>
           )}
 

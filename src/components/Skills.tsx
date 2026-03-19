@@ -2,6 +2,29 @@ import React, { useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { techCategories } from "../content/tech"
 
+const iconAssetMap: Record<string, string> = {
+  react: "/assets/TechStackIcons/react.png",
+  tailwind: "/assets/TechStackIcons/tailwind.png",
+  ableton: "/assets/TechStackIcons/ableton.png",
+  adobe: "/assets/TechStackIcons/adobe.png",
+  avid: "/assets/TechStackIcons/avid.png",
+  av: "/assets/TechStackIcons/avid.png",
+  figma: "/assets/TechStackIcons/figma.png",
+  nextjs: "/assets/TechStackIcons/nextjs.png",
+  protools: "/assets/TechStackIcons/protools.png",
+  typescript: "/assets/TechStackIcons/typescript.png",
+  vue: "/assets/TechStackIcons/vue.png",
+  vuejs: "/assets/TechStackIcons/vuejs.png",
+}
+
+function getMonogram(label: string): string {
+  const words = label.split(/\s+/).filter(Boolean)
+  if (words.length >= 2) {
+    return (words[0][0] + words[1][0]).toUpperCase()
+  }
+  return label.slice(0, 2).toUpperCase()
+}
+
 const Skills: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
   const categories = Object.entries(techCategories)
@@ -57,7 +80,7 @@ const Skills: React.FC = () => {
                   <p className={"font-mono text-[10px] tracking-widest uppercase " + (isActive ? "text-accent" : "text-text-secondary/70")}>
                     Crate {String(idx + 1).padStart(2, "0")}
                   </p>
-                  <p className={"font-display text-sm font-bold leading-none mt-1 whitespace-nowrap " + (isActive ? "text-text-primary" : "text-text-secondary")}>
+                  <p className={"font-display text-base font-bold leading-none mt-1 whitespace-nowrap " + (isActive ? "text-text-primary" : "text-text-secondary")}>
                     {category.title}
                   </p>
                 </button>
@@ -82,7 +105,7 @@ const Skills: React.FC = () => {
                   {activeData.title}
                 </p>
               </div>
-              <p className="font-body text-sm text-text-secondary max-w-xl">
+              <p className="font-body text-base text-text-secondary max-w-xl">
                 {activeData.description}
               </p>
             </div>
@@ -100,16 +123,31 @@ const Skills: React.FC = () => {
                     {String(item.index).padStart(2, "0")}
                   </span>
 
+                  <div className="w-10 h-10 shrink-0 rounded-md border border-surface-alt bg-surface flex items-center justify-center overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]">
+                    {iconAssetMap[item.icon] ? (
+                      <img
+                        src={iconAssetMap[item.icon]}
+                        alt=""
+                        aria-hidden="true"
+                        className="w-5 h-5 object-contain"
+                      />
+                    ) : (
+                      <span className="font-mono text-[10px] tracking-wide text-accent">
+                        {getMonogram(item.name)}
+                      </span>
+                    )}
+                  </div>
+
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-3">
-                      <p className="font-body text-sm text-text-primary leading-snug">
+                      <p className="font-body text-base text-text-primary leading-snug">
                         {item.name}
                       </p>
                       <span className="font-mono text-[10px] uppercase tracking-widest text-text-secondary/70 shrink-0">
                         {item.proficiency}
                       </span>
                     </div>
-                    <p className="font-body text-xs text-text-secondary/80 leading-snug">
+                    <p className="font-body text-sm text-text-secondary/80 leading-snug">
                       {item.description}
                     </p>
                   </div>
