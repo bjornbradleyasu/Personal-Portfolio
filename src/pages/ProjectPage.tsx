@@ -14,6 +14,24 @@ const ProjectPage: React.FC = () => {
   const nextProject = projects[(idx + 1) % projects.length]
   const [heroImageFailed, setHeroImageFailed] = useState(false)
 
+  const getScreenshotCaption = (src: string): string => {
+    if (project?.slug !== 'multimodal-ai-chatbot') {
+      return 'Project visual'
+    }
+
+    const filename = src.split('/').pop()?.replace('.png', '') ?? ''
+    const captionMap: Record<string, string> = {
+      happy: 'Happy - Spring Colormap',
+      sad: 'Sad - Ocean Colormap',
+      hype: 'Hype - Jet Colormap',
+      study: 'Study - Cool Focus',
+      rainy: 'Rainy - Muted Tones',
+      edge: 'Edge - Technical Abstraction',
+    }
+
+    return captionMap[filename] ?? 'Mood filter output'
+  }
+
   if (!project) {
     return (
       <div className="min-h-screen bg-bg flex flex-col">
@@ -197,16 +215,37 @@ const ProjectPage: React.FC = () => {
 
           {/* Thumbnail / media */}
           {!(project.zineImages && project.zineImages.length > 0) && (
-            <div className="rounded-2xl overflow-hidden bg-surface-alt mb-12 aspect-video">
+            <div className="rounded-2xl overflow-hidden bg-surface-alt mb-12">
               {project.thumbnail && !heroImageFailed ? (
-                <img
-                  src={project.thumbnail}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                  onError={() => setHeroImageFailed(true)}
-                />
+                <div className="aspect-video">
+                  <img
+                    src={project.thumbnail}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    onError={() => setHeroImageFailed(true)}
+                  />
+                </div>
+              ) : project.screenshots.length > 0 ? (
+                <div className="p-4 md:p-5">
+                  <p className="font-mono text-xs tracking-[0.22em] uppercase text-accent/75 mb-3">Project Visual</p>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {project.screenshots.map((src, i) => {
+                      const caption = getScreenshotCaption(src)
+                      return (
+                        <figure key={i} className="rounded-xl overflow-hidden bg-surface border border-surface-alt">
+                          <div className="aspect-video">
+                            <img src={src} alt={caption} className="w-full h-full object-cover" />
+                          </div>
+                          <figcaption className="font-mono text-[10px] tracking-[0.08em] uppercase text-text-secondary px-3 py-2 border-t border-surface-alt">
+                            {caption}
+                          </figcaption>
+                        </figure>
+                      )
+                    })}
+                  </div>
+                </div>
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-surface-alt via-surface to-bg flex flex-col items-center justify-center gap-3">
+                <div className="aspect-video w-full h-full bg-gradient-to-br from-surface-alt via-surface to-bg flex flex-col items-center justify-center gap-3">
                   <p className="font-mono text-xs tracking-[0.22em] uppercase text-accent/75">Project Visual</p>
                   <h2 className="font-display text-3xl md:text-4xl font-bold text-text-secondary/55 text-center px-6">
                     {project.title}
@@ -309,7 +348,7 @@ const ProjectPage: React.FC = () => {
           </div>
 
           {/* Screenshots */}
-          {project.screenshots.length > 0 && (
+          {project.thumbnail && project.screenshots.length > 0 && (
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.screenshots.map((src, i) => (
                 <div key={i} className="rounded-xl overflow-hidden bg-surface-alt aspect-video">

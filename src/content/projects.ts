@@ -55,71 +55,79 @@ export const projects: Project[] = [
   {
     id: 'proj-2',
     title: 'AQI Prediction Dashboard',
-    problemStatement: 'Design an intuitive dashboard for small business owners to manage their online store operations.',
-    description: 'A comprehensive e-commerce management dashboard with real-time analytics, inventory management, and customer insights. Features responsive design and dark mode support.',
-    role: 'Frontend Developer & UX Designer',
-    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Chart.js', 'Prisma'],
+    problemStatement: 'Turn a large, noisy global air-quality dataset into an interpretable decision-support tool that helps identify high-risk cities and test AQI improvement scenarios.',
+    description: 'An end-to-end analytics project combining Python-based AQI prediction with a Power BI dashboard for exploratory analysis and policy-oriented decision making. The workflow covered data cleaning, constrained sampling, linear-regression forecasting, and interactive reporting so users can compare city and country risk patterns, pollutant relationships, and forecast outcomes.',
+    role: 'Data Analyst & Dashboard Developer',
+    stack: ['Python', 'Pandas', 'scikit-learn', 'Power BI', 'SQL'],
     constraints: [
-      'Must work seamlessly on mobile and desktop',
-      'Real-time data updates without page refresh',
-      'Support for multiple store locations'
+      'Original source data was very large (~900k rows) and had to be reduced for assignment constraints',
+      'Needed to preserve representativeness while sampling down to 750 records (one record per city per day)',
+      'Forecasting had to remain interpretable for non-technical viewers',
+      'Dashboard design needed to support both executive-level KPI scanning and city-level drilldown analysis'
     ],
     highlights: [
-      'Improved user task completion rate by 35% through UX optimization',
-      'Reduced page load time by 60% with Next.js optimization',
-      'Implemented real-time notifications for inventory alerts',
-      'Added comprehensive analytics with customizable date ranges'
+      'Built a full data-to-dashboard pipeline from preprocessing and feature preparation through model output visualization',
+      'Identified PM2.5, PM10, and NO2 as the strongest AQI-associated pollutant indicators in the sample',
+      'Used hierarchical drilldowns to surface city-level hotspots hidden by country-level averages',
+      'Implemented what-if analysis patterns to estimate AQI response under pollutant reduction scenarios'
     ],
-    images: ['/projects/ecommerce-dashboard-1.jpg', '/projects/ecommerce-dashboard-2.jpg'],
-    liveUrl: 'https://ecommerce-dashboard-demo.vercel.app',
-    githubUrl: 'https://github.com/bjornbradley/ecommerce-dashboard',
+    images: ['/assets/aqi-dashboard.png'],
+    liveUrl: 'http://app.powerbi.com/groups/me/reports/d5247618-7c92-41d6-bced-60d88ad6c9e0/866ab9f8b4543f728222?experience=power-bi',
     featured: true
   },
   {
     id: 'proj-3',
     title: 'DIY CDJ with DAW Integration',
-    problemStatement: 'Create an engaging way to visualize music data in real-time for enhanced user experience.',
-    description: 'A web-based music visualizer that responds to audio input, featuring particle systems and dynamic animations. Built with Web Audio API and Canvas for smooth 60fps performance.',
-    role: 'Full-Stack Developer & Designer',
-    stack: ['React', 'TypeScript', 'Web Audio API', 'Canvas API', 'Framer Motion'],
+    problemStatement: 'Build a hybrid hardware+software music controller that combines tactile physical input with digital effect control, eliminating the need for expensive commercial CDJ hardware.',
+    description: 'A complete custom music production system combining an M5Stick-based hardware controller, BLE MIDI wireless bridge, and a native Swift/Xcode macOS application. The hardware layer features a rotary encoder and custom 3D-printed DJ platter for tactile input. The firmware layer translates physical interaction into MIDI events over Bluetooth. The software layer provides track loading, playback control, effect manipulation, and keyboard drum-pad support for flexible performance scenarios.',
+    role: 'Full-Stack Hardware & Software Engineer',
+    stack: ['Arduino', 'C++', 'BLE MIDI', 'Swift', 'Xcode', 'OpenSCAD', 'M5Stick', 'Rotary Encoder'],
     constraints: [
-      'Must work with any audio input (microphone, file upload)',
-      'Performance target: 60fps on mid-range devices',
-      'Accessible to users with visual impairments'
+      'Wireless communication required sub-100ms latency for convincing real-time playback feel',
+      'Physical controller had to remain intuitive for first-time users without documentation',
+      'Single rotary input needed to control multiple parameters (track seek, effect selection, effect value)',
+      'Cross-device compatibility: Arduino firmware, macOS app, and hardware had to work reliably together'
     ],
     highlights: [
-      'Achieved consistent 60fps performance through WebGL optimization',
-      'Implemented accessibility features including audio descriptions',
-      'Reduced bundle size by 40% through code splitting',
-      'Added support for custom visualization themes'
+      'Designed and manufactured a complete hardware+software system from sketch to working prototype',
+      'Implemented BLE MIDI bridge enabling wireless control from custom hardware to any MIDI-compatible app',
+      'Created responsive multi-parameter control mapping so one rotary encoder felt like many musicians\'s inputs',
+      'Built a Swift macOS app with intuitive track loading and real-time effect parameter control',
+      'Demonstrated that low-cost components ($100-150 total) can deliver professional-grade music interaction'
     ],
-    images: ['/projects/music-visualizer-1.jpg', '/projects/music-visualizer-2.jpg'],
-    liveUrl: 'https://music-visualizer-demo.vercel.app',
-    githubUrl: 'https://github.com/bjornbradley/music-visualizer',
-    writeupUrl: 'https://medium.com/@bjornbradley/building-a-music-visualizer',
+    images: [
+      '/assets/diy-daw/components-m5stick-encoder.jpg',
+      '/assets/diy-daw/openscad-platter-design.jpg',
+      '/assets/diy-daw/macos-daw-interface.jpg'
+    ],
+    githubUrl: 'https://github.com/bjornbradley/diy-cdj-daw',
     featured: true
   },
   {
     id: 'proj-4',
-    title: 'Q/A Discussion Platform for Students and Instructors',
-    problemStatement: 'Design an intuitive dashboard for small business owners to manage their online store operations.',
-    description: 'A comprehensive e-commerce management dashboard with real-time analytics, inventory management, and customer insights. Features responsive design and dark mode support.',
-    role: 'Frontend Developer & UX Designer',
-    stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Chart.js', 'Prisma'],
+    title: 'Spotify Recommendation Algorithm Research Zine',
+    problemStatement: 'Make recommendation-system mechanics understandable to non-specialists by translating opaque platform behavior into an engaging, research-backed editorial format.',
+    description: 'A long-form research zine analyzing how Spotify recommendation systems influence discovery, listening habits, and user agency. The project combines technical synthesis, platform critique, and visual storytelling to explain recommendation inputs, system infrastructure, transparency concerns, and ethical tradeoffs in a format that is easier to explore than a standard report.',
+    role: 'Research Author & Editorial Designer',
+    stack: ['Research Methods', 'Algorithm Analysis', 'Editorial Design', 'Visual Storytelling', 'Information Design'],
     constraints: [
-      'Must work seamlessly on mobile and desktop',
-      'Real-time data updates without page refresh',
-      'Support for multiple store locations'
+      'Recommendation models are proprietary, so analysis relied on public sources and observed behavior',
+      'Needed to balance technical accuracy with accessibility for mixed technical audiences',
+      'Large volume of findings required a narrative structure that remained scannable and coherent',
+      'Visual language needed to stay consistent across many pages while carrying dense information'
     ],
     highlights: [
-      'Improved user task completion rate by 35% through UX optimization',
-      'Reduced page load time by 60% with Next.js optimization',
-      'Implemented real-time notifications for inventory alerts',
-      'Added comprehensive analytics with customizable date ranges'
+      'Produced a multi-page interactive zine covering recommendation flow, UX impact, infrastructure, and ethics',
+      'Translated algorithmic concepts into visual diagrams and annotated explanations for easier interpretation',
+      'Connected platform mechanics to user-level outcomes like discovery bias, feedback loops, and perceived control',
+      'Built a narrative sequence that supports both linear reading and section-by-section reference use'
     ],
-    images: ['/projects/ecommerce-dashboard-1.jpg', '/projects/ecommerce-dashboard-2.jpg'],
-    liveUrl: 'https://ecommerce-dashboard-demo.vercel.app',
-    githubUrl: 'https://github.com/bjornbradley/ecommerce-dashboard',
+    images: [
+      '/assets/SpotifyAlgorithmZine/(1)Front Cover.png',
+      '/assets/SpotifyAlgorithmZine/(3)Algorithmic System Description.png',
+      '/assets/SpotifyAlgorithmZine/(4)Annotated Diagram pt 1.png'
+    ],
+    writeupUrl: '/assets/spotify-recommendation-zine.pdf',
     featured: true
   },
   {
