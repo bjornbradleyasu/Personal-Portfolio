@@ -35,23 +35,25 @@ const FlipPage = forwardRef<HTMLDivElement, FlipPageProps>(({ src, pageNumber, t
 FlipPage.displayName = "FlipPage"
 
 const ZineImageFlipbook: React.FC<ZineImageFlipbookProps> = ({ pages, title }) => {
-  const bookRef = useRef<any>(null)
+  const bookRef = useRef<{ pageFlip: () => { flipPrev: (corner: string) => void; flipNext: (corner: string) => void } } | null>(null)
   const [pageIndex, setPageIndex] = useState(0)
-
-  if (!pages.length) return null
+  const pageCount = pages.length
 
   const zineTitle = title ?? "Research Zine"
 
   const displayedRange = useMemo(() => {
+    if (!pageCount) return ""
     const left = pageIndex + 1
-    const isCoverLike = pageIndex === 0 || pageIndex === pages.length - 1
+    const isCoverLike = pageIndex === 0 || pageIndex === pageCount - 1
     if (isCoverLike) return `${left}`
-    const right = Math.min(pageIndex + 2, pages.length)
+    const right = Math.min(pageIndex + 2, pageCount)
     return `${left}-${right}`
-  }, [pageIndex, pages.length])
+  }, [pageIndex, pageCount])
+
+  if (!pageCount) return null
 
   const canGoPrev = pageIndex > 0
-  const canGoNext = pageIndex < pages.length - 1
+  const canGoNext = pageIndex < pageCount - 1
 
   const goPrev = () => {
     bookRef.current?.pageFlip()?.flipPrev("top")
@@ -127,7 +129,10 @@ const ZineImageFlipbook: React.FC<ZineImageFlipbookProps> = ({ pages, title }) =
               clickEventForward
               startPage={0}
               className="mx-auto"
-              onFlip={(e: any) => setPageIndex(typeof e?.data === "number" ? e.data : 0)}
+              onFlip={(e: unknown) => {
+                const eventWithData = e as { data?: unknown }
+                setPageIndex(typeof eventWithData?.data === "number" ? eventWithData.data : 0)
+              }}
             >
               {pages.map((src, i) => (
                 <FlipPage

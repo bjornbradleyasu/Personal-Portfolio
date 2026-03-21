@@ -86,7 +86,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
 
         <div className="flex-1">
-          <h3 className={`font-display font-bold text-text-primary mb-2 group-hover:text-accent transition-colors duration-200 leading-snug ${isHero ? 'text-2xl' : 'text-xl'}`}>
+          <h3 className={`font-display font-bold text-text-primary mb-2 group-hover:text-accent transition-colors duration-200 leading-snug ${isHero ? 'text-[2.2rem]' : 'text-2xl'}`}>
             {project.title}
           </h3>
           <p className={`font-body text-text-secondary leading-relaxed ${isHero ? 'text-base' : 'text-sm'}`}>

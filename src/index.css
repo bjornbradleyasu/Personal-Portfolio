@@ -10,7 +10,7 @@
   --color-surface:       #F0EBE1;
   --color-surface-alt:   #E8E0D0;
   --color-text-primary:  #1A1410;
-  --color-text-secondary:#6B5E52;
+  --color-text-secondary:#5F5348;
   --color-accent:        #D46B2F;
   --color-accent-light:  #F0A86B;
   --color-white:         #FFFFFF;
@@ -182,7 +182,7 @@
   /* ---- Nav link ---- */
   .nav-link {
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     font-weight: 500;
     color: var(--color-text-secondary);
     transition: color 200ms ease;

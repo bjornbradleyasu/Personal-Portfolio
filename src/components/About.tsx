@@ -64,7 +64,7 @@ const About: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
-            className="flex justify-center lg:justify-end"
+            className="flex justify-center lg:justify-end lg:pt-20"
           >
             <div className="relative">
               {/* Offset decorative block */}
@@ -72,7 +72,7 @@ const About: React.FC = () => {
                 className="absolute -bottom-3 -right-3 w-full h-full rounded-2xl border-2 border-accent/30"
                 aria-hidden="true"
               />
-              <div className="relative w-64 h-80 rounded-2xl overflow-hidden bg-surface-alt">
+              <div className="relative w-[282px] h-[353px] rounded-2xl overflow-hidden bg-surface-alt">
                 <img
                   src="/images/profile.jpg"
                   alt="Bjorn Bradley"

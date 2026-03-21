@@ -49,6 +49,7 @@ const ProjectPage: React.FC = () => {
       <NavBar />
 
       <main id="main-content" className="flex-1 pt-24 pb-24">
+        <div className="w-full h-36 md:h-48 mb-12" style={{ backgroundColor: "var(--color-surface)" }} />
         <div className="max-w-4xl mx-auto px-6">
 
           {/* Back link */}
@@ -132,7 +133,7 @@ const ProjectPage: React.FC = () => {
                         <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-text-secondary/70 mb-2">
                           {item.label}
                         </p>
-                        <p className="font-body text-sm md:text-base text-text-primary leading-relaxed">
+                        <p className="font-body text-base md:text-lg text-text-primary leading-relaxed">
                           {item.value}
                         </p>
                       </div>
@@ -154,7 +155,7 @@ const ProjectPage: React.FC = () => {
                   <div className="divider !mt-0 !mb-4" />
                   <ul className="space-y-3">
                     {project.keyContributions.map((item, i) => (
-                      <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-base text-text-secondary leading-relaxed">
+                      <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-lg text-text-secondary leading-relaxed">
                         <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
                         {item}
                       </li>
@@ -178,7 +179,7 @@ const ProjectPage: React.FC = () => {
                       <div className="divider !mt-0 !mb-4" />
                       <ul className="space-y-3">
                         {project.researchFocus.map((item, i) => (
-                          <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-sm md:text-base text-text-secondary leading-relaxed">
+                          <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-base md:text-lg text-text-secondary leading-relaxed">
                             <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent/80 flex-shrink-0" />
                             {item}
                           </li>
@@ -200,7 +201,7 @@ const ProjectPage: React.FC = () => {
                       <div className="divider !mt-0 !mb-4" />
                       <ul className="space-y-3">
                         {project.buildTracks.map((item, i) => (
-                          <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-sm md:text-base text-text-secondary leading-relaxed">
+                          <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-base md:text-lg text-text-secondary leading-relaxed">
                             <span className="mt-2 w-1.5 h-1.5 rounded-full bg-text-secondary/55 flex-shrink-0" />
                             {item}
                           </li>

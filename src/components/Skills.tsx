@@ -62,7 +62,7 @@ const Skills: React.FC = () => {
           <div className="absolute left-0 right-0 top-[3.15rem] h-px bg-surface-alt/80" aria-hidden="true" />
 
           {/* Vinyl tabs */}
-          <div className="relative z-10 flex gap-2 overflow-x-auto pb-2 pr-2 md:pr-0 scrollbar-hide">
+          <div className="relative z-10 flex gap-3 overflow-x-auto pb-2 pr-2 md:pr-0 scrollbar-hide">
             {categories.map(([key, category], idx) => {
               const isActive = key === activeKey
               return (
@@ -70,10 +70,10 @@ const Skills: React.FC = () => {
                   key={key}
                   onClick={() => setActiveCategory(key)}
                   className={
-                    "relative shrink-0 min-w-[9.5rem] rounded-t-xl border px-4 py-2.5 text-left transition-all duration-200 " +
+                    "relative shrink-0 min-w-[10.25rem] rounded-t-xl border-2 px-4 py-2.5 text-left transition-all duration-200 " +
                     (isActive
-                      ? "bg-bg border-surface-alt border-b-bg -mb-px"
-                      : "bg-surface-alt/45 border-surface-alt/80 hover:bg-surface-alt/70")
+                      ? "bg-bg border-accent/40 border-b-bg -mb-px shadow-[0_-4px_16px_rgba(26,20,16,0.08)]"
+                      : "bg-surface-alt/65 border-surface-alt hover:bg-surface-alt/85")
                   }
                   style={{ transform: isActive ? "translateY(0)" : `translateY(${Math.min(idx * 1.5, 7)}px)` }}
                 >

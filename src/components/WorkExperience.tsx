@@ -40,7 +40,7 @@ function EntryInfo({ exp }: { exp: Experience }) {
 const WorkExperience: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
   const sorted = [...experiences].sort(
-    (a, b) => parseToTimestamp(a.startDate) - parseToTimestamp(b.startDate)
+    (a, b) => parseToTimestamp(b.startDate) - parseToTimestamp(a.startDate)
   )
 
   return (
