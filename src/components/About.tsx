@@ -1,12 +1,13 @@
 import React from "react"
 import { motion, useReducedMotion } from "framer-motion"
+import { GraduationCap } from "lucide-react"
 
 const About: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
 
   return (
     <section id="about" className="bg-surface">
-      <div className="section-container">
+      <div className="section-container !pb-10">
         <div className="grid lg:grid-cols-[1fr_auto] gap-16 items-start">
 
           {/* Left � text */}
@@ -56,6 +57,31 @@ const About: React.FC = () => {
                 </span>
               ))}
             </div>
+
+            {/* Education */}
+            <div className="pt-4">
+              <p className="font-mono text-[10px] tracking-widest uppercase text-text-secondary/60 mb-3">
+                Education
+              </p>
+              <div className="flex flex-col gap-2">
+                {[
+                  { credential: "B.S. Media Arts & Sciences", institution: "Arizona State University", period: "2022 — Present" },
+                  { credential: "Certificate · AI & Digital Media", institution: "Arizona State University", period: "2024" },
+                ].map((item) => (
+                  <div
+                    key={item.credential}
+                    className="flex items-center gap-3 rounded-xl border border-surface-alt bg-bg px-4 py-3"
+                  >
+                    <GraduationCap className="w-4 h-4 text-accent shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <p className="font-body text-base font-medium text-text-primary leading-snug">{item.credential}</p>
+                      <p className="font-mono text-xs text-text-secondary/70">{item.institution}</p>
+                    </div>
+                    <span className="font-mono text-[10px] text-text-secondary/50 shrink-0">{item.period}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
 
           {/* Right � photo */}
@@ -64,7 +90,7 @@ const About: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
-            className="flex justify-center lg:justify-end lg:pt-20"
+            className="flex justify-center lg:justify-end lg:pt-[5rem]"
           >
             <div className="relative">
               {/* Offset decorative block */}
@@ -72,7 +98,7 @@ const About: React.FC = () => {
                 className="absolute -bottom-3 -right-3 w-full h-full rounded-2xl border-2 border-accent/30"
                 aria-hidden="true"
               />
-              <div className="relative w-[282px] h-[353px] rounded-2xl overflow-hidden bg-surface-alt">
+              <div className="relative w-[311px] h-[390px] rounded-2xl overflow-hidden bg-surface-alt">
                 <img
                   src="/images/profile.jpg"
                   alt="Bjorn Bradley"

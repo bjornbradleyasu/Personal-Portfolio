@@ -3,18 +3,32 @@ import { motion, useReducedMotion } from "framer-motion"
 import { techCategories } from "../content/tech"
 
 const iconAssetMap: Record<string, string> = {
-  react: "/assets/TechStackIcons/react.png",
-  tailwind: "/assets/TechStackIcons/tailwind.png",
+  // Programming Languages
+  react: "/assets/TechStackIcons/Programming%20Languages/react.png",
+  tailwind: "/assets/TechStackIcons/Programming%20Languages/tailwind.png",
+  typescript: "/assets/TechStackIcons/Programming%20Languages/typescript.png",
+  nextjs: "/assets/TechStackIcons/Programming%20Languages/nextjs.png",
+  javascript: "/assets/TechStackIcons/Programming%20Languages/javascript.png",
+  html: "/assets/TechStackIcons/Programming%20Languages/html5.png",
+  python: "/assets/TechStackIcons/Programming%20Languages/Python-logo-notext.svg.png",
+  cpp: "/assets/TechStackIcons/Programming%20Languages/c++.png",
+  swift: "/assets/TechStackIcons/Programming%20Languages/swift.png",
+  // Tools & Creative
   ableton: "/assets/TechStackIcons/ableton.png",
   adobe: "/assets/TechStackIcons/adobe.png",
   avid: "/assets/TechStackIcons/avid.png",
   av: "/assets/TechStackIcons/avid.png",
   figma: "/assets/TechStackIcons/figma.png",
-  nextjs: "/assets/TechStackIcons/nextjs.png",
   protools: "/assets/TechStackIcons/protools.png",
-  typescript: "/assets/TechStackIcons/typescript.png",
   vue: "/assets/TechStackIcons/vue.png",
   vuejs: "/assets/TechStackIcons/vuejs.png",
+  arduino: "/assets/TechStackIcons/arduino.png",
+  fmod: "/assets/TechStackIcons/fmod.png",
+  github: "/assets/TechStackIcons/github.png",
+  powerbi: "/assets/TechStackIcons/powerBi.png",
+  sql: "/assets/TechStackIcons/sql.png",
+  unity: "/assets/TechStackIcons/unity.webp",
+  sklearn: "/assets/TechStackIcons/Scikit_learn_logo_small.svg.png",
 }
 
 function getMonogram(label: string): string {
@@ -62,7 +76,7 @@ const Skills: React.FC = () => {
           <div className="absolute left-0 right-0 top-[3.15rem] h-px bg-surface-alt/80" aria-hidden="true" />
 
           {/* Vinyl tabs */}
-          <div className="relative z-10 flex gap-3 overflow-x-auto pb-2 pr-2 md:pr-0 scrollbar-hide">
+          <div className="relative z-10 flex gap-2 overflow-x-auto pb-2 pr-2 md:pr-0 scrollbar-hide">
             {categories.map(([key, category], idx) => {
               const isActive = key === activeKey
               return (
@@ -70,17 +84,17 @@ const Skills: React.FC = () => {
                   key={key}
                   onClick={() => setActiveCategory(key)}
                   className={
-                    "relative shrink-0 min-w-[10.25rem] rounded-t-xl border-2 px-4 py-2.5 text-left transition-all duration-200 " +
+                    "relative shrink-0 min-w-[9.5rem] rounded-t-xl border px-4 py-2.5 text-left transition-all duration-200 " +
                     (isActive
-                      ? "bg-bg border-accent/40 border-b-bg -mb-px shadow-[0_-4px_16px_rgba(26,20,16,0.08)]"
-                      : "bg-surface-alt/65 border-surface-alt hover:bg-surface-alt/85")
+                      ? "bg-bg border-surface-alt border-b-bg -mb-px"
+                      : "bg-surface-alt/45 border-surface-alt/80 hover:bg-surface-alt/70")
                   }
                   style={{ transform: isActive ? "translateY(0)" : `translateY(${Math.min(idx * 1.5, 7)}px)` }}
                 >
                   <p className={"font-mono text-[10px] tracking-widest uppercase " + (isActive ? "text-accent" : "text-text-secondary/70")}>
                     Crate {String(idx + 1).padStart(2, "0")}
                   </p>
-                  <p className={"font-display text-base font-bold leading-none mt-1 whitespace-nowrap " + (isActive ? "text-text-primary" : "text-text-secondary")}>
+                  <p className={"font-display text-base font-bold leading-tight mt-1 whitespace-nowrap " + (isActive ? "text-text-primary" : "text-text-secondary")}>
                     {category.title}
                   </p>
                 </button>
@@ -123,13 +137,13 @@ const Skills: React.FC = () => {
                     {String(item.index).padStart(2, "0")}
                   </span>
 
-                  <div className="w-10 h-10 shrink-0 rounded-md border border-surface-alt bg-surface flex items-center justify-center overflow-hidden shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]">
+                  <div className="w-8 h-8 shrink-0 flex items-center justify-center">
                     {iconAssetMap[item.icon] ? (
                       <img
                         src={iconAssetMap[item.icon]}
                         alt=""
                         aria-hidden="true"
-                        className="w-5 h-5 object-contain"
+                        className="w-8 h-8 object-contain"
                       />
                     ) : (
                       <span className="font-mono text-[10px] tracking-wide text-accent">

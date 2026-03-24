@@ -46,7 +46,7 @@ const NavBar: React.FC = () => {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link
             to="/"
-            className="font-display font-bold text-lg text-text-primary hover:text-accent transition-colors"
+            className="font-display font-bold text-xl text-text-primary hover:text-accent transition-colors"
           >
             BB
           </Link>

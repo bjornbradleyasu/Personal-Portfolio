@@ -39,9 +39,13 @@ function EntryInfo({ exp }: { exp: Experience }) {
 
 const WorkExperience: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
-  const sorted = [...experiences].sort(
-    (a, b) => parseToTimestamp(b.startDate) - parseToTimestamp(a.startDate)
-  )
+  const sorted = [...experiences].sort((a, b) => {
+    const diff = parseToTimestamp(b.startDate) - parseToTimestamp(a.startDate)
+    if (diff !== 0) return diff
+    if (a.endDate === "Present") return -1
+    if (b.endDate === "Present") return 1
+    return parseToTimestamp(b.endDate) - parseToTimestamp(a.endDate)
+  })
 
   return (
     <section id="experience" className="bg-surface overflow-hidden">
@@ -106,11 +110,23 @@ const WorkExperience: React.FC = () => {
                   {above && <EntryInfo exp={exp} />}
                 </div>
 
-                {/* Timeline dot */}
-                <div
-                  className="relative z-10 w-3.5 h-3.5 rounded-full bg-accent flex-shrink-0"
-                  style={{ boxShadow: "0 0 0 3px var(--color-surface, #F0EBE1)" }}
-                />
+                {/* Timeline dot / pin */}
+                {exp.endDate === "Present" ? (
+                  <svg
+                    viewBox="0 0 64 64"
+                    className="relative z-10 w-6 h-6 flex-shrink-0"
+                    fill="var(--color-accent)"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path d="M32,0C18.745,0,8,10.745,8,24c0,5.678,2.502,10.671,5.271,15l17.097,24.156C30.743,63.686,31.352,64,32,64s1.257-0.314,1.632-0.844L50.729,39C53.375,35.438,56,29.678,56,24C56,10.745,45.255,0,32,0z M32,36c-6.627,0-12-5.373-12-12s5.373-12,12-12s12,5.373,12,12S38.627,36,32,36z"/>
+                  </svg>
+                ) : (
+                  <div
+                    className="relative z-10 w-3.5 h-3.5 rounded-full bg-accent flex-shrink-0"
+                    style={{ boxShadow: "0 0 0 3px var(--color-surface, #F0EBE1)" }}
+                  />
+                )}
 
                 {/* Bottom slot — text when below */}
                 <div className="flex-1 flex flex-col justify-start pt-5 text-center px-3">
@@ -143,15 +159,28 @@ const WorkExperience: React.FC = () => {
                 delay: i * 0.08,
               }}
             >
-              {/* Dot */}
-              <div
-                className="absolute top-1.5 w-3.5 h-3.5 rounded-full bg-accent"
-                style={{
-                  left: "-1.8125rem",
-                  boxShadow: "0 0 0 3px var(--color-surface, #F0EBE1)",
-                }}
-                aria-hidden="true"
-              />
+              {/* Dot / pin */}
+              {exp.endDate === "Present" ? (
+                <svg
+                  viewBox="0 0 64 64"
+                  className="absolute w-6 h-6"
+                  style={{ top: "0.1rem", left: "-1.9rem" }}
+                  fill="var(--color-accent)"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path d="M32,0C18.745,0,8,10.745,8,24c0,5.678,2.502,10.671,5.271,15l17.097,24.156C30.743,63.686,31.352,64,32,64s1.257-0.314,1.632-0.844L50.729,39C53.375,35.438,56,29.678,56,24C56,10.745,45.255,0,32,0z M32,36c-6.627,0-12-5.373-12-12s5.373-12,12-12s12,5.373,12,12S38.627,36,32,36z"/>
+                </svg>
+              ) : (
+                <div
+                  className="absolute top-1.5 w-3.5 h-3.5 rounded-full bg-accent"
+                  style={{
+                    left: "-1.8125rem",
+                    boxShadow: "0 0 0 3px var(--color-surface, #F0EBE1)",
+                  }}
+                  aria-hidden="true"
+                />
+              )}
               <EntryInfo exp={exp} />
             </motion.div>
           ))}

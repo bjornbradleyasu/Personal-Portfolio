@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
               transition: { duration: 1.1, ease: "easeOut", y: { duration: 6, repeat: Infinity, ease: "easeInOut" } },
             }
         )}
-        className="absolute right-[-10%] md:right-[-4%] lg:right-[2%] top-[12%] md:top-[7%] lg:top-[5%] w-[31rem] h-[31rem] md:w-[38rem] md:h-[38rem] lg:w-[44rem] lg:h-[44rem] pointer-events-none select-none"
+        className="absolute right-[-10%] md:right-[-4%] lg:right-[2%] xl:right-[4%] 2xl:right-[6%] top-[12%] md:top-[calc(50%_-_24rem)] lg:top-[calc(50%_-_27rem)] xl:top-[calc(50%_-_27rem)] 2xl:top-[calc(50%_-_35rem)] w-[31rem] h-[31rem] md:w-[38rem] md:h-[38rem] lg:w-[44rem] lg:h-[44rem] xl:w-[44rem] xl:h-[44rem] 2xl:w-[60rem] 2xl:h-[60rem] pointer-events-none select-none"
         aria-hidden="true"
       >
         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-surface/90 via-surface-alt/58 to-transparent border border-surface-alt/85" />
@@ -80,7 +80,7 @@ const Hero: React.FC = () => {
 
           <motion.h1
             {...(shouldReduceMotion ? {} : { variants: itemVariants })}
-            className="font-display font-extrabold text-[clamp(3rem,10vw,6rem)] leading-[0.95] text-text-primary mt-4 mb-6 tracking-tight"
+            className="font-display font-extrabold text-[clamp(3rem,10vw,6rem)] 2xl:text-[7rem] leading-[1.05] text-text-primary mt-4 mb-6 tracking-tight"
           >
             Bjorn
             <br />
@@ -89,9 +89,9 @@ const Hero: React.FC = () => {
 
           <motion.p
             {...(shouldReduceMotion ? {} : { variants: itemVariants })}
-            className="font-body text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl mb-10"
+            className="font-body text-lg md:text-xl 2xl:text-2xl text-text-secondary leading-relaxed max-w-xl mb-10"
           >
-            Media designer &amp; developer. I build things that look good and feel alive.
+            Developer by craft. Designer by instinct.
           </motion.p>
 
           <motion.div

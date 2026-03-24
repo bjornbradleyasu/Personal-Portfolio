@@ -20,6 +20,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const shouldReduceMotion = useReducedMotion()
   const [imageFailed, setImageFailed] = useState(false)
   const hasThumbnail = Boolean(project.thumbnail) && !imageFailed
+  const hasGrid = Boolean(project.thumbnailGrid?.length)
 
   return (
     <motion.article
@@ -36,9 +37,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <img
             src={project.thumbnail}
             alt={`${project.title} preview`}
-            className="w-full h-full object-cover"
+            className={`w-full h-full ${project.thumbnailFit === 'contain' ? 'object-contain' : 'object-cover'}`}
             onError={() => setImageFailed(true)}
           />
+        ) : hasGrid ? (
+          <div className="w-full h-full grid grid-cols-2 grid-rows-3">
+            {project.thumbnailGrid!.slice(0, 6).map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt=""
+                aria-hidden="true"
+                className="w-full h-full object-cover"
+              />
+            ))}
+          </div>
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-surface-alt via-surface to-bg flex flex-col items-center justify-center gap-2">
             <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-accent/70">
@@ -86,7 +99,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
 
         <div className="flex-1">
-          <h3 className={`font-display font-bold text-text-primary mb-2 group-hover:text-accent transition-colors duration-200 leading-snug ${isHero ? 'text-[2.2rem]' : 'text-2xl'}`}>
+          <h3 className={`font-display font-bold text-text-primary mb-2 group-hover:text-accent transition-colors duration-200 leading-snug ${isHero ? 'text-2xl' : 'text-xl'}`}>
             {project.title}
           </h3>
           <p className={`font-body text-text-secondary leading-relaxed ${isHero ? 'text-base' : 'text-sm'}`}>
