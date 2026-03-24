@@ -13,24 +13,7 @@ const ProjectPage: React.FC = () => {
   const project = projects[idx]
   const nextProject = projects[(idx + 1) % projects.length]
   const [heroImageFailed, setHeroImageFailed] = useState(false)
-
-  const getScreenshotCaption = (src: string): string => {
-    if (project?.slug !== 'multimodal-ai-chatbot') {
-      return 'Project visual'
-    }
-
-    const filename = src.split('/').pop()?.replace('.png', '') ?? ''
-    const captionMap: Record<string, string> = {
-      happy: 'Happy - Spring Colormap',
-      sad: 'Sad - Ocean Colormap',
-      hype: 'Hype - Jet Colormap',
-      study: 'Study - Cool Focus',
-      rainy: 'Rainy - Muted Tones',
-      edge: 'Edge - Technical Abstraction',
-    }
-
-    return captionMap[filename] ?? 'Mood filter output'
-  }
+  const heroImageSrc = project?.heroImage || project?.thumbnail
 
   if (!project) {
     return (
@@ -49,7 +32,6 @@ const ProjectPage: React.FC = () => {
       <NavBar />
 
       <main id="main-content" className="flex-1 pt-24 pb-24">
-        <div className="w-full h-36 md:h-48 mb-12" style={{ backgroundColor: "var(--color-surface)" }} />
         <div className="max-w-4xl mx-auto px-6">
 
           {/* Back link */}
@@ -133,7 +115,7 @@ const ProjectPage: React.FC = () => {
                         <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-text-secondary/70 mb-2">
                           {item.label}
                         </p>
-                        <p className="font-body text-base md:text-lg text-text-primary leading-relaxed">
+                        <p className="font-body text-sm md:text-base text-text-primary leading-relaxed">
                           {item.value}
                         </p>
                       </div>
@@ -155,7 +137,7 @@ const ProjectPage: React.FC = () => {
                   <div className="divider !mt-0 !mb-4" />
                   <ul className="space-y-3">
                     {project.keyContributions.map((item, i) => (
-                      <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-lg text-text-secondary leading-relaxed">
+                      <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-base text-text-secondary leading-relaxed">
                         <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
                         {item}
                       </li>
@@ -179,7 +161,7 @@ const ProjectPage: React.FC = () => {
                       <div className="divider !mt-0 !mb-4" />
                       <ul className="space-y-3">
                         {project.researchFocus.map((item, i) => (
-                          <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-base md:text-lg text-text-secondary leading-relaxed">
+                          <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-sm md:text-base text-text-secondary leading-relaxed">
                             <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent/80 flex-shrink-0" />
                             {item}
                           </li>
@@ -201,7 +183,7 @@ const ProjectPage: React.FC = () => {
                       <div className="divider !mt-0 !mb-4" />
                       <ul className="space-y-3">
                         {project.buildTracks.map((item, i) => (
-                          <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-base md:text-lg text-text-secondary leading-relaxed">
+                          <li key={`${item}-${i}`} className="flex items-start gap-3 font-body text-sm md:text-base text-text-secondary leading-relaxed">
                             <span className="mt-2 w-1.5 h-1.5 rounded-full bg-text-secondary/55 flex-shrink-0" />
                             {item}
                           </li>
@@ -216,37 +198,16 @@ const ProjectPage: React.FC = () => {
 
           {/* Thumbnail / media */}
           {!(project.zineImages && project.zineImages.length > 0) && (
-            <div className="rounded-2xl overflow-hidden bg-surface-alt mb-12">
-              {project.thumbnail && !heroImageFailed ? (
-                <div className="aspect-video">
-                  <img
-                    src={project.thumbnail}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    onError={() => setHeroImageFailed(true)}
-                  />
-                </div>
-              ) : project.screenshots.length > 0 ? (
-                <div className="p-4 md:p-5">
-                  <p className="font-mono text-xs tracking-[0.22em] uppercase text-accent/75 mb-3">Project Visual</p>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {project.screenshots.map((src, i) => {
-                      const caption = getScreenshotCaption(src)
-                      return (
-                        <figure key={i} className="rounded-xl overflow-hidden bg-surface border border-surface-alt">
-                          <div className="aspect-video">
-                            <img src={src} alt={caption} className="w-full h-full object-cover" />
-                          </div>
-                          <figcaption className="font-mono text-[10px] tracking-[0.08em] uppercase text-text-secondary px-3 py-2 border-t border-surface-alt">
-                            {caption}
-                          </figcaption>
-                        </figure>
-                      )
-                    })}
-                  </div>
-                </div>
+            <div className="rounded-2xl overflow-hidden bg-surface-alt mb-12 aspect-video">
+              {heroImageSrc && !heroImageFailed ? (
+                <img
+                  src={heroImageSrc}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                  onError={() => setHeroImageFailed(true)}
+                />
               ) : (
-                <div className="aspect-video w-full h-full bg-gradient-to-br from-surface-alt via-surface to-bg flex flex-col items-center justify-center gap-3">
+                <div className="w-full h-full bg-gradient-to-br from-surface-alt via-surface to-bg flex flex-col items-center justify-center gap-3">
                   <p className="font-mono text-xs tracking-[0.22em] uppercase text-accent/75">Project Visual</p>
                   <h2 className="font-display text-3xl md:text-4xl font-bold text-text-secondary/55 text-center px-6">
                     {project.title}
@@ -348,14 +309,50 @@ const ProjectPage: React.FC = () => {
             ))}
           </div>
 
+          {/* Video demo */}
+          {project.videoDemo && (
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="mt-12"
+            >
+              <p className="font-mono text-xs tracking-widest uppercase text-accent mb-3">
+                Prototype Demo
+              </p>
+              <div className="divider !mt-0 !mb-4" />
+              <div className="rounded-2xl overflow-hidden bg-surface-alt border border-surface-alt">
+                <video
+                  src={project.videoDemo}
+                  controls
+                  playsInline
+                  className="w-full"
+                  aria-label={`${project.title} prototype demonstration`}
+                />
+              </div>
+            </motion.section>
+          )}
+
           {/* Screenshots */}
-          {project.thumbnail && project.screenshots.length > 0 && (
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
-              {project.screenshots.map((src, i) => (
-                <div key={i} className="rounded-xl overflow-hidden bg-surface-alt aspect-video">
-                  <img src={src} alt={`${project.title} screenshot ${i + 1}`} className="w-full h-full object-cover" />
-                </div>
-              ))}
+          {project.screenshots.length > 0 && (
+            <div className="mt-12">
+              <p className="font-mono text-xs tracking-widest uppercase text-accent mb-3">Process Snapshots</p>
+              <div className="divider !mt-0 !mb-4" />
+              <div className="grid grid-cols-3 gap-4">
+                {project.screenshots.map((src, i) => (
+                  <div key={i} className="flex flex-col gap-2">
+                    <div className="rounded-xl overflow-hidden bg-surface-alt aspect-square">
+                      <img src={src} alt={project.screenshotCaptions?.[i] ?? `${project.title} screenshot ${i + 1}`} className="w-full h-full object-cover" />
+                    </div>
+                    {project.screenshotCaptions?.[i] && (
+                      <p className="font-mono text-[10px] tracking-widest uppercase text-text-secondary/70 text-center">
+                        {project.screenshotCaptions[i]}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 

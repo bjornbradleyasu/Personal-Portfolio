@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
           Bjorn Bradley
         </Link>
         <p className="font-mono text-xs text-text-secondary/60">
-          &copy; {year} — Built with React &amp; Vite
+          &copy; {year} &middot; Built with React &amp; Vite
         </p>
       </div>
     </footer>

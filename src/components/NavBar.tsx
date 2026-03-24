@@ -4,10 +4,11 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { X, Menu } from "lucide-react"
 
 const navLinks = [
-  { label: "About",    id: "about"    },
-  { label: "Projects", id: "projects" },
-  { label: "Skills",   id: "skills"   },
-  { label: "Contact",  id: "contact"  },
+  { label: "About",      id: "about"      },
+  { label: "Experience", id: "experience" },
+  { label: "Projects",   id: "projects"   },
+  { label: "Skills",     id: "skills"     },
+  { label: "Contact",    id: "contact"    },
 ]
 
 const NavBar: React.FC = () => {
@@ -57,6 +58,14 @@ const NavBar: React.FC = () => {
                 {link.label}
               </button>
             ))}
+            <a
+              href="/assets/Bjorn_Bradley_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-sm px-3.5 py-1.5 rounded-full border border-accent/60 text-accent hover:bg-accent hover:text-white transition-colors"
+            >
+              Resume
+            </a>
           </div>
 
           <button
@@ -91,6 +100,18 @@ const NavBar: React.FC = () => {
                 {link.label}
               </motion.button>
             ))}
+            <motion.a
+              href="/assets/Bjorn_Bradley_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: navLinks.length * 0.07, duration: 0.35 }}
+              onClick={() => setMenuOpen(false)}
+              className="font-display text-4xl font-bold text-accent"
+            >
+              Resume
+            </motion.a>
           </motion.div>
         )}
       </AnimatePresence>

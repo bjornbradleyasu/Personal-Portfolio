@@ -10,7 +10,7 @@ const About: React.FC = () => {
       <div className="section-container !pb-10">
         <div className="grid lg:grid-cols-[1fr_auto] gap-16 items-start">
 
-          {/* Left � text */}
+          {/* Left — text */}
           <motion.div
             initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -34,7 +34,7 @@ const About: React.FC = () => {
               </p>
               <p>
                 Six years in IT gave me a deep respect for systems that actually hold up under
-                pressure. That same sensibility carries into everything I build � clean, durable,
+                pressure. That same sensibility carries into everything I build{" \u2014 "}clean, durable,
                 and worth the attention it asks for.
               </p>
               <p>
@@ -46,7 +46,7 @@ const About: React.FC = () => {
             <div className="flex flex-wrap gap-3 pt-2">
               {[
                 "Based in Phoenix, AZ",
-                "Currently studying @ ASU",
+                "ASU Spring 2026",
                 "Open to opportunities",
               ].map(tag => (
                 <span
@@ -84,7 +84,7 @@ const About: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Right � photo */}
+          {/* Right — photo */}
           <motion.div
             initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 30 }}
             whileInView={{ opacity: 1, x: 0 }}
