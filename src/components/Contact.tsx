@@ -9,7 +9,6 @@ import {
   Loader2,
   CheckCircle,
   AlertCircle,
-  Download,
 } from "lucide-react"
 
 type FormStatus = "idle" | "sending" | "success" | "error"
@@ -90,15 +89,6 @@ const Contact: React.FC = () => {
               </a>
             </div>
 
-            <a
-              href="/assets/Bjorn_Bradley_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-mono text-sm mt-8 px-5 py-2.5 rounded-full border border-accent/60 text-accent hover:bg-accent hover:text-white transition-colors"
-            >
-              <Download className="w-4 h-4" />
-              Download Resume
-            </a>
           </motion.div>
 
           {/* Right — contact form */}
