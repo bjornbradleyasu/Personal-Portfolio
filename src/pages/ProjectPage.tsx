@@ -218,6 +218,13 @@ const ProjectPage: React.FC = () => {
             </div>
           )}
 
+          {/* Media note */}
+          {project.mediaNote && !(project.zineImages && project.zineImages.length > 0) && (
+            <p className="font-mono text-xs tracking-wide text-text-secondary/60 -mt-8 mb-12 text-center italic">
+              {project.mediaNote}
+            </p>
+          )}
+
           {/* Zine viewer */}
           {project.zineImages && project.zineImages.length > 0 && (
             <motion.section

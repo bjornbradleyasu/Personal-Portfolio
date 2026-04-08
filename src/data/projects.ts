@@ -10,6 +10,7 @@ export interface Project {
   screenshotCaptions?: string[]
   screenshots: string[]
   videoDemo?: string
+  mediaNote?: string
   zineImages?: string[]
   zineTitle?: string
   embedTitle?: string
@@ -38,15 +39,10 @@ export const projects: Project[] = [
     title: 'VR Gesture Instrument',
     shortDescription: 'A year-long capstone exploring what VR uniquely enables for musical expression through gesture-driven sound and immersive audiovisual feedback.',
     tags: ['Unity', 'FMOD', 'C#', 'XR Interaction Toolkit', 'Blender'],
-    thumbnail: '/assets/vr-gesture/unity-scene.png',
-    heroImage: '/assets/vr-gesture/unity-scene.png',
-    screenshots: [
-      '/assets/vr-gesture/unity-scene.png',
-      '/assets/vr-gesture/blender-asset.png',
-      '/assets/vr-gesture/fmod-graph.png',
-    ],
-    screenshotCaptions: ['Unity Scene', 'Blender Asset', 'FMOD Event Architecture'],
-    videoDemo: '/assets/vr-gesture/demo.mp4',
+    thumbnail: '/assets/VR-Instruments-Image.png',
+    heroImage: '/assets/VR-Instruments-Image.png',
+    screenshots: [],
+    mediaNote: 'This project is actively in production — full documentation, additional screenshots, and a demo video will be added as development progresses.',
     status: 'In Progress',
     duration: 'Year-Long Capstone',
     team: '4-person interdisciplinary team',
