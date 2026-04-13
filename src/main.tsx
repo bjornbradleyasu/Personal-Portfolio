@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
 import './index.css'
 
@@ -23,8 +24,19 @@ import './index.css'
 //   gtag('config', 'G-XXXXXXXXXX')
 // }, [])
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const rootEl = document.getElementById('root')!
+
+const app = (
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-) 
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+)
+
+// Use hydrateRoot when prerendered HTML is present (production), createRoot otherwise (dev)
+if (rootEl.innerHTML.trim()) {
+  ReactDOM.hydrateRoot(rootEl, app)
+} else {
+  ReactDOM.createRoot(rootEl).render(app)
+} 
