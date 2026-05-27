@@ -22,31 +22,29 @@ const About: React.FC = () => {
               <span className="section-label">About Me</span>
               <div className="divider" />
               <h2 className="font-display text-5xl md:text-6xl font-bold text-text-primary leading-tight">
-                Designer. Developer.<br />ASU Senior.
+                Developer. Designer.<br />Creative Problem Solver.
               </h2>
             </div>
 
             <div className="space-y-4 font-body text-text-secondary leading-relaxed text-xl">
               <p>
-                I'm a Media Arts &amp; Sciences senior at ASU with a background in Computer Science,
-                making the switch when I realized I cared more about what technology feels like
-                than just how it works.
+                I started in Computer Science before switching to Media Arts and Sciences, where
+                I could focus on both the technical and experiential sides of building things.
+                Five years of IT work alongside my studies gave me a practical foundation that
+                most design and development programs don't teach.
               </p>
               <p>
-                Six years in IT gave me a deep respect for systems that actually hold up under
-                pressure. That same sensibility carries into everything I build: clean, durable,
-                and worth the attention it asks for.
-              </p>
-              <p>
-                Audio is my other language. From Ableton to FMOD to hand-rolled hardware, if it
-                makes sound and requires code, I'm in.
+                My projects span front-end development, VR, hardware, audio systems, and data.
+                Not because I couldn't pick a direction, but because I'm genuinely interested in
+                how all of it connects. I'm most useful on work that requires both technical and
+                creative thinking at the same time.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-3 pt-2">
               {[
                 "Based in Phoenix, AZ",
-                "ASU Spring 2026",
+                "Graduating Spring 2026",
                 "Open to opportunities",
               ].map(tag => (
                 <span
