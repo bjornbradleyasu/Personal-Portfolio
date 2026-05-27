@@ -56,7 +56,7 @@ const Skills: React.FC = () => {
   }))
 
   return (
-    <section id="skills" className="bg-surface">
+    <section id="skills" className="bg-bg">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
@@ -86,7 +86,7 @@ const Skills: React.FC = () => {
                   className={
                     "relative shrink-0 min-w-[9.5rem] rounded-t-xl border px-4 py-2.5 text-left transition-all duration-200 " +
                     (isActive
-                      ? "bg-bg border-surface-alt border-b-bg -mb-px"
+                      ? "bg-surface border-surface-alt border-b-surface -mb-px"
                       : "bg-surface-alt/45 border-surface-alt/80 hover:bg-surface-alt/70")
                   }
                   style={{ transform: isActive ? "translateY(0)" : `translateY(${Math.min(idx * 1.5, 7)}px)` }}
@@ -108,7 +108,7 @@ const Skills: React.FC = () => {
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="relative z-0 rounded-2xl border border-surface-alt bg-bg p-4 md:p-5 shadow-[0_14px_50px_rgba(26,20,16,0.08)]"
+            className="relative z-0 rounded-2xl border border-surface-alt bg-surface p-4 md:p-5 shadow-[0_14px_50px_rgba(26,20,16,0.08)]"
           >
             <div className="flex flex-wrap items-end justify-between gap-3 pb-3 border-b border-surface-alt/80">
               <div>

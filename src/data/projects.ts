@@ -1,6 +1,13 @@
+export interface ProjectSystem {
+  name: string
+  description: string
+  why: string
+}
+
 export interface Project {
   slug: string
   title: string
+  subtitle?: string
   shortDescription: string
   tags: string[]
   thumbnail: string
@@ -29,51 +36,76 @@ export interface Project {
   researchFocus?: string[]
   buildTracks?: string[]
   featured?: boolean
+  // Case study fields
+  problem?: string
+  contributionDetail?: string
+  systems?: ProjectSystem[]
+  theHardPart?: string
+  reflection?: string
 }
 
 export const projects: Project[] = [
-  // 1. VR
+  // 1. MusicMatrix
   {
     githubUrl: 'https://github.com/Khoi-NDH/MAS-Project---VR-Music',
-    slug: 'vr-gesture-instrument',
-    title: 'VR Gesture Instrument',
-    shortDescription: 'A year-long capstone exploring what VR uniquely enables for musical expression through gesture-driven sound and immersive audiovisual feedback.',
-    tags: ['Unity', 'FMOD', 'C#', 'XR Interaction Toolkit', 'Blender'],
-    thumbnail: '/assets/VR-Instruments-Image.png',
-    heroImage: '/assets/VR-Instruments-Image.png',
-    screenshots: [],
-    mediaNote: 'This project is actively in production — full documentation, additional screenshots, and a demo video will be added as development progresses.',
-    status: 'In Progress',
+    slug: 'music-matrix',
+    title: 'MusicMatrix',
+    subtitle: 'VR Music Learning Environment',
+    shortDescription: 'A VR environment where users learn and play music through physical gesture and spatial interaction, with five interconnected systems built in Unity over one academic year.',
+    tags: ['Unity', 'C#', 'FMOD Studio', 'XR Interaction Toolkit', 'DryWetMidi', 'Blender', 'MuseScore'],
+    thumbnail: '/assets/MusicMatrix/VR-Instruments-Image.png',
+    heroImage: '/assets/MusicMatrix/VR-Instruments-Image.png',
+    screenshots: [
+      '/assets/MusicMatrix/Screenshot 2026-05-25 175635.png',
+      '/assets/MusicMatrix/Screenshot 2026-05-25 175915.png',
+    ],
+    videoDemo: 'https://youtu.be/ZPO_bD2JAQ4',
+    status: 'Completed',
     duration: 'Year-Long Capstone',
-    team: '4-person interdisciplinary team',
-    projectSnapshot: [
-      { label: 'Project Type', value: 'Research-led capstone + interactive VR instrument' },
-      { label: 'Primary Goal', value: 'Create a music experience that is not possible in the physical world' },
-      { label: 'Core Stack', value: 'Unity, FMOD, Blender, XR Interaction Toolkit' },
-      { label: 'Current Stage', value: 'Actively prototyping and validating interaction/audio mappings' },
+    team: '4-person team',
+
+    // Case study content
+    problem: 'Music education has barely changed. Sheet music, tabs, YouTube videos: all of them assume learning looks like reading and watching. But music is a physical skill. Your hands need to know where to go, your ear needs to connect sound to motion, and muscle memory has to form through repetition in real time. None of those formats are spatial or embodied. MusicMatrix explores what learning an instrument could feel like when the environment itself is the teacher.',
+
+    contributionDetail: 'Led the majority of technical work across every system in the project. FMOD integration and audio architecture, Unity development and C# scripting, Blender modeling for all in-world UI elements, MuseScore lesson creation, sample acquisition and song sourcing, DryWetMidi implementation, and overall project management. This was a genuine team collaboration, and that matters. My individual contribution spanned every layer of the stack from the ground up.',
+
+    systems: [
+      {
+        name: 'The Instrument',
+        description: 'Two Circle of Fifths diagrams, one mapped to each hand. Users physically reach for and press nodes to play corresponding notes. Wrist rotation on the controller triggers pitch bend. The trigger button allows multi-note selection for chords. The joystick switches between octaves.',
+        why: 'Builds muscle memory of both the instrument and music theory simultaneously. You\'re not following finger charts; you\'re learning harmonic relationships through spatial movement. The interface makes the abstract physical.',
+      },
+      {
+        name: 'The Audio Engine',
+        description: 'Built entirely in FMOD Studio with individual WAV files for every note across 15+ instrument sample packs: keys, strings, synths, pads, brass. Each instrument is a separate FMOD event with automated parameters and effects chains.',
+        why: 'Architected so any new instrument can be added indefinitely without restructuring. Scalability was a first-class design concern; the system doesn\'t break when you push more into it.',
+      },
+      {
+        name: 'The Lesson System',
+        description: 'Custom lessons built from scratch using MIDI files and MuseScore Studio. A Blender-modeled sheet music display uses DryWetMidi to parse MIDI data and position note objects in world space. Notes change color in real time: green for correct, red for missed. A visible playhead moves through the score. A scorecard tracks performance at the end of each lesson.',
+        why: 'Makes abstract notation physical. You see the note approaching, reach for it, and get immediate visual feedback. That loop (anticipation, action, response) is how muscle memory actually forms, and no static format can replicate it.',
+      },
+      {
+        name: 'Cascading Notes',
+        description: 'A Guitar Hero-style mode using the same Circle of Fifths interface. Users select from a library of popular songs sourced from free MIDI files and choose which instrument channel to play: guitar, piano, drums, or any other channel present in the MIDI. Full scoring system with positive feedback on correct hits.',
+        why: 'Applies the same interaction model to a familiar, reward-driven format. Extends session time and keeps users returning; learning doesn\'t have to feel like drilling.',
+      },
+      {
+        name: 'The DAW',
+        description: 'A fully functional in-world digital audio workstation. Approximately 20 Blender-modeled effect dials, each controlling a distinct FMOD audio parameter. Multiple presets remap all dials simultaneously. A dedicated recording mode captures whatever the user plays and writes it to a WAV file that can be played back in the scene or exported to external software. A live waveform display visualizes the active audio signal.',
+        why: 'Closes the loop between performance and production. What you play doesn\'t disappear; it becomes a real file you can take into Ableton. The waveform display makes the invisible visible in real time.',
+      },
     ],
-    keyContributions: [
-      'Defined project direction from a novelty concept into a research-driven question about VR in music',
-      'Led team coordination and cross-discipline decision making across code, audio, and 3D design',
-      'Designed FMOD event architecture for responsive gesture-to-audio mapping',
-      'Implemented and iterated audio reactivity patterns tied to user movement and interaction context',
-      'Contributed to Unity-side interaction tuning for expressive and readable user feedback loops',
-    ],
-    researchFocus: [
-      'Which forms of musical control feel native in 3D space compared with flat-screen or physical instruments?',
-      'How does spatialized audio feedback affect perceived control, immersion, and creative flow?',
-      'What gesture complexity remains expressive without introducing fatigue or confusion for first-time users?',
-      'How can visuals and audio co-respond fast enough to feel instrument-like rather than game-like?',
-    ],
-    buildTracks: [
-      'Gesture interaction prototypes and control vocabulary definition',
-      'FMOD system design for event, parameter, and mix behavior',
-      'Blender-to-Unity environment and asset integration',
-      'User testing passes focused on comfort, onboarding, and expressiveness',
-    ],
-    overview: 'This capstone started as a challenge to design a VR musical instrument and evolved into a broader research question: what capabilities does VR offer for music creation that the real world cannot? The project combines gesture-based performance, real-time reactive audio, and immersive visual feedback to investigate new forms of musical interaction.',
-    role: 'I serve as Group Lead and Audio Director. I shape project scope, guide team alignment, and own core audio system strategy and implementation in FMOD while collaborating on Unity integration and interaction tuning.',
-    outcome: 'The project is still in active development. Current progress has established a viable prototype direction, a reusable audio interaction architecture, and a clear research framework for evaluating VR-native musical affordances through ongoing iteration and user testing.',
+
+    theHardPart: 'Procedural sheet music generation inside a 3D environment. No library exists for this. DryWetMidi handled MIDI parsing, but converting timing and pitch data into accurately positioned 3D note objects (with correct durations, a synced moving playhead, and real-time color feedback) required building the entire system from scratch. The core challenge was translation: musical time signatures, tempo values, and beat subdivisions don\'t map cleanly to Unity\'s world-space coordinate system. Every variable had to be calibrated by hand against actual musical timing standards until the system played, looked, and felt correct. No tutorial existed for this. It required reasoning from first principles about how musical time and 3D space relate.',
+
+    outcome: 'Demonstrated at ASU capstone review with all five systems fully operational. The instrument responds to gesture, lessons run with real-time accuracy feedback, Cascading Notes plays against real MIDI song data, and the DAW records and exports WAV files that open correctly in external software like Ableton. A working proof of concept for spatial music education with real, exportable output.',
+
+    reflection: 'Build the DAW and instrument as more modular systems from the start. Features were developed sequentially over the year, and some late-stage integration was harder than it needed to be because of early architectural decisions. Specifically, the way FMOD events were structured created friction when adding the recording layer on top of them. If I were starting over, I\'d define the full audio architecture as a complete spec before writing any Unity code, and treat every system as if it would eventually need to plug into every other system. Design for integration before you need it.',
+
+    // Legacy fields kept for fallback
+    overview: 'A VR environment where users learn and play music through physical gesture and spatial interaction. Built in Unity over one academic year as an ASU capstone project with a four-person team.',
+    role: 'Group Lead and Audio Director. Owned FMOD architecture, Unity/C# development, Blender modeling, lesson creation, and project management.',
     featured: true,
   },
   // 2. AI Chatbot
@@ -122,9 +154,9 @@ export const projects: Project[] = [
       'Integration layer bridging text commands to vision operations',
       'Classifier for intent detection and routing',
     ],
-    overview: 'This project explores what happens when you merge conversational AI with real-time image manipulation. Rather than treating text and vision as separate domains, I designed a system where the chatbot\'s mood and conversation context directly influence how it transforms images. A user can ask the bot questions, load an image, and then apply a filter that reflects the emotional tone of the ongoing chat. The core innovation is the mood-based colormap system—instead of generic filters, the bot applies OpenCV colormaps (Spring for "happy," Ocean for "sad," Jet for "hype") so every transformation feels contextually grounded in conversation.',
+    overview: 'This project explores what happens when you merge conversational AI with real-time image manipulation. Rather than treating text and vision as separate domains, I designed a system where the chatbot\'s mood and conversation context directly influence how it transforms images. A user can ask the bot questions, load an image, and then apply a filter that reflects the emotional tone of the ongoing chat. The core innovation is the mood-based colormap system: instead of generic filters, the bot applies OpenCV colormaps (Spring for "happy," Ocean for "sad," Jet for "hype") so every transformation feels contextually grounded in conversation.',
     role: 'Solo developer. I owned the full architecture: conversation logic, image I/O, filter design, and integration. I chose NLTK pattern matching + reflection as the conversational foundation because it allowed me to focus engineering effort on the vision side while still maintaining fluid dialogue. For images, I designed the mood-mapping system to make visual feedback feel less like a utility and more like a collaborative creative act.',
-    outcome: 'The chatbot successfully processes both modalities in real time and feels cohesive—loading an image or applying a filter doesn\'t break the conversation; it extends it. The mood-based colormap system is the standout: it\'s a simple idea (map emotion names to color palettes), but it makes multimodal interaction feel intentional rather than bolted-on. Technically, all assignment requirements were met: custom image loading, preset library, multiple filter types, and a creative visual component. The larger takeaway: multimodal AI doesn\'t require massive models or complexity—it requires thoughtful integration of what each modality can express.',
+    outcome: 'The chatbot successfully processes both modalities in real time and feels cohesive; loading an image or applying a filter doesn\'t break the conversation; it extends it. The mood-based colormap system is the standout: it\'s a simple idea (map emotion names to color palettes), but it makes multimodal interaction feel intentional rather than bolted-on. Technically, all assignment requirements were met: custom image loading, preset library, multiple filter types, and a creative visual component. The larger takeaway: multimodal AI doesn\'t require massive models or complexity; it requires thoughtful integration of what each modality can express.',
     featured: true,
   },
   // 3. Spotify
@@ -137,32 +169,32 @@ export const projects: Project[] = [
     thumbnailFit: 'contain',
     screenshots: [],
     zineImages: [
-      '/assets/Spotify-Zine/Front Cover.png',
-      '/assets/Spotify-Zine/Table Of Contents.png',
-      '/assets/Spotify-Zine/Algorithmic System Description.png',
-      '/assets/Spotify-Zine/User Interface.png',
-      '/assets/Spotify-Zine/User Experience pt 1.png',
-      '/assets/Spotify-Zine/User Experience pt 1 (2).png',
-      '/assets/Spotify-Zine/Infrastructure pt 1.png',
-      '/assets/Spotify-Zine/Infrastructure pt 2.png',
-      '/assets/Spotify-Zine/Transparency pt 1.png',
-      '/assets/Spotify-Zine/Transparency pt 2.png',
-      '/assets/Spotify-Zine/Transparency pt 2 (2).png',
-      '/assets/Spotify-Zine/Transparency pt 2 (3).png',
-      '/assets/Spotify-Zine/Ethical Concerns pt 1.png',
-      '/assets/Spotify-Zine/Ethical Concerns pt 1 (2).png',
-      '/assets/Spotify-Zine/Ethical Concerns pt 1 (3).png',
-      '/assets/Spotify-Zine/Ethical Concerns pt 1 (4).png',
-      '/assets/Spotify-Zine/Ethical Concerns pt 1 (5).png',
-      '/assets/Spotify-Zine/Ethical Concerns pt 1 (6).png',
-      '/assets/Spotify-Zine/Annotated Diagram pt 1.png',
-      '/assets/Spotify-Zine/Annotated Diagram pt 2.png',
-      '/assets/Spotify-Zine/Data Pt 1.png',
-      '/assets/Spotify-Zine/Data Pt 1 (2).png',
-      '/assets/Spotify-Zine/Sources.png',
-      '/assets/Spotify-Zine/Sources (2).png',
-      '/assets/Spotify-Zine/Sources (3).png',
-      '/assets/Spotify-Zine/Back Cover.png',
+      '/assets/SpotifyAlgorithmZine/(1)Front Cover.png',
+      '/assets/SpotifyAlgorithmZine/(2)Table Of Contents.png',
+      '/assets/SpotifyAlgorithmZine/(3)Algorithmic System Description.png',
+      '/assets/SpotifyAlgorithmZine/(4)Annotated Diagram pt 1.png',
+      '/assets/SpotifyAlgorithmZine/(5)Annotated Diagram pt 2.png',
+      '/assets/SpotifyAlgorithmZine/(6)Data Pt 1.png',
+      '/assets/SpotifyAlgorithmZine/(7)Data Pt 1 (2).png',
+      '/assets/SpotifyAlgorithmZine/(8)Infrastructure pt 1.png',
+      '/assets/SpotifyAlgorithmZine/(9)Infrastructure pt 2.png',
+      '/assets/SpotifyAlgorithmZine/(10)User Interface.png',
+      '/assets/SpotifyAlgorithmZine/(11)User Experience pt 1.png',
+      '/assets/SpotifyAlgorithmZine/(12)User Experience pt 1 (2).png',
+      '/assets/SpotifyAlgorithmZine/(13)Ethical Concerns pt 1.png',
+      '/assets/SpotifyAlgorithmZine/(14)Ethical Concerns pt 1 (2).png',
+      '/assets/SpotifyAlgorithmZine/(15)Ethical Concerns pt 1 (3).png',
+      '/assets/SpotifyAlgorithmZine/(16)Ethical Concerns pt 1 (4).png',
+      '/assets/SpotifyAlgorithmZine/(17)Ethical Concerns pt 1 (5).png',
+      '/assets/SpotifyAlgorithmZine/(18)Ethical Concerns pt 1 (6).png',
+      '/assets/SpotifyAlgorithmZine/(19)Transparency pt 1.png',
+      '/assets/SpotifyAlgorithmZine/(20)Transparency pt 2.png',
+      '/assets/SpotifyAlgorithmZine/(21)Transparency pt 2 (2).png',
+      '/assets/SpotifyAlgorithmZine/(22)Transparency pt 2 (3).png',
+      '/assets/SpotifyAlgorithmZine/(23)Sources.png',
+      '/assets/SpotifyAlgorithmZine/(24)Sources (2).png',
+      '/assets/SpotifyAlgorithmZine/(25)Sources (3).png',
+      '/assets/SpotifyAlgorithmZine/(26)Back Cover.png',
     ],
     zineTitle: 'Spotify Recommendation Algorithm',
     overview: 'This project investigates Spotify\'s recommendation ecosystem through a visual research format that combines technical analysis with editorial storytelling. The goal was to unpack how recommendation signals, listening history, and platform design patterns influence what users discover and how their habits evolve over time.',

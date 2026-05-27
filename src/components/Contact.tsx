@@ -37,7 +37,7 @@ const Contact: React.FC = () => {
   }
 
   return (
-    <section id="contact" className="bg-bg">
+    <section id="contact" className="bg-canvas">
       <div className="section-container">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
 
@@ -50,10 +50,10 @@ const Contact: React.FC = () => {
           >
             <span className="section-label">Contact</span>
             <div className="divider" />
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-text-primary leading-tight mb-6">
+            <h2 className="font-display text-5xl md:text-6xl font-bold text-text-primary leading-tight mb-6">
               Let&apos;s work<br />together.
             </h2>
-            <p className="font-body text-lg text-text-secondary leading-relaxed mb-10">
+            <p className="font-body text-xl text-text-secondary leading-relaxed mb-10">
               Open to freelance projects, internships, and full-time roles. If you have
               something worth building, I want to hear about it.
             </p>
@@ -170,7 +170,7 @@ const Contact: React.FC = () => {
                 {status === "error" && (
                   <div className="flex items-center gap-2 font-mono text-sm text-red-600">
                     <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                    Something went wrong — try emailing me directly.
+                    Something went wrong. Try emailing me directly.
                   </div>
                 )}
 

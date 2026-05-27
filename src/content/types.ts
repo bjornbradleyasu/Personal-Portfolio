@@ -6,6 +6,8 @@ export interface Experience {
   endDate: string
   achievements: string[]
   technologies: string[]
+  hoverBullets?: string[]
+  learned?: string
 }
 
 export interface Education {

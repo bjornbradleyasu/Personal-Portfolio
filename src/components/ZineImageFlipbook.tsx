@@ -1,6 +1,6 @@
-import React, { forwardRef, useMemo, useRef, useState } from "react"
+import React, { forwardRef, useEffect, useRef, useState } from "react"
 import HTMLFlipBook from "react-pageflip"
-import { ChevronLeft, ChevronRight, BookOpen } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface ZineImageFlipbookProps {
   pages: string[]
@@ -10,147 +10,262 @@ interface ZineImageFlipbookProps {
 interface FlipPageProps {
   src: string
   pageNumber: number
-  title: string
+  total: number
 }
 
-const FlipPage = forwardRef<HTMLDivElement, FlipPageProps>(({ src, pageNumber, title }, ref) => {
-  return (
-    <div ref={ref} className="bg-white">
-      <div className="relative w-full h-full bg-white overflow-hidden">
-        <img
-          src={src}
-          alt={`${title} page ${pageNumber}`}
-          className="w-full h-full object-contain select-none"
-          draggable={false}
-          loading="lazy"
-        />
-        <div className="absolute bottom-3 left-0 right-0 text-center pointer-events-none">
-          <span className="font-mono text-[10px] text-text-secondary/70">{pageNumber}</span>
-        </div>
+// ─── Single page ──────────────────────────────────────────────────────────────
+
+const FlipPage = forwardRef<HTMLDivElement, FlipPageProps>(
+  ({ src, pageNumber, total }, ref) => (
+    <div ref={ref} className="relative select-none overflow-hidden" style={{ background: "#faf8f5" }}>
+      <img
+        src={src}
+        alt={`Page ${pageNumber}`}
+        className="w-full h-full object-contain block"
+        draggable={false}
+        loading="eager"
+      />
+      {/* Page number footer */}
+      <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-2 pointer-events-none">
+        <span
+          className="font-mono"
+          style={{ fontSize: "9px", letterSpacing: "0.14em", color: "rgba(74,52,34,0.35)" }}
+        >
+          {pageNumber} / {total}
+        </span>
       </div>
     </div>
   )
-})
-
+)
 FlipPage.displayName = "FlipPage"
 
-const ZineImageFlipbook: React.FC<ZineImageFlipbookProps> = ({ pages, title }) => {
-  const bookRef = useRef<{ pageFlip: () => { flipPrev: (corner: string) => void; flipNext: (corner: string) => void } } | null>(null)
-  const [pageIndex, setPageIndex] = useState(0)
+// ─── Flipbook wrapper ──────────────────────────────────────────────────────────
+
+interface PageFlipInstance {
+  flipPrev: (corner?: string) => void
+  flipNext: (corner?: string) => void
+  getCurrentPageIndex: () => number
+}
+interface FlipBookHandle {
+  pageFlip: () => PageFlipInstance
+}
+
+const ZineImageFlipbook: React.FC<ZineImageFlipbookProps> = ({ pages }) => {
+  const bookRef = useRef<FlipBookHandle | null>(null)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [isReady, setIsReady] = useState(false)
   const pageCount = pages.length
 
-  const zineTitle = title ?? "Research Zine"
+  // Keyboard navigation
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") flipNext()
+      if (e.key === "ArrowLeft"  || e.key === "ArrowUp")   flipPrev()
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const displayedRange = useMemo(() => {
-    if (!pageCount) return ""
-    const left = pageIndex + 1
-    const isCoverLike = pageIndex === 0 || pageIndex === pageCount - 1
-    if (isCoverLike) return `${left}`
-    const right = Math.min(pageIndex + 2, pageCount)
-    return `${left}-${right}`
-  }, [pageIndex, pageCount])
+  // Preload every page image so there's no blank-frame lag during flips
+  useEffect(() => {
+    pages.forEach(src => {
+      const img = new window.Image()
+      img.src = src
+    })
+  }, [pages])
+
+  // Fade in after mount so the initial paint doesn't flash
+  useEffect(() => {
+    const t = setTimeout(() => setIsReady(true), 80)
+    return () => clearTimeout(t)
+  }, [])
 
   if (!pageCount) return null
 
-  const canGoPrev = pageIndex > 0
-  const canGoNext = pageIndex < pageCount - 1
+  const flipPrev = () => bookRef.current?.pageFlip()?.flipPrev("top")
+  const flipNext = () => bookRef.current?.pageFlip()?.flipNext("top")
 
-  const goPrev = () => {
-    bookRef.current?.pageFlip()?.flipPrev("top")
-  }
+  const canGoPrev = currentPage > 0
+  const canGoNext = currentPage < pageCount - 1
 
-  const goNext = () => {
-    bookRef.current?.pageFlip()?.flipNext("top")
-  }
+  // Progress bar width
+  const progress = pageCount > 1 ? (currentPage / (pageCount - 1)) * 100 : 100
 
   return (
-    <section className="py-4 md:py-6">
-      <div className="mb-4 text-center">
-        <p className="font-mono text-xs tracking-widest uppercase text-accent mb-1">
-          Zine Reader
-        </p>
-        <p className="font-display text-xl md:text-2xl font-bold text-text-primary inline-flex items-center gap-2">
-          <BookOpen className="w-5 h-5" />
-          {zineTitle}
-        </p>
-        <p className="font-mono text-xs text-text-secondary mt-2">
-          Pages {displayedRange}
-        </p>
-      </div>
+    <div className="w-full">
+      {/* Clip StPageFlip's outer containers so pages don't bleed outside the book.
+          NOTE: do NOT add overflow:hidden to .stf__item — the library renders the
+          fold animation as elements that extend beyond the item bounds; clipping
+          those would hide the "next page peeks through" reveal during the flip. */}
+      <style>{`
+        .stf__parent { overflow: hidden !important; }
+        .stf__block  { overflow: hidden !important; }
+      `}</style>
+      {/* ── Reading desk surface ── */}
+      <div
+        className="relative rounded-2xl overflow-hidden"
+        style={{
+          background: "linear-gradient(160deg, #2a1f14 0%, #1a120b 60%, #120d07 100%)",
+          boxShadow: "0 32px 80px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.3)",
+        }}
+      >
+        {/* Ambient light at top */}
+        <div
+          className="absolute inset-x-0 top-0 h-40 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(196,120,64,0.14) 0%, transparent 70%)",
+          }}
+          aria-hidden="true"
+        />
 
-      <div className="relative mx-auto max-w-6xl px-3 md:px-12">
-        <button
-          type="button"
-          onClick={goPrev}
-          disabled={!canGoPrev}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full border border-surface-alt bg-bg/90 backdrop-blur-sm text-text-primary flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:border-accent hover:text-accent transition-colors"
-          aria-label="Previous page"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
+        {/* Inner content */}
+        <div className="relative px-4 sm:px-8 lg:px-12 pt-8 pb-8">
 
-        <button
-          type="button"
-          onClick={goNext}
-          disabled={!canGoNext}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full border border-surface-alt bg-bg/90 backdrop-blur-sm text-text-primary flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed hover:border-accent hover:text-accent transition-colors"
-          aria-label="Next page"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
+          {/* Header */}
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <p
+                className="font-mono text-[9px] tracking-[0.22em] uppercase mb-1"
+                style={{ color: "rgba(196,120,64,0.7)" }}
+              >
+                Zine Reader
+              </p>
+              <p
+                className="font-display text-lg font-bold leading-tight"
+                style={{ color: "rgba(255,255,255,0.82)" }}
+              >
+                Spotify Recommendation Algorithm
+              </p>
+            </div>
+            <p
+              className="font-mono text-[10px] tabular-nums"
+              style={{ color: "rgba(255,255,255,0.3)" }}
+            >
+              {currentPage + 1}&thinsp;/&thinsp;{pageCount}
+            </p>
+          </div>
 
-        <div className="relative" style={{ perspective: "1600px" }}>
-          {/* Soft table shadow to make it feel like it is lying on the page */}
-          <div className="absolute -inset-x-6 md:-inset-x-12 -bottom-3 h-12 bg-gradient-to-r from-transparent via-text-primary/10 to-transparent blur-xl" />
+          {/* Book + nav buttons */}
+          <div className="relative flex items-center justify-center gap-3 sm:gap-5">
 
-          <div className="relative z-10 mx-auto max-w-5xl">
-            <HTMLFlipBook
-              ref={bookRef}
-              width={520}
-              height={700}
-              style={{}}
-              startZIndex={0}
-              autoSize
-              useMouseEvents
-              swipeDistance={30}
-              showPageCorners
-              disableFlipByClick={false}
-              minWidth={320}
-              maxWidth={1040}
-              minHeight={420}
-              maxHeight={1320}
-              size="stretch"
-              maxShadowOpacity={0.32}
-              showCover
-              drawShadow
-              usePortrait
-              mobileScrollSupport
-              flippingTime={720}
-              clickEventForward
-              startPage={0}
-              className="mx-auto"
-              onFlip={(e: unknown) => {
-                const eventWithData = e as { data?: unknown }
-                setPageIndex(typeof eventWithData?.data === "number" ? eventWithData.data : 0)
+            {/* Prev button */}
+            <button
+              type="button"
+              onClick={flipPrev}
+              disabled={!canGoPrev}
+              className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-150"
+              style={{
+                background: canGoPrev ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: canGoPrev ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.2)",
+                cursor: canGoPrev ? "pointer" : "not-allowed",
+              }}
+              aria-label="Previous page"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            {/* Book */}
+            <div
+              className="flex-1 min-w-0 transition-opacity duration-300"
+              style={{
+                opacity: isReady ? 1 : 0,
+                // No CSS filter here — drop-shadow on an animated subtree
+                // forces full recomposite every frame and tanks FPS.
+                // The outer container box-shadow provides the depth.
+                willChange: "transform",
               }}
             >
-              {pages.map((src, i) => (
-                <FlipPage
-                  key={`${src}-${i}`}
-                  src={src}
-                  pageNumber={i + 1}
-                  title={zineTitle}
-                />
-              ))}
-            </HTMLFlipBook>
+              <div className="relative overflow-hidden" style={{ isolation: "isolate" }}>
+                <HTMLFlipBook
+                  ref={bookRef as React.Ref<unknown>}
+                  width={300}
+                  height={400}
+                  minWidth={160}
+                  maxWidth={440}
+                  minHeight={213}
+                  maxHeight={587}
+                  size="stretch"
+                  autoSize
+                  startPage={0}
+                  startZIndex={10}
+                  useMouseEvents
+                  swipeDistance={15}
+                  showPageCorners
+                  disableFlipByClick={false}
+                  flippingTime={380}
+                  maxShadowOpacity={0.45}
+                  showCover
+                  drawShadow
+                  usePortrait={false}
+                  mobileScrollSupport
+                  clickEventForward
+                  style={{}}
+                  className="mx-auto"
+                  onFlip={(e: unknown) => {
+                    const ev = e as { data?: unknown }
+                    setCurrentPage(typeof ev?.data === "number" ? ev.data : 0)
+                  }}
+                  onInit={() => setIsReady(true)}
+                >
+                  {pages.map((src, i) => (
+                    <FlipPage
+                      key={src}
+                      src={src}
+                      pageNumber={i + 1}
+                      total={pageCount}
+                    />
+                  ))}
+                </HTMLFlipBook>
+              </div>
+            </div>
+
+            {/* Next button */}
+            <button
+              type="button"
+              onClick={flipNext}
+              disabled={!canGoNext}
+              className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-150"
+              style={{
+                background: canGoNext ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: canGoNext ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.2)",
+                cursor: canGoNext ? "pointer" : "not-allowed",
+              }}
+              aria-label="Next page"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
+
+          {/* Progress bar */}
+          <div className="mt-6 mx-auto max-w-sm">
+            <div
+              className="h-px w-full rounded-full overflow-hidden"
+              style={{ background: "rgba(255,255,255,0.1)" }}
+            >
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${progress}%`,
+                  background: "rgba(196,120,64,0.7)",
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Hint */}
+          <p
+            className="font-mono text-center mt-3"
+            style={{ fontSize: "9px", letterSpacing: "0.16em", color: "rgba(255,255,255,0.2)" }}
+          >
+            CLICK PAGES · DRAG CORNER · ← → KEYS
+          </p>
+
         </div>
       </div>
-
-      <p className="font-mono text-[11px] text-text-secondary/80 text-center mt-4">
-        Use arrows to turn one page at a time
-      </p>
-    </section>
+    </div>
   )
 }
 

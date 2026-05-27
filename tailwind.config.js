@@ -7,18 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg:           '#FAF7F2',
-        surface:      '#F0EBE1',
-        'surface-alt':'#E8E0D0',
-        'text-primary':   '#1A1410',
-        'text-secondary': '#6B5E52',
-        accent:       '#D46B2F',
-        'accent-light':'#F0A86B',
+        bg:           '#EAE2D5',
+        surface:      '#EDE5D6',
+        'surface-alt':'#BBA98E',
+        canvas:       '#DDD0BB',
+        'text-primary':   '#1E1511',
+        'text-secondary': '#4A3422',
+        accent:       '#8B3A10',
+        'accent-light':'#A84E1E',
       },
       fontFamily: {
-        display: ['Syne', 'sans-serif'],
-        body:    ['DM Sans', 'sans-serif'],
-        mono:    ['DM Mono', 'monospace'],
+        display: ['Fraunces', 'serif'],
+        body:    ['"Plus Jakarta Sans"', 'sans-serif'],
+        mono:    ['"DM Mono"', 'monospace'],
       },
       container: {
         center: true,

@@ -6,7 +6,7 @@ const About: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section id="about" className="bg-surface">
+    <section id="about" className="bg-bg">
       <div className="section-container !pb-10">
         <div className="grid lg:grid-cols-[1fr_auto] gap-16 items-start">
 
@@ -21,12 +21,12 @@ const About: React.FC = () => {
             <div>
               <span className="section-label">About Me</span>
               <div className="divider" />
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-text-primary leading-tight">
+              <h2 className="font-display text-5xl md:text-6xl font-bold text-text-primary leading-tight">
                 Designer. Developer.<br />ASU Senior.
               </h2>
             </div>
 
-            <div className="space-y-4 font-body text-text-secondary leading-relaxed text-lg">
+            <div className="space-y-4 font-body text-text-secondary leading-relaxed text-xl">
               <p>
                 I'm a Media Arts &amp; Sciences senior at ASU with a background in Computer Science,
                 making the switch when I realized I cared more about what technology feels like
@@ -34,7 +34,7 @@ const About: React.FC = () => {
               </p>
               <p>
                 Six years in IT gave me a deep respect for systems that actually hold up under
-                pressure. That same sensibility carries into everything I build{" \u2014 "}clean, durable,
+                pressure. That same sensibility carries into everything I build: clean, durable,
                 and worth the attention it asks for.
               </p>
               <p>
@@ -51,7 +51,7 @@ const About: React.FC = () => {
               ].map(tag => (
                 <span
                   key={tag}
-                  className="font-mono text-xs px-3 py-1.5 rounded-full border border-surface-alt text-text-secondary bg-bg"
+                  className="font-mono text-xs px-3 py-1.5 rounded-full border border-surface-alt text-text-secondary bg-surface"
                 >
                   {tag}
                 </span>
@@ -65,12 +65,12 @@ const About: React.FC = () => {
               </p>
               <div className="flex flex-col gap-2">
                 {[
-                  { credential: "B.S. Media Arts & Sciences", institution: "Arizona State University", period: "2022 — Present" },
+                  { credential: "B.S. Media Arts & Sciences", institution: "Arizona State University", period: "2022 to Present" },
                   { credential: "Certificate · AI & Digital Media", institution: "Arizona State University", period: "2024" },
                 ].map((item) => (
                   <div
                     key={item.credential}
-                    className="flex items-center gap-3 rounded-xl border border-surface-alt bg-bg px-4 py-3"
+                    className="flex items-center gap-3 rounded-xl border border-surface-alt bg-surface px-4 py-3"
                   >
                     <GraduationCap className="w-4 h-4 text-accent shrink-0" />
                     <div className="min-w-0 flex-1">
@@ -98,7 +98,7 @@ const About: React.FC = () => {
                 className="absolute -bottom-3 -right-3 w-full h-full rounded-2xl border-2 border-accent/30"
                 aria-hidden="true"
               />
-              <div className="relative w-[311px] h-[390px] rounded-2xl overflow-hidden bg-surface-alt">
+              <div className="relative w-[360px] h-[450px] rounded-2xl overflow-hidden bg-surface-alt">
                 <img
                   src="/images/profile.jpg"
                   alt="Bjorn Bradley"

@@ -7,7 +7,7 @@ const educationItems = [
     id: "edu-asu-mas",
     institution: "Arizona State University",
     degree: "B.S. Media Arts & Sciences",
-    period: "2022 — Present",
+    period: "2022 toPresent",
     note: "Senior",
     highlights: [
       "Interactive media, UX design, and creative technology",
@@ -19,7 +19,7 @@ const educationItems = [
     id: "edu-asu-cs",
     institution: "Arizona State University",
     degree: "Computer Science",
-    period: "2021 — 2022",
+    period: "2021 to2022",
     note: "Transferred",
     highlights: [
       "Core programming fundamentals and data structures",

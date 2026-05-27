@@ -75,7 +75,7 @@ const Hero: React.FC = () => {
             {...(shouldReduceMotion ? {} : { variants: itemVariants })}
             className="section-label"
           >
-            Portfolio — Media &amp; Technology
+            Portfolio: Media &amp; Technology
           </motion.span>
 
           <motion.h1

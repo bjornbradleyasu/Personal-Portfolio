@@ -3,20 +3,11 @@ import { motion, useReducedMotion } from "framer-motion"
 import ProjectCard from "./ProjectCard"
 import { projects } from "../data/projects"
 
-const fiveCardLayout = [
-  "md:col-span-2 lg:col-span-8",
-  "md:col-span-1 lg:col-span-4",
-  "md:col-span-1 lg:col-span-4",
-  "md:col-span-1 lg:col-span-4",
-  "md:col-span-1 lg:col-span-4",
-]
-
 const Projects: React.FC = () => {
   const shouldReduceMotion = useReducedMotion()
-  const isFiveCardSet = projects.length === 5
 
   return (
-    <section id="projects" className="bg-bg">
+    <section id="projects" className="bg-bg overflow-visible">
       <div className="section-container">
         {/* Header */}
         <motion.div
@@ -28,25 +19,38 @@ const Projects: React.FC = () => {
         >
           <span className="section-label">Selected Work</span>
           <div className="divider" />
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-text-primary">
+          <h2 className="font-display text-5xl md:text-6xl font-bold text-text-primary">
             Projects
           </h2>
         </motion.div>
 
-        {/* Grid optimized for a 5-project set: strong lead card + balanced supporting row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8">
+        {/* Single-column card stack */}
+        <div className="flex flex-col gap-6 lg:gap-8">
           {projects.map((project, i) => (
-            <ProjectCard
-              key={project.slug}
-              project={project}
-              index={i}
-              isHero={isFiveCardSet && i === 0}
-              className={
-                isFiveCardSet
-                  ? fiveCardLayout[i] ?? "md:col-span-1 lg:col-span-4"
-                  : "md:col-span-1 lg:col-span-6 xl:col-span-4"
-              }
-            />
+            <div key={project.slug} className="relative">
+              {/* Faint index number in left margin — desktop only */}
+              <span
+                className="pointer-events-none select-none hidden xl:block absolute font-display font-bold text-text-primary"
+                style={{
+                  fontSize: "7rem",
+                  lineHeight: 1,
+                  opacity: 0.045,
+                  right: "calc(100% + 1.25rem)",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  letterSpacing: "-0.02em",
+                }}
+                aria-hidden="true"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+
+              <ProjectCard
+                project={project}
+                index={i}
+                imageRight={i % 2 !== 0}
+              />
+            </div>
           ))}
         </div>
       </div>

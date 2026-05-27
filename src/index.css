@@ -6,13 +6,14 @@
    DESIGN TOKENS
    ============================================================ */
 :root {
-  --color-bg:            #FAF7F2;
-  --color-surface:       #F0EBE1;
-  --color-surface-alt:   #E8E0D0;
-  --color-text-primary:  #1A1410;
-  --color-text-secondary:#6B5E52;
-  --color-accent:        #D46B2F;
-  --color-accent-light:  #F0A86B;
+  --color-bg:            #EAE2D5;
+  --color-surface:       #EDE5D6;
+  --color-surface-alt:   #BBA98E;
+  --color-canvas:        #DDD0BB;
+  --color-text-primary:  #1E1511;
+  --color-text-secondary:#4A3422;
+  --color-accent:        #8B3A10;
+  --color-accent-light:  #A84E1E;
   --color-white:         #FFFFFF;
 }
 
@@ -29,10 +30,11 @@
   body {
     background-color: var(--color-bg);
     color: var(--color-text-primary);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    letter-spacing: 0.01em;
   }
 
   /* Grain texture overlay */
@@ -48,8 +50,9 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Fraunces', serif;
     color: var(--color-text-primary);
+    letter-spacing: -0.01em;
   }
 
   a {
@@ -92,7 +95,7 @@
     padding: 0.75rem 1.75rem;
     background-color: var(--color-accent);
     color: var(--color-white);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 500;
     font-size: 0.9375rem;
     border-radius: 9999px;
@@ -111,7 +114,7 @@
     padding: 0.75rem 1.75rem;
     background-color: transparent;
     color: var(--color-text-secondary);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 500;
     font-size: 0.9375rem;
     border-radius: 9999px;
@@ -181,7 +184,7 @@
 
   /* ---- Nav link ---- */
   .nav-link {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-secondary);
