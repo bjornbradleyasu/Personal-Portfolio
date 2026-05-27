@@ -44,7 +44,7 @@ const About: React.FC = () => {
             <div className="flex flex-wrap gap-3 pt-2">
               {[
                 "Based in Phoenix, AZ",
-                "Graduating Spring 2026",
+                "ASU Alumni",
                 "Open to opportunities",
               ].map(tag => (
                 <span
@@ -63,8 +63,8 @@ const About: React.FC = () => {
               </p>
               <div className="flex flex-col gap-2">
                 {[
-                  { credential: "B.S. Media Arts & Sciences", institution: "Arizona State University", period: "2022 to Present" },
-                  { credential: "Certificate · AI & Digital Media", institution: "Arizona State University", period: "2024" },
+                  { credential: "B.S. Media Arts and Sciences (Media Processing)", institution: "Arizona State University", period: "2022–2026" },
+                  { credential: "Certificate · Artificial Intelligence & Digital Media", institution: "Arizona State University", period: "2024" },
                 ].map((item) => (
                   <div
                     key={item.credential}

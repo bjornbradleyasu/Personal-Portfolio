@@ -5,9 +5,9 @@ export const education: Education[] = [
     id: 'edu-1',
     institution: 'Arizona State University',
     degree: 'Bachelor of Science',
-    field: 'Media Arts & Sciences (Media Processing)',
+    field: 'Media Arts and Sciences (Media Processing)',
     startDate: '08/2022',
-    endDate: '05/2026 (expected)',
+    endDate: '05/2026',
     gpa: '3.7',
     relevantCourses: [
       'Data Structures & Algorithms',
@@ -23,7 +23,7 @@ export const education: Education[] = [
 export const certificates: Certificate[] = [
   {
     id: 'cert-1',
-    name: 'Artifical Intelligence & Digital Media',
+    name: 'Artificial Intelligence & Digital Media',
     issuingOrg: 'Arizona State University',
     status: 'in-progress',
     year: '2025',
