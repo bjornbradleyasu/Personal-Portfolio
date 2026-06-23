@@ -1,37 +1,9 @@
 import { Project } from './types'
 
-/**
- * Personal Projects Content
- * 
- * [PLACEHOLDER INSTRUCTIONS]
- * Replace the example projects below with your actual projects.
- * 
- * For each project, provide:
- * - title: A clear, descriptive project name
- * - problemStatement: What problem does this solve?
- * - description: Detailed description of the project and solution
- * - role: Your role in the project
- * - stack: Technologies used (array of strings)
- * - constraints: Challenges or limitations you faced
- * - highlights: Key achievements and results (quantify when possible)
- * - images: Paths to project images in /public directory
- * - liveUrl: Live demo URL (optional)
- * - githubUrl: GitHub repository URL (optional)
- * - writeupUrl: Blog post or case study URL (optional)
- * - featured: Whether to feature this project prominently
- * 
- * Focus on projects that showcase:
- * - VR/AR development
- * - Music technology
- * - Creative coding
- * - Website/app design and development
- * - Interactive experiences
- */
-
 export const projects: Project[] = [
   {
     id: 'proj-1',
-    title: 'VR Instruments',
+    title: 'MusicMatrix',
     problemStatement: 'Design and build a VR environment where users can learn and play music through physical gesture and spatial interaction — including a sheet-music play-along mode that connects notation to embodied movement.',
     description: 'A year-long capstone project building a full VR music learning environment in Unity. Players use hand-tracked controllers mapped to a Circle of Fifths interface to play notes, trigger chords, and shift octaves. Five interconnected systems were built from scratch: the instrument, an FMOD-powered audio engine with 15+ sample packs, a sheet-music lesson system using DryWetMidi and MuseScore, a Guitar Hero-style Cascading Notes mode, and a fully functional in-world DAW that records and exports WAV files.',
     role: 'Group Lead & Audio Director — led a 4-person team across research, prototyping, and development. Owned FMOD event architecture and all audio implementation, Unity/C# scripting, Blender modeling for in-world UI, lesson creation in MuseScore, and overall project direction.',
@@ -45,82 +17,60 @@ export const projects: Project[] = [
     highlights: [
       'Led a cross-disciplinary team of 4 through research, prototyping, and iterative development',
       'Designed and implemented FMOD event architecture for fully parameter-driven audio reactivity',
-      'Built spatial audio mixing system that responds dynamically to gesture velocity and position',
-      'Contributed to C# scripting for gesture-to-audio-visual event triggering in Unity',
-      'Directed 3D environment scope and asset integration from Blender into Unity'
+      'Built procedural sheet-music system in 3D using DryWetMidi — no existing library; built from first principles',
+      'In-world DAW records performance and exports WAV files that open correctly in Ableton',
+      'Demonstrated at ASU capstone review with all five systems fully operational'
     ],
-    images: [],
+    images: [
+      '/assets/MusicMatrix/Screenshot 2026-05-25 175635.png',
+      '/assets/MusicMatrix/Screenshot 2026-05-25 175915.png',
+    ],
+    githubUrl: 'https://github.com/Khoi-NDH/MAS-Project---VR-Music',
     featured: true
   },
   {
     id: 'proj-2',
-    title: 'AQI Prediction Dashboard',
-    problemStatement: 'Turn a large, noisy global air-quality dataset into an interpretable decision-support tool that helps identify high-risk cities and test AQI improvement scenarios.',
-    description: 'An end-to-end analytics project combining Python-based AQI prediction with a Power BI dashboard for exploratory analysis and policy-oriented decision making. The workflow covered data cleaning, constrained sampling, linear-regression forecasting, and interactive reporting so users can compare city and country risk patterns, pollutant relationships, and forecast outcomes.',
-    role: 'Data Analyst & Dashboard Developer',
-    stack: ['Python', 'Pandas', 'scikit-learn', 'Power BI', 'SQL'],
+    title: 'Multimodal AI Chatbot',
+    problemStatement: 'Build a conversational AI that processes both natural language and images together, with visual output that reflects the emotional tone of the ongoing conversation.',
+    description: 'A Python chatbot that merges NLP-driven conversation with real-time image manipulation. The core innovation is a mood-based colormap system: the bot applies OpenCV colormaps (Spring for "happy," Ocean for "sad," Jet for "hype") so visual transformations feel grounded in conversation context rather than arbitrary. A Naïve Bayes classifier routes user input between conversational and image-processing handlers, keeping both modalities coherent.',
+    role: 'Solo developer. Owned the full architecture: conversation logic (NLTK pattern matching + pronoun reflection), image I/O pipeline, filter design, mood-mapping system, and classifier integration.',
+    stack: ['Python', 'NLTK', 'OpenCV', 'Naïve Bayes'],
     constraints: [
-      'Original source data was very large (~900k rows) and had to be reduced for assignment constraints',
-      'Needed to preserve representativeness while sampling down to 750 records (one record per city per day)',
-      'Forecasting had to remain interpretable for non-technical viewers',
-      'Dashboard design needed to support both executive-level KPI scanning and city-level drilldown analysis'
+      'Both text and image modalities needed to feel coherent — not siloed',
+      'Mood-to-color mapping had to feel intentional, not arbitrary',
+      'All assignment requirements (custom filters, preset library, classifier) while still delivering a creative angle'
     ],
     highlights: [
-      'Built a full data-to-dashboard pipeline from preprocessing and feature preparation through model output visualization',
-      'Identified PM2.5, PM10, and NO2 as the strongest AQI-associated pollutant indicators in the sample',
-      'Used hierarchical drilldowns to surface city-level hotspots hidden by country-level averages',
-      'Implemented what-if analysis patterns to estimate AQI response under pollutant reduction scenarios'
+      'Built mood-based colormap system mapping emotional state to visual output (Spring, Ocean, Jet, etc.)',
+      'Integrated Naïve Bayes classifier to route user input between conversation and vision handlers',
+      'Implemented ELIZA-style pronoun reflection for natural-feeling dialogue',
+      'Cross-modal design: loading an image extends the conversation rather than interrupting it'
     ],
-    images: ['/assets/aqi-dashboard.png'],
-    liveUrl: 'http://app.powerbi.com/groups/me/reports/d5247618-7c92-41d6-bced-60d88ad6c9e0/866ab9f8b4543f728222?experience=power-bi',
+    images: [
+      '/assets/ChatbotImages/happy.png',
+      '/assets/ChatbotImages/sad.png',
+      '/assets/ChatbotImages/hype.png',
+    ],
+    githubUrl: 'https://github.com/bjornbradleyasu/MultiModal-AI-Visual-Effect-Bot',
     featured: true
   },
   {
     id: 'proj-3',
-    title: 'DIY CDJ with DAW Integration',
-    problemStatement: 'Build a hybrid hardware+software music controller that combines tactile physical input with digital effect control, eliminating the need for expensive commercial CDJ hardware.',
-    description: 'A complete custom music production system combining an M5Stick-based hardware controller, BLE MIDI wireless bridge, and a native Swift/Xcode macOS application. The hardware layer features a rotary encoder and custom 3D-printed DJ platter for tactile input. The firmware layer translates physical interaction into MIDI events over Bluetooth. The software layer provides track loading, playback control, effect manipulation, and keyboard drum-pad support for flexible performance scenarios.',
-    role: 'Full-Stack Hardware & Software Engineer',
-    stack: ['Arduino', 'BLE MIDI', 'Swift', 'AVFoundation', 'Xcode', 'OpenSCAD', 'M5Stick', 'Rotary Encoder'],
-    constraints: [
-      'Wireless communication required sub-100ms latency for convincing real-time playback feel',
-      'Physical controller had to remain intuitive for first-time users without documentation',
-      'Single rotary input needed to control multiple parameters (track seek, effect selection, effect value)',
-      'Cross-device compatibility: Arduino firmware, macOS app, and hardware had to work reliably together'
-    ],
-    highlights: [
-      'Designed and manufactured a complete hardware+software system from sketch to working prototype',
-      'Implemented BLE MIDI bridge enabling wireless control from custom hardware to any MIDI-compatible app',
-      'Created responsive multi-parameter control mapping so one rotary encoder felt like many musicians\'s inputs',
-      'Built a Swift macOS app with intuitive track loading and real-time effect parameter control',
-      'Demonstrated that low-cost components ($100-150 total) can deliver professional-grade music interaction'
-    ],
-    images: [
-      '/assets/diy-daw/components-m5stick-encoder.jpg',
-      '/assets/diy-daw/openscad-platter-design.jpg',
-      '/assets/diy-daw/macos-daw-interface.jpg'
-    ],
-    githubUrl: 'https://github.com/bjornbradley/diy-cdj-daw',
-    featured: true
-  },
-  {
-    id: 'proj-4',
     title: 'Spotify Recommendation Algorithm Research Zine',
     problemStatement: 'Make recommendation-system mechanics understandable to non-specialists by translating opaque platform behavior into an engaging, research-backed editorial format.',
-    description: 'A long-form research zine analyzing how Spotify recommendation systems influence discovery, listening habits, and user agency. The project combines technical synthesis, platform critique, and visual storytelling to explain recommendation inputs, system infrastructure, transparency concerns, and ethical tradeoffs in a format that is easier to explore than a standard report.',
-    role: 'Research Author & Editorial Designer',
+    description: 'A long-form research zine analyzing how Spotify recommendation systems influence discovery, listening habits, and user agency. Combines technical synthesis, platform critique, and visual storytelling to explain recommendation inputs, system infrastructure, transparency concerns, and ethical tradeoffs in a format easier to explore than a standard report.',
+    role: 'Research Author & Editorial Designer — designed and authored the full zine, including literature review synthesis, system breakdowns, narrative structure, and visual direction.',
     stack: ['Research Methods', 'Algorithm Analysis', 'Editorial Design', 'Visual Storytelling', 'Information Design'],
     constraints: [
       'Recommendation models are proprietary, so analysis relied on public sources and observed behavior',
       'Needed to balance technical accuracy with accessibility for mixed technical audiences',
-      'Large volume of findings required a narrative structure that remained scannable and coherent',
-      'Visual language needed to stay consistent across many pages while carrying dense information'
+      'Large volume of findings required a narrative structure that remained scannable and coherent'
     ],
     highlights: [
-      'Produced a multi-page interactive zine covering recommendation flow, UX impact, infrastructure, and ethics',
-      'Translated algorithmic concepts into visual diagrams and annotated explanations for easier interpretation',
-      'Connected platform mechanics to user-level outcomes like discovery bias, feedback loops, and perceived control',
-      'Built a narrative sequence that supports both linear reading and section-by-section reference use'
+      'Produced a 26-page interactive zine covering recommendation flow, UX impact, infrastructure, and ethics',
+      'Translated algorithmic concepts into visual diagrams and annotated explanations',
+      'Connected platform mechanics to user-level outcomes like discovery bias and feedback loops',
+      'Built a narrative sequence supporting both linear reading and section-by-section reference'
     ],
     images: [
       '/assets/SpotifyAlgorithmZine/(1)Front Cover.png',
@@ -131,44 +81,51 @@ export const projects: Project[] = [
     featured: true
   },
   {
-    id: 'proj-5',
-    title: 'Interactive Audio-Reactive 3D Portfolio Prototype',
-    problemStatement: 'Create a portfolio experience that feels immersive and interactive while still keeping project information clear and easy to scan.',
-    description: 'An experimental portfolio prototype combining 3D scene interaction, audio-reactive visuals, and smooth section transitions to present technical and creative work in a more engaging format. Focused on balancing visual personality with usability and accessibility.',
-    role: 'Frontend Developer & Experience Designer',
-    stack: ['React', 'TypeScript', 'Three.js', 'Framer Motion', 'Web Audio API', 'Vite'],
+    id: 'proj-4',
+    title: 'DIY CDJ with DAW Integration',
+    problemStatement: 'Build a hybrid hardware+software music controller that combines tactile physical input with digital effect control, eliminating the need for expensive commercial CDJ hardware.',
+    description: 'A complete custom music production system combining an M5Stick-based hardware controller, BLE MIDI wireless bridge, and a native Swift/Xcode macOS application. The hardware layer features a rotary encoder and custom 3D-printed DJ platter for tactile input. Firmware translates physical interaction into MIDI events over Bluetooth. The software layer provides track loading, playback control, effect manipulation, and keyboard drum-pad support.',
+    role: 'Full-Stack Hardware & Software Engineer — owned the full stack end to end: hardware design, firmware, and desktop app development.',
+    stack: ['Arduino', 'BLE MIDI', 'Swift', 'AVFoundation', 'Xcode', 'OpenSCAD', 'M5Stick'],
     constraints: [
-      'Needed to maintain readability despite heavy visual effects',
-      'Had to perform smoothly on both desktop and mobile devices',
-      'Required progressive enhancement for users with reduced motion preferences'
+      'Wireless communication required sub-100ms latency for convincing real-time playback feel',
+      'Single rotary input needed to control multiple parameters (track seek, effect selection, effect value)',
+      'Cross-device compatibility: Arduino firmware, macOS app, and hardware had to work reliably together'
     ],
     highlights: [
-      'Built a modular section architecture to support reusable animated layouts',
-      'Implemented performant visual effects with fallback states for lower-end devices',
-      'Improved portfolio dwell time through stronger visual storytelling and interaction'
+      'Designed and manufactured a complete hardware+software system from sketch to working prototype',
+      'Implemented BLE MIDI bridge enabling wireless control from custom hardware to any MIDI-compatible app',
+      'Built a Swift macOS app with track loading and real-time effect parameter control',
+      'Demonstrated that low-cost components ($100–150 total) can deliver professional-grade music interaction'
     ],
-    images: ['/projects/interactive-portfolio-1.jpg', '/projects/interactive-portfolio-2.jpg'],
-    githubUrl: 'https://github.com/bjornbradley/interactive-portfolio-prototype',
-    featured: false
+    images: [
+      '/assets/m5Stick.webp',
+      '/assets/rotaryencoder.jpg',
+      '/assets/disk.png',
+    ],
+    githubUrl: 'https://github.com/bjornbradleyasu/CDJunkie',
+    featured: true
   },
   {
-    id: 'proj-6',
-    title: 'VR Spatial Audio Playground',
-    problemStatement: 'Explore how spatialized audio and gesture-based interaction can improve immersion and musical expression in virtual environments.',
-    description: 'A prototype environment for testing spatial audio behavior, dynamic sound events, and interaction-driven musical feedback in VR. The project was used to evaluate design decisions for user comfort, responsiveness, and sonic clarity before full production builds.',
-    role: 'Audio Systems Developer & Unity Collaborator',
-    stack: ['Unity', 'FMOD', 'C#', 'XR Interaction Toolkit', 'Blender'],
+    id: 'proj-5',
+    title: 'AQI Prediction Dashboard',
+    problemStatement: 'Turn a large, noisy global air-quality dataset into an interpretable decision-support tool that helps identify high-risk cities and test AQI improvement scenarios.',
+    description: 'An end-to-end analytics project combining Python-based AQI prediction with a Power BI dashboard for exploratory analysis and policy-oriented decision making. Covered data cleaning, constrained sampling, linear-regression forecasting, and interactive reporting so users can compare city and country risk patterns, pollutant relationships, and forecast outcomes.',
+    role: 'Data Analyst & Dashboard Developer — owned the full pipeline: raw data ingestion and cleaning, feature selection and model training with scikit-learn, and dashboard design and publishing in Power BI.',
+    stack: ['Python', 'Pandas', 'scikit-learn', 'Power BI', 'SQL'],
     constraints: [
-      'Needed low-latency feedback for convincing interaction loops',
-      'Required rapid iteration across sound design, interaction logic, and scene tuning',
-      'Had to validate comfort and orientation in headset during long sessions'
+      'Source data was ~900k rows and had to be sampled down to 750 records while preserving representativeness',
+      'Forecasting model had to remain interpretable for non-technical viewers',
+      'Dashboard needed to support both executive-level KPI scanning and city-level drilldown'
     ],
     highlights: [
-      'Developed FMOD event routing patterns reusable across multiple VR prototypes',
-      'Connected interaction events to layered audio responses for better user feedback',
-      'Produced a testing framework to compare different gesture and audio mapping models'
+      'Built a full data-to-dashboard pipeline from preprocessing through model output visualization',
+      'Identified PM2.5, PM10, and NO2 as the strongest AQI-associated pollutant indicators',
+      'Used hierarchical drilldowns to surface city-level hotspots hidden by country-level averages',
+      'Implemented what-if analysis to estimate AQI response under pollutant reduction scenarios'
     ],
-    images: ['/projects/vr-audio-playground-1.jpg', '/projects/vr-audio-playground-2.jpg'],
-    featured: false
+    images: ['/assets/aqi-dashboard.png'],
+    liveUrl: 'https://app.powerbi.com/groups/me/reports/d5247618-7c92-41d6-bced-60d88ad6c9e0/866ab9f8b4543f728222?experience=power-bi',
+    featured: true
   }
-] 
+]
