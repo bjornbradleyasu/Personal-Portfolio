@@ -73,8 +73,6 @@ const Skills: React.FC = () => {
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-0 right-0 top-[3.15rem] h-px bg-surface-alt/80" aria-hidden="true" />
-
           {/* Vinyl tabs */}
           <div className="relative z-10 flex gap-2 overflow-x-auto pb-2 pr-2 md:pr-0 scrollbar-hide">
             {categories.map(([key, category], idx) => {

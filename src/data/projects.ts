@@ -53,7 +53,7 @@ export const projects: Project[] = [
     subtitle: 'VR Music Learning Environment',
     shortDescription: 'A VR environment where users learn and play music through physical gesture and spatial interaction, with five interconnected systems built in Unity over one academic year.',
     tags: ['Unity', 'C#', 'FMOD Studio', 'XR Interaction Toolkit', 'DryWetMidi', 'Blender', 'MuseScore'],
-    thumbnail: '/assets/MusicMatrix/VR-Instruments-Image.png',
+    thumbnail: '/assets/MusicMatrix/Screenshot 2026-05-25 175635.png',
     heroImage: '/assets/MusicMatrix/VR-Instruments-Image.png',
     screenshots: [
       '/assets/MusicMatrix/Screenshot 2026-05-25 175635.png',

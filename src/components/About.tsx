@@ -65,6 +65,7 @@ const About: React.FC = () => {
                 {[
                   { credential: "B.S. Media Arts and Sciences (Media Processing)", institution: "Arizona State University", period: "2022–2026" },
                   { credential: "Certificate · Artificial Intelligence & Digital Media", institution: "Arizona State University", period: "2024" },
+                  { credential: "Wwise Certified Professional · In Progress", institution: "Audiokinetic", period: "2025" },
                 ].map((item) => (
                   <div
                     key={item.credential}
@@ -91,12 +92,11 @@ const About: React.FC = () => {
             className="flex justify-center lg:justify-end lg:pt-[5rem]"
           >
             <div className="relative">
-              {/* Offset decorative block */}
               <div
                 className="absolute -bottom-3 -right-3 w-full h-full rounded-2xl border-2 border-accent/30"
                 aria-hidden="true"
               />
-              <div className="relative w-[360px] h-[450px] rounded-2xl overflow-hidden bg-surface-alt">
+              <div className="relative w-[330px] h-[413px] rounded-2xl overflow-hidden bg-surface-alt">
                 <img
                   src="/images/profile.jpg"
                   alt="Bjorn Bradley"

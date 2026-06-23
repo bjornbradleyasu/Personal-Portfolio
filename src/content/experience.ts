@@ -6,7 +6,7 @@ export const experiences: Experience[] = [
     company: 'Walter Cronkite School of Journalism',
     role: 'IT/AV Support Specialist',
     startDate: '08/2025',
-    endDate: 'Present',
+    endDate: '05/2026',
     achievements: [
       'Managed AV and broadcast infrastructure across a high-demand journalism school and Arizona PBS facility, deploying and configuring computer stations and AV systems while coordinating across departments to support live productions, classrooms, and media labs.',
       'Diagnosed and resolved complex hardware, software, and AV issues in a deadline-driven broadcast environment, maintaining minimal downtime for hundreds of students, faculty, and live programming.',

@@ -31,11 +31,11 @@ import { Project } from './types'
 export const projects: Project[] = [
   {
     id: 'proj-1',
-    title: 'Capstone: VR Gesture Instrument',
-    problemStatement: 'Design and build a novel musical instrument — playable entirely through hand gestures in VR — that demonstrates professional-grade audio-visual reactivity and appeals to a broad creative audience.',
-    description: 'A group capstone research project developing a full VR experience built around a completely new form of musical instrument. Inspired by the concept of "mind gloves," players interact using tracked hand gestures that trigger real-time visual and audio responses in a custom-built 3D environment. The project integrates Unity for scene and interaction logic, FMOD for procedural and event-driven audio, the XR Interaction Toolkit for gesture recognition and physics-based interaction, and Blender for original asset creation. Currently in active development.',
-    role: 'Group Lead & Audio Director — responsible for defining project scope and direction, facilitating team decisions, and owning the entire FMOD audio implementation including event architecture, parameter-driven reactivity, and spatial audio mixing. Also contributing to Unity scripting and scene integration.',
-    stack: ['Unity', 'FMOD', 'C#', 'XR Interaction Toolkit', 'Blender', 'Meta XR SDK'],
+    title: 'VR Instruments',
+    problemStatement: 'Design and build a VR environment where users can learn and play music through physical gesture and spatial interaction — including a sheet-music play-along mode that connects notation to embodied movement.',
+    description: 'A year-long capstone project building a full VR music learning environment in Unity. Players use hand-tracked controllers mapped to a Circle of Fifths interface to play notes, trigger chords, and shift octaves. Five interconnected systems were built from scratch: the instrument, an FMOD-powered audio engine with 15+ sample packs, a sheet-music lesson system using DryWetMidi and MuseScore, a Guitar Hero-style Cascading Notes mode, and a fully functional in-world DAW that records and exports WAV files.',
+    role: 'Group Lead & Audio Director — led a 4-person team across research, prototyping, and development. Owned FMOD event architecture and all audio implementation, Unity/C# scripting, Blender modeling for in-world UI, lesson creation in MuseScore, and overall project direction.',
+    stack: ['Unity', 'FMOD Studio', 'C#', 'XR Interaction Toolkit', 'Blender', 'DryWetMidi', 'MuseScore', 'Meta XR SDK'],
     constraints: [
       'Novel interaction paradigm with no direct reference implementation',
       'Must feel intuitive to first-time VR users without a learning curve',
@@ -81,7 +81,7 @@ export const projects: Project[] = [
     problemStatement: 'Build a hybrid hardware+software music controller that combines tactile physical input with digital effect control, eliminating the need for expensive commercial CDJ hardware.',
     description: 'A complete custom music production system combining an M5Stick-based hardware controller, BLE MIDI wireless bridge, and a native Swift/Xcode macOS application. The hardware layer features a rotary encoder and custom 3D-printed DJ platter for tactile input. The firmware layer translates physical interaction into MIDI events over Bluetooth. The software layer provides track loading, playback control, effect manipulation, and keyboard drum-pad support for flexible performance scenarios.',
     role: 'Full-Stack Hardware & Software Engineer',
-    stack: ['Arduino', 'C++', 'BLE MIDI', 'Swift', 'Xcode', 'OpenSCAD', 'M5Stick', 'Rotary Encoder'],
+    stack: ['Arduino', 'BLE MIDI', 'Swift', 'AVFoundation', 'Xcode', 'OpenSCAD', 'M5Stick', 'Rotary Encoder'],
     constraints: [
       'Wireless communication required sub-100ms latency for convincing real-time playback feel',
       'Physical controller had to remain intuitive for first-time users without documentation',
@@ -136,7 +136,7 @@ export const projects: Project[] = [
     problemStatement: 'Create a portfolio experience that feels immersive and interactive while still keeping project information clear and easy to scan.',
     description: 'An experimental portfolio prototype combining 3D scene interaction, audio-reactive visuals, and smooth section transitions to present technical and creative work in a more engaging format. Focused on balancing visual personality with usability and accessibility.',
     role: 'Frontend Developer & Experience Designer',
-    stack: ['React', 'TypeScript', 'Three.js', 'Framer Motion', 'Vite', 'Web Audio API'],
+    stack: ['React', 'TypeScript', 'Three.js', 'Framer Motion', 'Web Audio API', 'Vite'],
     constraints: [
       'Needed to maintain readability despite heavy visual effects',
       'Had to perform smoothly on both desktop and mobile devices',

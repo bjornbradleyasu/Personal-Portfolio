@@ -8,26 +8,36 @@ export const education: Education[] = [
     field: 'Media Arts and Sciences (Media Processing)',
     startDate: '08/2022',
     endDate: '05/2026',
-    gpa: '3.7',
+    gpa: '3.72',
     relevantCourses: [
-      'Data Structures & Algorithms',
-      'Software Engineering',
-      'Database Systems',
-      'Web Development',
+      'Interactive Experience Design',
+      'Audio Visual Systems',
+      'Immersive Technologies & XR',
+      'Creative Computing',
+      'Data Visualization & Analytics',
       'User Experience Design',
-      'Computer Graphics'
+      'Digital Signal Processing',
+      'Media Processing & Production'
     ]
   }
 ]
 
 export const certificates: Certificate[] = [
   {
+    id: 'cert-wwise',
+    name: 'Wwise Certified Professional',
+    issuingOrg: 'Audiokinetic',
+    status: 'in-progress',
+    year: '2025',
+    description: 'Industry-standard interactive audio middleware implementation for games and XR'
+  },
+  {
     id: 'cert-1',
     name: 'Artificial Intelligence & Digital Media',
     issuingOrg: 'Arizona State University',
     status: 'in-progress',
     year: '2025',
-    description: 'Foundational cloud computing concepts and AWS services'
+    description: 'Applications of artificial intelligence in digital media production, interactive design, and creative technology'
   },
   {
     id: 'cert-2',
@@ -45,4 +55,4 @@ export const certificates: Certificate[] = [
     year: '2025',
     description: 'Foundational cloud computing concepts and AWS services'
   }
-] 
+]
